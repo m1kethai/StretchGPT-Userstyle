@@ -2,13 +2,16 @@
 
 **A simple, yet highly effective set of UI enhancements that significantly improve the readability and overall UX of ChatGPT conversations on all browser viewport sizes, while respecting the original ChatGPT aesthetic.**
 
-## **Core Feature:**
+
+#### https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
+
+## **Core Functionality**
 
 Expands the total chat area by disabling the aggressive fixed width on the contents and replacing it with some responsive light padding that scales with your screen/browser window size.
   - at 768px, the fixed max-width for conversation contents is disabled.
   - at 1536px (Tailwind CSS's default "2xl" breakpoint), some modest, responsive horizontal padding is introduced, ensuring optimal and consistent readability on all larger screens.
 
-## Changelog:
+## Changelog
 ### [v4.0] Four new features -  Hide Avatars, Colored Message Indicators, Mobile Layout, Stacked/Centered Layouts
 > A few of these are now switched on by default, but they can all be toggled on/off at any time in the UserStyle's config menu.
 
