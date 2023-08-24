@@ -1,15 +1,15 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        4.0.0
+@version        4.0.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes. Toggleable sidebar UI enhancements also available for desktop viewports.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
-@var checkbox   sidebarTweaks   "Enable sidebar menu/chat history tweaks (only affects desktop for now)" 1
-@var checkbox   hideAvatars  "Hide avatars" 1
-@var checkbox   mobileLayout  "Move action buttons below text in ChatGPT responses (enabled by default in 'Hide avatars' mode)" 0
-@var checkbox   mobileStackedAvatar  "Display avatar in separate row above text (mobile only - has no effect when 'Hide avatars' is active)" 0
-@var checkbox   enableColorIndicators  "Enable color indicators for user messages"  1
+@var checkbox   sidebarTweaks "Sidebar/Chat History UI Tweaks (only affects desktop)" 1
+@var checkbox   hideAvatars "Hide Avatars" 1
+@var checkbox   mobileLayout "[Desktop only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
+@var checkbox   mobileStackedAvatar "[Mobile only] Stack avatars & message text vertically" 0
+@var checkbox   enableColorIndicators  "Enable color indicators for user messages" 1
 @var select indicatorColor "User Message Indicator Color" {
 	"Purple Haze*": "#807396",
 	"Japanese Violet": "#5B3256",
@@ -40,32 +40,45 @@
 	"FF06B5": "#FF06B5",
 }
 ==/UserStyle== */
+
 @-moz-document domain("chat.openai.com") {
 
-	/* ===== MESSAGES ===== */
+	/********* MESSAGES *********/
 
-	/* ----- Outer Div ----- */
+	/* ===== Message: Main ===== */
 	div.group.w-full.border-b {
-		padding: 1rem max(calc(1vw*1rem), 1rem);
+		padding: var(--pt) var(--pr) var(--pb) var(--pl);
+		@media (max-width: 767px) {
+			--pt: 1rem;
+			--pb: 1rem;
+			--pl: max(calc(1vw*1rem), 1rem);
+			--pr: max(calc(1vw*1rem), 1rem);
 
-		@media (min-width: 768px) {
-			padding: 1.5rem 2vw;
+		} @media (min-width: 768px) {
+			--pt: 1.5rem;
+			--pb: 1.5rem;
+			--pl: 2vw;
+			--pr: 2vw;
+
 			@media (min-width: 1536px) {
-				padding: min(calc(3vh*1rem), 1.5rem) 2vw 1.5rem;
+				--pt: min(calc(3vh*1rem), 1.5rem);
+				--pb: 1.5rem;
+				--pl: 1.5rem;
+				--pr: 1.5rem;
 			}
 		}
 
-		/* ----- User Messages ----- */
+		/* ===== Message: User ===== */
 		&.dark\:bg-gray-800 when(@mobileLayout = 1), (@hideAvatars = 1) {
 			/* Reduce user messages' horiz. padding on hover to prevent absolutely positioned "edit" button from overlapping with text */
 			@media (min-width: 1024px) {
-				padding-right: calc(1vw + 1.5rem);
+				--pr: calc(1vw + 1.5rem);
 			} @media (min-width: 1536px) {
-				padding-right: calc(2vw + 2rem);
+				--pr: calc(2vw + 2rem);
 			}
 		}
 
-		/* ----- ChatGPT Responses ----- */
+		/* ===== Message: ChatGPT ===== */
 		&:not(.dark\:bg-gray-800) {
 			div.relative.flex-col.gap-1.md\:gap-3 when(@mobileLayout = 1) and (@hideAvatars = 0) {
 				@media (min-width: 1024px) {
@@ -77,28 +90,26 @@
 			}
 		}
 
-		/* Add colored indicator/left border to messages when "enableColorIndicators" is active (only enabled for user messages for now) */
+		/* Add colored left border to User messages when "enableColorIndicators" is on */
 		& when(@enableColorIndicators = 1) {
-			@gc-1: @indicatorColor;
+			@gc-1: fade(@indicatorColor, 90%);
 			@gc-2: if(
-				saturation(@gc-1) > 50%,
-				if(lightness(@gc-1) < 20%,
-					lighten(@gc-1, 5%),
-					desaturate(@gc-1, 20%),
+				saturation(@indicatorColor) > 50%,
+				if(lightness(@indicatorColor) < 20%,
+					lighten(@indicatorColor, 5%),
+					desaturate(@indicatorColor, 20%),
 				),
-				saturate(@gc-1, 20%)
+				saturate(@indicatorColor, 20%)
 			);
 			border-left-width: 0.35rem;
 			border-bottom: 0;
-			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, @gc-2 60%, @gc-1 95%);
+			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, fade(@gc-2, 90%) 60%, @gc-1 95%);
 			border-image-slice: 40;
 
 			@media (min-width: 1024px) {
 				border-left-width: 0.4rem;
-			}
-
-			@media (min-width: 1536px) {
-				border-left-width: 0.5rem;
+			} @media (min-width: 1536px) {
+				border-left-width: 0.4rem;
 			}
 
 			&:not(.dark\:bg-gray-800) {
@@ -106,6 +117,15 @@
 				border-image-source: none;
 			}
 		}
+
+		 @media (min-width: 768px) and (max-width: 1024px) {
+				&:nth-last-of-type(2) {
+					// & when(@mobileLayout = 1) {
+					// padding-bottom: 1rem !important;
+				 }
+		}
+
+
 
 		/* Mobile viewports: if avatars aren't disabled, switch messages to a column layout (stack the avatar and text)  --- */
 		& when(@hideAvatars = 0) and (@mobileStackedAvatar = 1) {
@@ -121,21 +141,17 @@
 						}
 					}
 				}
-			}
 
-			+ div.h-32 {
-				height: 6rem;
-				@media (min-width: 550px) {
-					height: 5.5rem;
-					@media (min-width: 768px) {
-						height: 8rem;
-					}
+				/* Empty spacer div that the prompt input field is absolutely positioned on */
+				~ div.h-32.md\:h-48.flex-shrink-0 {
+					height: 6rem;
+					margin-top: 1rem;
 				}
 			}
 		}
 	}
 
-	/* ----- Inner Div ----- */
+	/* ===== Inner Div ===== */
 	div.flex.p-4.gap-4.md\:gap-6.md\:max-w-2xl.xl\:max-w-3xl.m-auto,
 	div.flex.p-4.gap-4.md\:gap-6.md\:max-w-3xl.m-auto {
 		max-width: none !important;
@@ -146,7 +162,7 @@
 			gap: 1rem;
 		}
 
-		/* ----- "Hide Avatars" Mode ----- */
+		/* ===== Hide Avatars ===== */
 		& when(@hideAvatars = 1) {
 			> div:first-child {
 				display: none;
@@ -157,17 +173,16 @@
 
 			.markdown.prose > ol,
 			.markdown.prose > ul {
-				padding-left: max(calc(1vw*1rem), 0.5rem);
+				padding-left: max(calc(1vw * 1rem), 0.5rem);
 			}
 		}
 
-		/* ----- Message Content Div----- */
-		> div:last-child  {
+		/* ===== Message Content Div===== */
+		> div:last-child {
 			padding: 0 !important;
 
 			div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-				&,
-				> div.flex.gap-1 {
+				&, > div.flex.gap-1 {
 					gap: 0;
 				}
 				button {
@@ -178,21 +193,21 @@
 			& when(@mobileLayout = 1), (@hideAvatars = 1) {
 				& when(@hideAvatars = 1) {
 				 	width: 100%;
-				 }
-				 & when(@hideAvatars = 0) {
+				 } & when(@hideAvatars = 0) {
 				 	@media (min-width: 1024px) {
 				 		width: 100%;
 				 	}
 				 }
 
-				/* ----- Message Text ----- */
+				/* ===== Message Text ===== */
 				> div:nth-child(2n) {
 					padding: 0;
 
-					/* ----- Action Button Group ----- */
+					/* ===== Action Button Group ===== */
 					> div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
 						position: relative;
 						transform: none !important;
+						margin-top: 0;
 
 						 @media (min-width: 1024px) and (max-width: 1536px) {
 							padding-left: 0rem;
@@ -203,24 +218,23 @@
 		}
 	}
 
-	/* ===== SIDEBAR TWEAKS ===== */
+	/********* SIDEBAR TWEAKS *********/
 
-	@media (min-width: 768px) {
+	/* ===== Sidebar: Main Div ===== */
+	div#__next div.overflow-hidden.w-full.h-full.relative.flex.z-0 when(@sidebarTweaks = 1) {
+		@media (min-width: 768px) {
 
-		/* ----- Sidebar: Main Div ----- */
-		div#__next div.overflow-hidden.w-full.h-full.relative.flex.z-0 when(@sidebarTweaks = 1) {
-
-			/* ----- Sidebar: Inner Div ----- */
+			/* ===== Sidebar: Inner Div ===== */
 			> div:first-child > div {
 				width: 100% !important;
 
-				/* ----- Nav Element ----- */
+				/* ===== Nav Element ===== */
 				nav[aria-label="Chat history"] {
 					&.p-2 {
-						padding-left: .2rem;
+						padding-left: 0.2rem;
 					}
 
-					/* ----- Chat History ----- */
+					/* ===== Chat History ===== */
 					/* Named timeframe group (Today, Yesterday, etc.) */
 					div.sticky.top-0.z-\[14\],
 					div.sticky.top-0.z-\[16\] {
@@ -230,7 +244,7 @@
 						border-top: 1px inset #6b6e7f;
 					}
 
-					/* History item/row */
+					/* Chat History Item */
 					a.flex.py-3.px-3.items-center.gap-3.relative.rounded-md {
 						align-items: flex-start;
 						margin: 3px 3px 3px 0;
