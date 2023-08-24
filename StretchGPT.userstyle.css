@@ -5,12 +5,8 @@
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes. Toggleable sidebar UI enhancements also available for desktop viewports.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
-@var checkbox   sidebarTweaks "Sidebar/Chat History UI Tweaks (only affects desktop)" 1
-@var checkbox   hideAvatars "Hide Avatars" 1
-@var checkbox   mobileLayout "[Desktop only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
-@var checkbox   mobileStackedAvatar "[Mobile only] Stack avatars & message text vertically" 0
 @var checkbox   enableColorIndicators  "Enable color indicators for user messages" 1
-@var select indicatorColor "User Message Indicator Color" {
+@var select     indicatorColor "User Message Indicator Color" {
 	"Purple Haze*": "#807396",
 	"Japanese Violet": "#5B3256",
 	"Sharp Indigo": "#48007c",
@@ -39,6 +35,10 @@
 	"Sakura Bloom": "#ff7b9c",
 	"FF06B5": "#FF06B5",
 }
+@var checkbox   hideAvatars "Hide Avatars" 1
+@var checkbox   mobileLayout "[Desktop only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
+@var checkbox   sidebarTweaks "[Desktop only] Sidebar/Chat History UI Tweaks" 1
+@var checkbox   mobileStackedAvatar "[Mobile only] Stack avatars & message text vertically" 0
 ==/UserStyle== */
 
 @-moz-document domain("chat.openai.com") {
