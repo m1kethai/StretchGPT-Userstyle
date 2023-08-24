@@ -92,7 +92,7 @@
 
 		/* Add colored left border to User messages when "enableColorIndicators" is on */
 		& when(@enableColorIndicators = 1) {
-			@gc-1: fade(@indicatorColor, 90%);
+			@gc-1: fade(@indicatorColor, 95%);
 			@gc-2: if(
 				saturation(@indicatorColor) > 50%,
 				if(lightness(@indicatorColor) < 20%,
@@ -101,15 +101,13 @@
 				),
 				saturate(@indicatorColor, 20%)
 			);
-			border-left-width: 0.35rem;
-			border-bottom: 0;
-			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, fade(@gc-2, 90%) 60%, @gc-1 95%);
+			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, fade(@gc-2, 95%) 60%, @gc-1 95%);
 			border-image-slice: 40;
+			border-bottom: 0;
+			border-left-width: 5px;
 
-			@media (min-width: 1024px) {
-				border-left-width: 0.4rem;
-			} @media (min-width: 1536px) {
-				border-left-width: 0.4rem;
+			@media (min-width: 1536px) {
+				border-left-width: 7px;
 			}
 
 			&:not(.dark\:bg-gray-800) {
