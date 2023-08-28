@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        4.0.2
+@version        4.0.3
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes. Toggleable sidebar UI enhancements also available for desktop viewports.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -47,17 +47,17 @@
 
 	/* ===== Main ===== */
 	div.group.w-full.border-b {
-		padding: var(--pt) var(--pr) var(--pb) var(--pl);
 		--pt: 1rem;
 		--pb: 1rem;
 		--pl: max(calc(1vw*1rem), 1rem);
 		--pr: max(calc(1vw*1rem), 1rem);
 
+		padding: var(--pt) var(--pr) var(--pb) var(--pl);
+
 		@media (min-width: 768px) {
 			--pt: 1.5rem;
 			--pl: 2vw;
 			--pr: 2vw;
-
 			@media (min-width: 1536px) {
 				--pt: min(calc(3vh*1rem), 1.5rem);
 				--pl: 1.5rem;
@@ -70,8 +70,9 @@
 			/* Reduce user messages' horiz. padding on hover to prevent absolutely positioned "edit" button from overlapping with text */
 			@media (min-width: 1024px) {
 				--pr: calc(1vw + 1.5rem);
-			} @media (min-width: 1536px) {
-				--pr: calc(2vw + 2rem);
+				@media (min-width: 1536px) {
+					--pr: calc(2vw + 2rem);
+				}
 			}
 		}
 
@@ -101,10 +102,10 @@
 			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, fade(@gc-2, 95%) 60%, @gc-1 95%);
 			border-image-slice: 40;
 			border-bottom: 0;
-			border-left-width: 5px;
+			border-left-width: 8px;
 
 			@media (min-width: 1536px) {
-				border-left-width: 7px;
+				border-left-width: 10px;
 			}
 
 			&:not(.dark\:bg-gray-800) {
