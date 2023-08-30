@@ -43,7 +43,6 @@
 
 @-moz-document domain("chat.openai.com") {
 	/********* MESSAGES *********/
-
 	/* ===== Main/Outer Div ===== */
 	div.group.w-full.border-b {
 		--pt: 1rem;
@@ -140,6 +139,11 @@
 		> div.p-4.justify-center.m-auto {
 			padding-top: 0;
 			padding-bottom: 0;
+
+			@media (max-width: 768px) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 
 			// Inner #2:
 			div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl {
