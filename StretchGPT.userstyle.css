@@ -217,15 +217,11 @@
 
 	/********* SIDEBAR TWEAKS *********/
 
-	/* ===== Sidebar: Main Div ===== */
-	div#__next div.overflow-hidden.w-full.h-full.relative.flex.z-0 when(@sidebarTweaks = 1) {
+	.sidebarTweaks() when(@sidebarTweaks = 1) {
 		@media (min-width: 768px) {
-
-			/* ===== Sidebar: Inner Div ===== */
-			> div:first-child > div {
-				width: 100% !important;
-
-				/* ===== Nav Element ===== */
+			/* ===== Sidebar: Main Div ===== */
+			div#__next div.overflow-hidden.w-full.h-full.relative.flex.z-0 {
+				/* ===== Nav ===== */
 				nav[aria-label="Chat history"] {
 					&.p-2 {
 						padding-left: 0.2rem;
@@ -296,4 +292,6 @@
 			}
 		}
 	}
+
+	.sidebarTweaks();
 }
