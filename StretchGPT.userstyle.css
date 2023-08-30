@@ -38,7 +38,6 @@
 @var checkbox   hideAvatars "Hide Avatars" 1
 @var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
 @var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History UI Tweaks" 1
-@var checkbox   mobileStackedAvatar "[Mobile Only] Stack avatars & message text vertically" 0
 ==/UserStyle== */
 
 @-moz-document domain("chat.openai.com") {
@@ -112,27 +111,28 @@
 			}
 		}
 
-		& when(@hideAvatars = 0) and (@mobileStackedAvatar = 1) {
-			@media (max-width: 500px) {
-				padding: 0.9rem 1rem;
-				> div {
-					flex-direction: column;
-					align-items: center;
-					> div:first-child {
-						padding-bottom: 0.5rem;
-						+ div {
-							width: 95%;
-						}
-					}
-				}
+		//! TEMP: this feature broke after OpenAI's latest update so I'm just disabling it until I have the time to make a proper fix
+		// & when(@hideAvatars = 0) and (@mobileStackedAvatar = 1) {
+		// 	@media (max-width: 500px) {
+		// 		padding: 0.9rem 1rem;
+		// 		> div {
+		// 			flex-direction: column;
+		// 			align-items: center;
+		// 			> div:first-child {
+		// 				padding-bottom: 0.5rem;
+		// 				+ div {
+		// 					width: 95%;
+		// 				}
+		// 			}
+		// 		}
 
-				/* Empty spacer div that the prompt input field is absolutely positioned on */
-				~ div.h-32.md\:h-48.flex-shrink-0 {
-					height: 6rem;
-					margin-top: 1rem;
-				}
-			}
-		}
+		// 		/* Empty spacer div that the prompt input field is absolutely positioned on */
+		// 		~ div.h-32.md\:h-48.flex-shrink-0 {
+		// 			height: 6rem;
+		// 			margin-top: 1rem;
+		// 		}
+		// 	}
+		// }
 
 		/* ===== Inner Div ===== */
 		// Inner #1 (new w/ Aug 30/23 update):
