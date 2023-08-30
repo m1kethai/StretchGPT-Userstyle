@@ -7,7 +7,7 @@
 @preprocessor   less
 @var checkbox   enableColorIndicators  "Color Indicators for User Prompts/Messages" 1
 @var select     indicatorColor "Indicator Color" {
-	"Purple Haze*": "#807396",
+	"Purple Haze": "#807396",
 	"Japanese Violet": "#5B3256",
 	"Sharp Indigo": "#48007c",
 	"Cyber Grape": "#58427C",
@@ -20,7 +20,7 @@
 	"Tokyo Midnight": "#1a1a2e",
 	"Obsidian Ash": "#343434",
 	"Blue Moss": "#5D737E",
-	"Dusty Turquoise": "#5a8a89",
+	"Dusty Turquoise*": "#5a8a89",
 	"Aged Sage": "#8da572",
 	"Gameboy Teal": "#0ABFBC",
 	"Emerald": "#0f380f",
@@ -42,10 +42,9 @@
 ==/UserStyle== */
 
 @-moz-document domain("chat.openai.com") {
-
 	/********* MESSAGES *********/
 
-	/* ===== Main ===== */
+	/* ===== Main/Outer Div ===== */
 	div.group.w-full.border-b {
 		--pt: 1rem;
 		--pb: 1rem;
@@ -135,68 +134,74 @@
 				}
 			}
 		}
-	}
 
-	/* ===== Inner Div ===== */
-	div.flex.p-4.gap-4.md\:gap-6.md\:max-w-2xl.xl\:max-w-3xl.m-auto,
-	div.flex.p-4.gap-4.md\:gap-6.md\:max-w-3xl.m-auto {
-		max-width: none !important;
-		gap: 0.5rem;
-		padding: 0;
+		/* ===== Inner Div ===== */
+		// Inner #1 (new w/ Aug 30/23 update):
+		> div.p-4.justify-center.m-auto {
+			padding-top: 0;
+			padding-bottom: 0;
 
-		@media (min-width: 1536px) {
-			gap: 1rem;
-		}
+			// Inner #2:
+			div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl {
+				max-width: none !important;
+				gap: 0.5rem;
+				padding: 0;
 
-		/* ===== Hide Avatars ===== */
-		& when(@hideAvatars = 1) {
-			> div:first-child {
-				display: none;
-			}
-			@media (min-width: 1536px) {
-				padding-left: 0;
-			}
-
-			.markdown.prose > ol,
-			.markdown.prose > ul {
-				padding-left: max(calc(1vw * 1rem), 0.5rem);
-			}
-		}
-
-		/* ===== Message Content Div===== */
-		> div:last-child {
-			padding: 0 !important;
-
-			div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-				&, > div.flex.gap-1 {
-					gap: 0;
+				@media (min-width: 1536px) {
+					gap: 1rem;
 				}
-				button {
-					padding: 3px
-				}
-			}
 
-			& when(@mobileLayout = 1), (@hideAvatars = 1) {
+				/* ===== Hide Avatars ===== */
 				& when(@hideAvatars = 1) {
-				 	width: 100%;
-				 } & when(@hideAvatars = 0) {
-				 	@media (min-width: 1024px) {
-				 		width: 100%;
-				 	}
-				 }
+					> div:first-child {
+						display: none;
+					}
+					@media (min-width: 1536px) {
+						padding-left: 0;
+					}
 
-				/* ===== Message Text ===== */
-				> div:nth-child(2n) {
-					padding: 0;
+					.markdown.prose > ol,
+					.markdown.prose > ul {
+						padding-left: max(calc(1vw * 1rem), 0.5rem);
+					}
+				}
 
-					/* ===== Action Button Group ===== */
-					> div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-						position: relative;
-						transform: none !important;
-						margin-top: 0;
+				/* ===== Message Content Div===== */
+				> div:last-child {
+					padding: 0 !important;
 
-						 @media (min-width: 1024px) and (max-width: 1536px) {
-							padding-left: 0rem;
+					div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
+						&, > div.flex.gap-1 {
+							gap: 0;
+						}
+						button {
+							padding: 3px
+						}
+					}
+
+					& when(@mobileLayout = 1), (@hideAvatars = 1) {
+						& when(@hideAvatars = 1) {
+							width: 100%;
+						} & when(@hideAvatars = 0) {
+							@media (min-width: 1024px) {
+								width: 100%;
+							}
+						}
+
+						/* ===== Message Text ===== */
+						> div:nth-child(2n) {
+							padding: 0;
+
+							/* ===== Action Button Group ===== */
+							> div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
+								position: relative;
+								transform: none !important;
+								margin-top: 0;
+
+								@media (min-width: 1024px) and (max-width: 1536px) {
+									padding-left: 0rem;
+								}
+							}
 						}
 					}
 				}
