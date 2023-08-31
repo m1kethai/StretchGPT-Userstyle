@@ -1,6 +1,6 @@
 /* ==UserStyle==
-@name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        4.0.5
+@name           [DEV] StretchGPT: Extra-wide ChatGPT Conversations
+@version        4.0.6
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes. Toggleable sidebar UI enhancements also available for desktop viewports.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -37,7 +37,8 @@
 }
 @var checkbox   hideAvatars "Hide Avatars" 1
 @var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
-@var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History UI Tweaks" 1
+@var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History Tweaks" 1
+@var checkbox   enableSidebarAccentColor "[Only works when Sidebar Tweaks are enabled] Use 'Indicator Color' value as accent color in the Sidebar" 1
 ==/UserStyle== */
 
 @-moz-document domain("chat.openai.com") {
@@ -218,33 +219,64 @@
 	/********* SIDEBAR TWEAKS *********/
 
 	.sidebarTweaks() when(@sidebarTweaks = 1) {
+		@sidebarGrey: #202123; // Default sidebar background
+		@chatGPTGrey: #444654; // Default ChatGPT message background
+		@grey-500: #8e8ea0; // Default section header text color
+		@grey-100: #ececf1; // Default chat title text color
+
+		@accentColor: @indicatorColor;
+		@sectionHeaderBgColor: if(
+			(@enableSidebarAccentColor = 1),
+			linear-gradient(to top right, mix(@accentColor, @sidebarGrey, 30%), mix(@accentColor, @sidebarGrey, 30%) 50%),
+			@sidebarGrey
+		);
+		@sectionHeaderTextColor: if(
+			(@enableSidebarAccentColor = 1),
+			lighten(mix(@accentColor, @grey-500), 30%),
+			@grey-500
+		);
+		@chatTitleTextColor: if(
+			(@enableSidebarAccentColor = 1),
+			mix(@accentColor, @grey-100, 50%),
+			@grey-100
+		);
+
 		@media (min-width: 768px) {
 			/* ===== Sidebar: Main Div ===== */
 			div#__next div.overflow-hidden.w-full.h-full.relative.flex.z-0 {
+
 				/* ===== Nav ===== */
 				nav[aria-label="Chat history"] {
 					&.p-2 {
-						padding-left: 0.2rem;
+						padding: 0.35rem;
+					} > div.flex-col.-mr-2 {
+						margin-left: -0.35rem;
+						margin-right: -0.35rem;
 					}
 
-					/* ===== Chat History ===== */
-					/* Named timeframe group (Today, Yesterday, etc.) */
-					div.sticky.top-0.z-\[14\],
-					div.sticky.top-0.z-\[16\] {
-						backdrop-filter: brightness(130%);
-						filter: brightness(130%);
-						margin-left: -0.5rem;
-						border-top: 1px inset #6b6e7f;
+					/* ===== Chat History Group/Section ===== */
+					div.sticky.top-0 {
+
+						/* ===== Section Header (Today, Yesterday, Previous 7 Days, etc.) ===== */
+						> h3 { // (all classes: h-9.pb-2.pt-3.px-3.text-xs.text-gray-500.font-medium.text-ellipsis.overflow-hidden.break-all.bg-gray-900)
+							font-size: 1rem;
+							font-family: monospace;
+							padding-top: 0.6rem;
+							padding-left: 0.5rem;
+							color: @sectionHeaderTextColor;
+							background: @sectionHeaderBgColor;
+						}
 					}
 
 					/* Chat History Item */
 					a.flex.py-3.px-3.items-center.gap-3.relative.rounded-md {
 						align-items: flex-start;
-						margin: 3px 3px 3px 0;
+						margin: 3px;
 						padding: .4rem 0 .4rem .4rem;
-						gap: 0.3rem;
+						gap: 0.35rem;
 						line-height: 1.35;
 						border-radius: 2px;
+						color: @chatTitleTextColor;
 
 						/* Chat Icon */
 						> svg {
@@ -278,7 +310,7 @@
 						/* Chat Title */
 						div.flex-1.text-ellipsis.max-h-5.overflow-hidden.break-all {
 							max-height: 3rem;
-							font-size: 0.75rem;
+							font-size: 0.9rem;
 							word-break: normal;
 							overflow: normal;
 							padding-right: 0.5rem;
