@@ -1,18 +1,18 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        4.0.5
+@version        5.0.0
 @author         m1kethai
-@description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes. Toggleable sidebar UI enhancements also available for desktop viewports.
+@description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
-@var checkbox   enableColorIndicators  "Color Indicators for User Prompts/Messages" 1
-@var select     indicatorColor "Indicator Color" {
+@var checkbox enableAccentColor "Tint Message Backgrounds with Accent Color [Experimental]" 0
+@var select     accentColor "Accent Color" {
+	"Dark and Stormy*": "#353f51",
 	"Purple Haze": "#807396",
 	"Japanese Violet": "#5B3256",
 	"Sharp Indigo": "#48007c",
 	"Cyber Grape": "#58427C",
 	"Super Blue Lavender": "#5a5b9f",
-	"Dark and Stormy": "#353f51",
 	"Deep Space": "#2D3142",
 	"Black Pearl": "#1e272c",
 	"Caviar": "#292a2d",
@@ -20,7 +20,7 @@
 	"Tokyo Midnight": "#1a1a2e",
 	"Obsidian Ash": "#343434",
 	"Blue Moss": "#5D737E",
-	"Dusty Turquoise*": "#5a8a89",
+	"Dusty Turquoise": "#5a8a89",
 	"Aged Sage": "#8da572",
 	"Gameboy Teal": "#0ABFBC",
 	"Emerald": "#0f380f",
@@ -35,15 +35,18 @@
 	"Sakura Bloom": "#ff7b9c",
 	"FF06B5": "#FF06B5",
 }
-@var checkbox   hideAvatars "Hide Avatars" 1
-@var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 1
-@var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History UI Tweaks" 1
+@var checkbox   hideAvatars "Hide Avatars" 0
+@var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 0
+@var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History UI Tweaks" 0
+
 ==/UserStyle== */
 
 @-moz-document domain("chat.openai.com") {
+
 	/********* MESSAGES *********/
+
 	/* ===== Main/Outer Div ===== */
-	div.group.w-full.border-b {
+	div.w-full.border-b {
 		--pt: 1rem;
 		--pb: 1rem;
 		--pl: max(calc(1vw*1rem), 1rem);
@@ -85,57 +88,11 @@
 			}
 		}
 
-		/* Add colored left border to User messages when "enableColorIndicators" is on */
-		& when(@enableColorIndicators = 1) {
-			@gc-1: @indicatorColor;
-			@gc-2: if(
-				saturation(@indicatorColor) > 50%,
-				if(lightness(@indicatorColor) < 20%,
-					lighten(@indicatorColor, 5%),
-					desaturate(@indicatorColor, 20%),
-				),
-				saturate(@indicatorColor, 20%)
-			);
-			border-image-source: repeating-linear-gradient(30deg, @gc-1 30%, @gc-2, 60%, @gc-1 95%);
-			border-image-slice: 30;
-			border-bottom: 0;
-			border-left-width: 8px;
-
-			@media (min-width: 1536px) {
-				border-left-width: 10px;
-			}
-
-			&:not(.dark\:bg-gray-800) {
-				border-left-color: #444654;
-				border-image-source: none;
-			}
+		/* ===== Inner Div ===== */
+		.gizmo > md\:max-w-2xl.lg\:max-w-[38rem].gizmo\:md\:max-w-3xl.gizmo\:lg\:max-w-[40rem].gizmo\:xl\:max-w-[48rem].xl\:max-w-3xl {
+			max-width: 90% !important;
 		}
 
-		//! TEMP: this feature broke after OpenAI's latest update so I'm just disabling it until I have the time to make a proper fix
-		// & when(@hideAvatars = 0) and (@mobileStackedAvatar = 1) {
-		// 	@media (max-width: 500px) {
-		// 		padding: 0.9rem 1rem;
-		// 		> div {
-		// 			flex-direction: column;
-		// 			align-items: center;
-		// 			> div:first-child {
-		// 				padding-bottom: 0.5rem;
-		// 				+ div {
-		// 					width: 95%;
-		// 				}
-		// 			}
-		// 		}
-
-		// 		/* Empty spacer div that the prompt input field is absolutely positioned on */
-		// 		~ div.h-32.md\:h-48.flex-shrink-0 {
-		// 			height: 6rem;
-		// 			margin-top: 1rem;
-		// 		}
-		// 	}
-		// }
-
-		/* ===== Inner Div ===== */
-		// Inner #1 (new w/ Aug 30/23 update):
 		> div.p-4.justify-center.m-auto {
 			padding-top: 0;
 			padding-bottom: 0;
@@ -145,11 +102,10 @@
 				padding-right: 0;
 			}
 
-			// Inner #2:
 			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // set of classes when sidebar is closed
 			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // classes when sidebar is open
 			> div:only-child { // fallback selector in case the classes change again in the future
-				max-width: none !important;
+				max-width: 90% !important;
 				gap: 0.5rem;
 				padding: 0;
 
@@ -293,5 +249,53 @@
 		}
 	}
 
+	/* Message Accent/Background Colors (Experimental Feature) */
+
+	 .colorize(@darker: false) {
+		@defaultBg: if(@darker,
+			rgb(52, 53, 65),
+			rgb(68, 70, 84)
+		);
+		@customBg: if(@darker,
+			shade(
+				mix(@defaultBg, @accentColor, 70%),
+				30%
+			),
+			desaturate(
+				darken(
+					shade(
+						mix(@defaultBg, @accentColor, 45%),
+						10%
+					), 0%,
+				), 10%
+			)
+		);
+		background-color: @customBg !important;
+		border-left-color: @customBg !important;
+	 	background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
+	 }
+
+	.dark when(@enableAccentColor = 1) {
+		// Colorize User Messages and Prompt Input/Textarea:
+		&\:bg-gray-700,
+		&\:bg-gray-800:not(&\:md\:bg-vert-dark-gradient) {
+			.colorize(@darker: true);
+		}
+
+		// Colorize ChatGPT Responses:
+		&\:bg-\[\#444654\] {
+			.colorize;
+		}
+
+		// Footer/Disclaimer Area:
+		&\:md\:bg-vert-dark-gradient {
+			@media (min-width: 768px) {
+				.colorize();
+				> div > span {
+					color: lighten(@accentColor, 65%) !important;
+				}
+			}
+		}
+	}
 	.sidebarTweaks();
 }
