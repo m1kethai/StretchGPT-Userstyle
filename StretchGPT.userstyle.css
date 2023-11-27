@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        5.0.0
+@version        5.0.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -26,13 +26,18 @@
 	"Emerald": "#0f380f",
 	"Aztek": "#293432",
 	"Deep Jungle": "#1A2421",
+	"Dark Chocolate": "#3c2f2f",
+	"Lukewarm Cocoa": "#9b7653",
 	"Ancient Gold": "#b59410",
 	"Cardamom": "#aaaa77",
 	"Earl Grey": "#a6978a",
 	"Cyprus": "#545a3e",
 	"Lobster Bisque": "#FFDAB9",
 	"Amaretto": "#ab6f60",
+	"Raspberry": "#b0003a",
+	"Red Velvet": "#7b0d1e",
 	"Sakura Bloom": "#ff7b9c",
+	"Hot Pink": "#ff69b4",
 	"FF06B5": "#FF06B5",
 }
 @var checkbox   hideAvatars "Hide Avatars" 0
@@ -44,7 +49,6 @@
 @-moz-document domain("chat.openai.com") {
 
 	/********* MESSAGES *********/
-
 	/* ===== Main/Outer Div ===== */
 	div.w-full.border-b {
 		--pt: 1rem;
@@ -102,9 +106,11 @@
 				padding-right: 0;
 			}
 
-			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // set of classes when sidebar is closed
-			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // classes when sidebar is open
-			> div:only-child { // fallback selector in case the classes change again in the future
+			// sidebar === closed
+			> div.flex.flex-1.mx-auto.md\:max-w-3xl,
+			// sidebar === open
+			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl,
+			> div:only-child {
 				max-width: 90% !important;
 				gap: 0.5rem;
 				padding: 0;
@@ -270,10 +276,17 @@
 				), 10%
 			)
 		);
+		 &:not([type="checkbox"]) {
 		background-color: @customBg !important;
 		border-left-color: @customBg !important;
-	 	background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
-	 }
+		background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
+
+		 }
+		 &[type="checkbox"] {
+			 border: 2px ridge fade(saturate(@accentColor, 40%), 70%);
+			 background-color: rgba(@customBg, 0.5);
+		 }
+	}
 
 	.dark when(@enableAccentColor = 1) {
 		// Colorize User Messages and Prompt Input/Textarea:
