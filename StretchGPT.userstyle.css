@@ -3,7 +3,7 @@
 @version        5.0.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
-@namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
+@namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
 @var checkbox enableAccentColor "Tint Message Backgrounds with Accent Color [Experimental]" 0
 @var select     accentColor "Accent Color" {
