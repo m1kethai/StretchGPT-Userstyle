@@ -17,6 +17,7 @@ Expands the total chat area by disabling the aggressive fixed width on the conte
 #### [v5.0.1] Hotfixes after new UI update
 - A couple new fixes to restore the basic functionality after another big structural update by OpenAI a few days ago.
 - Made a few tweaks to Accent Colors - added a few extra color presets and made a small fix to accommodate some elements in the new Custom GPT builder UI.
+- Temporarily removed "Sidebar Tweaks" because it's been almost 100% unfunctional since the previous major UI overhaul. I'm currently working on a total overwork of this feature and it should be back in the next update.
 
 #### [v5.0.0] New "accent colors" feature + several fixes to accommodate the most recent major ChatGPT UI overhaul
 
