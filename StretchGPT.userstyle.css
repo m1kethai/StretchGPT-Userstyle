@@ -26,18 +26,13 @@
 	"Emerald": "#0f380f",
 	"Aztek": "#293432",
 	"Deep Jungle": "#1A2421",
-	"Dark Chocolate": "#3c2f2f",
-	"Lukewarm Cocoa": "#9b7653",
 	"Ancient Gold": "#b59410",
 	"Cardamom": "#aaaa77",
 	"Earl Grey": "#a6978a",
 	"Cyprus": "#545a3e",
 	"Lobster Bisque": "#FFDAB9",
 	"Amaretto": "#ab6f60",
-	"Raspberry": "#b0003a",
-	"Red Velvet": "#7b0d1e",
 	"Sakura Bloom": "#ff7b9c",
-	"Hot Pink": "#ff69b4",
 	"FF06B5": "#FF06B5",
 }
 @var checkbox   hideAvatars "Hide Avatars" 0
@@ -45,14 +40,12 @@
 @var checkbox   sidebarTweaks "[Desktop Only] Sidebar/Chat History UI Tweaks" 0
 
 ==/UserStyle== */
-
 @-moz-document domain("chat.openai.com") {
 
 	/********* MESSAGES *********/
+
 	/* ===== Main/Outer Div ===== */
-	div.w-full.border-b {
-		--pt: 1rem;
-		--pb: 1rem;
+	div.w-full {
 		--pl: max(calc(1vw*1rem), 1rem);
 		--pr: max(calc(1vw*1rem), 1rem);
 
@@ -62,6 +55,7 @@
 			--pt: 1.5rem;
 			--pl: 2vw;
 			--pr: 2vw;
+
 			@media (min-width: 1536px) {
 				--pt: min(calc(3vh*1rem), 1.5rem);
 				--pl: 1.5rem;
@@ -86,34 +80,41 @@
 				@media (min-width: 1024px) {
 					width: calc(100% - calc(1vw + 1.5rem));
 					@media (min-width: 1536px) {
-						width: calc(100% - calc(2vw + 2rem));
+						width: calc(100% - calc(2vw + 1rem));
 					}
 				}
 			}
 		}
 
 		/* ===== Inner Div ===== */
-		.gizmo > md\:max-w-2xl.lg\:max-w-[38rem].gizmo\:md\:max-w-3xl.gizmo\:lg\:max-w-[40rem].gizmo\:xl\:max-w-[48rem].xl\:max-w-3xl {
-			max-width: 90% !important;
+		.md\:max-w-3xl.lg\:max-w-\[40rem\].xl\:max-w-\[48rem\] {
+			max-width: 100% !important;
 		}
 
-		> div.p-4.justify-center.m-auto {
-			padding-top: 0;
-			padding-bottom: 0;
+		.lg\:w-\[calc\(100\%-115px\)\] {
+			width: 100% !important;
+		}
+
+		> div.justify-center.m-auto {
+			padding-top: 1.25rem;
+			padding-bottom: 0.5rem;
 
 			@media (max-width: 768px) {
-				padding-left: 0;
-				padding-right: 0;
+				padding-left: 0.5rem;
+				padding-right: 0.5rem;
 			}
 
-			// sidebar === closed
-			> div.flex.flex-1.mx-auto.md\:max-w-3xl,
-			// sidebar === open
-			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl,
-			> div:only-child {
-				max-width: 90% !important;
+			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // (classes when sidebar is closed)
+			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // (classes when sidebar is open)
+			> div:only-child { // fallback selector in case the classes change again in the future
+				max-width: 100% !important;
 				gap: 0.5rem;
 				padding: 0;
+
+				& when(@hideAvatars = 0) {
+					padding-left: 1rem !important;
+					padding-right: 1rem !important;
+				}
 
 				@media (min-width: 1536px) {
 					gap: 1rem;
@@ -124,7 +125,10 @@
 					> div:first-child {
 						display: none;
 					}
-					@media (min-width: 1536px) {
+					@media (max-width: 1535px) {
+						padding-left: 1rem !important;
+						padding-right: 1rem !important;
+					} @media (min-width: 1536px) {
 						padding-left: 0;
 					}
 
@@ -276,27 +280,19 @@
 				), 10%
 			)
 		);
-		 &:not([type="checkbox"]) {
 		background-color: @customBg !important;
-		border-left-color: @customBg !important;
 		background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
-
-		 }
-		 &[type="checkbox"] {
-			 border: 2px ridge fade(saturate(@accentColor, 40%), 70%);
-			 background-color: rgba(@customBg, 0.5);
-		 }
 	}
 
 	.dark when(@enableAccentColor = 1) {
 		// Colorize User Messages and Prompt Input/Textarea:
-		&\:bg-gray-700,
+		&\:bg-gray-700:not(input[type="checkbox"]),
 		&\:bg-gray-800:not(&\:md\:bg-vert-dark-gradient) {
 			.colorize(@darker: true);
 		}
 
 		// Colorize ChatGPT Responses:
-		&\:bg-\[\#444654\] {
+		.w-full.text-token-text-primary:nth-child(2n) {
 			.colorize;
 		}
 
