@@ -7,33 +7,35 @@
 @preprocessor   less
 @var checkbox enableAccentColor "Tint Message Backgrounds with Accent Color [Experimental]" 0
 @var select     accentColor "Accent Color" {
-	"Dark and Stormy*": "#353f51",
-	"Purple Haze": "#807396",
-	"Japanese Violet": "#5B3256",
-	"Sharp Indigo": "#48007c",
-	"Cyber Grape": "#58427C",
-	"Super Blue Lavender": "#5a5b9f",
-	"Deep Space": "#2D3142",
-	"Black Pearl": "#1e272c",
-	"Caviar": "#292a2d",
-	"Black Sabbath": "#220022",
-	"Tokyo Midnight": "#1a1a2e",
-	"Obsidian Ash": "#343434",
-	"Blue Moss": "#5D737E",
-	"Dusty Turquoise": "#5a8a89",
 	"Aged Sage": "#8da572",
-	"Gameboy Teal": "#0ABFBC",
-	"Emerald": "#0f380f",
-	"Aztek": "#293432",
-	"Deep Jungle": "#1A2421",
-	"Ancient Gold": "#b59410",
-	"Cardamom": "#aaaa77",
-	"Earl Grey": "#a6978a",
-	"Cyprus": "#545a3e",
-	"Lobster Bisque": "#FFDAB9",
+	"Akira": "#840000",
 	"Amaretto": "#ab6f60",
-	"Sakura Bloom": "#ff7b9c",
+	"Ancient Gold": "#b59410",
+	"Aztek": "#293432",
+	"Black Pearl": "#1e272c",
+	"Black Sabbath": "#220022",
+	"Blue Moss": "#5D737E",
+	"Cardamom": "#aaaa77",
+	"Caviar": "#292a2d",
+	"Cyber Grape": "#58427C",
+	"Cyprus": "#545a3e",
+	"Dark and Stormy*": "#353f51",
+	"Deep Jungle": "#1A2421",
+	"Deep Space": "#2D3142",
+	"Dusty Turquoise": "#5a8a89",
+	"Earl Grey": "#a6978a",
+	"Emerald": "#0f380f",
 	"FF06B5": "#FF06B5",
+	"Gameboy Teal": "#0ABFBC",
+	"Japanese Violet": "#5B3256",
+	"Lobster Bisque": "#FFDAB9",
+	"Obsidian Ash": "#343434",
+	"Purple Haze": "#807396",
+	"Raichu": "#fc8c2c",
+	"Sakura Bloom": "#ff7b9c",
+	"Sharp Indigo": "#48007c",
+	"Super Blue Lavender": "#5a5b9f",
+	"Tokyo Midnight": "#1a1a2e",
 }
 @var checkbox   hideAvatars "Hide Avatars" 0
 @var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 0
@@ -227,5 +229,4 @@
 			}
 		}
 	}
-	.sidebarTweaks();
 }
