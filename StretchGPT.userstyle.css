@@ -49,7 +49,6 @@
 	div.w-full {
 		--pl: max(calc(1vw*1rem), 1rem);
 		--pr: max(calc(1vw*1rem), 1rem);
-
 		padding: var(--pt) var(--pr) var(--pb) var(--pl);
 
 		@media (min-width: 768px) {
@@ -83,6 +82,16 @@
 					@media (min-width: 1536px) {
 						width: calc(100% - calc(2vw + 1rem));
 					}
+				}
+			}
+
+			/* Code Container ===== */
+			.bg-black.rounded-md {
+				max-width: 98%;
+				& when(@enableAccentColor = 1) {
+					@tintColor: mix(black, @accentColor, 90%);
+					background-color: @tintColor !important;
+					box-shadow: inset 0 20px 40px 40px lighten(@tintColor, 1%);
 				}
 			}
 		}
