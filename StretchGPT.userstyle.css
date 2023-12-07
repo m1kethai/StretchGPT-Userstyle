@@ -1,13 +1,14 @@
 /* ==UserStyle==
-@name           StretchGPT: Extra-wide ChatGPT Conversations
-@version        5.0.1
+@name           StretchGPT - Wide ChatGPT + Customizable Colors
+@version        5.0.2
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
-@var checkbox enableAccentColor "Tint Message Backgrounds with Accent Color [Experimental]" 0
+@var checkbox   hideAvatars "Hide Avatars" 0
+@var checkbox   enableAccentColor "Tint user message backgrounds with the selected color" 0
 @var select     accentColor "Accent Color" {
-	"Aged Sage": "#8da572",
+	"Aged Sage*": "#8da572",
 	"Akira": "#840000",
 	"Amaretto": "#ab6f60",
 	"Ancient Gold": "#b59410",
@@ -19,7 +20,7 @@
 	"Caviar": "#292a2d",
 	"Cyber Grape": "#58427C",
 	"Cyprus": "#545a3e",
-	"Dark and Stormy*": "#353f51",
+	"Dark and Stormy": "#353f51",
 	"Deep Jungle": "#1A2421",
 	"Deep Space": "#2D3142",
 	"Dusty Turquoise": "#5a8a89",
@@ -37,13 +38,11 @@
 	"Super Blue Lavender": "#5a5b9f",
 	"Tokyo Midnight": "#1a1a2e",
 }
-@var checkbox   hideAvatars "Hide Avatars" 0
-@var checkbox   mobileLayout "[Desktop Only] Mobile Message Layout on Desktop - Always show action buttons in a separate row below the text in ChatGPT responses (default behavior when 'Hide avatars' is active)" 0
 
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
 
-	/********* MESSAGES *********/
+	/* MESSAGES ********************/
 
 	/* ===== Main/Outer Div ===== */
 	div.w-full {
@@ -64,7 +63,7 @@
 		}
 
 		/* ===== User Message ===== */
-		&.dark\:bg-gray-800 when(@mobileLayout = 1), (@hideAvatars = 1) {
+		&.dark\:bg-gray-800 when(@hideAvatars = 1) {
 			/* Reduce user messages' horiz. padding on hover to prevent absolutely positioned "edit" button from overlapping with text */
 			@media (min-width: 1024px) {
 				--pr: calc(1vw + 1.5rem);
@@ -74,17 +73,8 @@
 			}
 		}
 
-		/* ===== ChatGPT Message ===== */
+		/* ===== ChatGPT Messages ===== */
 		&:not(.dark\:bg-gray-800) {
-			div.relative.flex-col.gap-1.md\:gap-3 when(@mobileLayout = 1) and (@hideAvatars = 0) {
-				@media (min-width: 1024px) {
-					width: calc(100% - calc(1vw + 1.5rem));
-					@media (min-width: 1536px) {
-						width: calc(100% - calc(2vw + 1rem));
-					}
-				}
-			}
-
 			/* Code Container ===== */
 			.bg-black.rounded-md {
 				max-width: 98%;
@@ -109,39 +99,32 @@
 			padding-top: 1.25rem;
 			padding-bottom: 0.5rem;
 
-			@media (max-width: 768px) {
-				padding-left: 0.5rem;
-				padding-right: 0.5rem;
-			}
-
-			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // (classes when sidebar is closed)
-			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // (classes when sidebar is open)
-			> div:only-child { // fallback selector in case the classes change again in the future
+			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // classes when sidebar is closed
+			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // classes when sidebar is open
+			> div:only-child { // fallback selector in case the classes change again
 				max-width: 100% !important;
-				gap: 0.5rem;
-				padding: 0;
+                padding-left: 2vw !important;
+                padding-right: 2vw !important;
+
+                @avatar-width: 24px;
 
 				& when(@hideAvatars = 0) {
-					padding-left: 1rem !important;
-					padding-right: 1rem !important;
+                    @media (max-width: 767px) {
+                        padding-left: 0 !important;
+                    }
+                    > div:first-child + div {
+                        width: calc(100% - @avatar-width) !important;
+                    }
 				}
 
-				@media (min-width: 1536px) {
-					gap: 1rem;
+				& when(@hideAvatars = 1) {
+                    > div:first-child {
+                        display: none;
+                    }
 				}
 
 				/* ===== Hide Avatars ===== */
 				& when(@hideAvatars = 1) {
-					> div:first-child {
-						display: none;
-					}
-					@media (max-width: 1535px) {
-						padding-left: 1rem !important;
-						padding-right: 1rem !important;
-					} @media (min-width: 1536px) {
-						padding-left: 0;
-					}
-
 					.markdown.prose > ol,
 					.markdown.prose > ul {
 						padding-left: max(calc(1vw * 1rem), 0.5rem);
@@ -153,37 +136,12 @@
 					padding: 0 !important;
 
 					div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-						&, > div.flex.gap-1 {
+						&,
+                        > div.flex.gap-1 {
 							gap: 0;
 						}
 						button {
 							padding: 3px
-						}
-					}
-
-					& when(@mobileLayout = 1), (@hideAvatars = 1) {
-						& when(@hideAvatars = 1) {
-							width: 100%;
-						} & when(@hideAvatars = 0) {
-							@media (min-width: 1024px) {
-								width: 100%;
-							}
-						}
-
-						/* ===== Message Text ===== */
-						> div:nth-child(2n) {
-							padding: 0;
-
-							/* ===== Action Button Group ===== */
-							> div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-								position: relative;
-								transform: none !important;
-								margin-top: 0;
-
-								@media (min-width: 1024px) and (max-width: 1536px) {
-									padding-left: 0rem;
-								}
-							}
 						}
 					}
 				}
@@ -191,7 +149,7 @@
 		}
 	}
 
-	/* ===== Accent/Message Background Colors ===== */
+	/* Accent/Message Background Colors *********************/
 
 	 .colorize(@darker: false) {
 		@defaultBg: if(@darker,
@@ -201,17 +159,13 @@
 		@customBg: if(@darker,
 			shade(
 				mix(@defaultBg, @accentColor, 70%),
+				20%
+			),shade(
+				mix(@defaultBg, @accentColor, 70%),
 				30%
 			),
-			desaturate(
-				darken(
-					shade(
-						mix(@defaultBg, @accentColor, 45%),
-						10%
-					), 0%,
-				), 10%
-			)
 		);
+
 		background-color: @customBg !important;
 		background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
 	}
