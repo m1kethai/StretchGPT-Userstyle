@@ -1,6 +1,6 @@
 /* ==UserStyle==
-@name           StretchGPT - Wide ChatGPT + Customizable Colors
-@version        5.0.2
+@name           StretchGPT: Extra Wide ChatGPT Conversations
+@version        5.0.3
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
@@ -8,188 +8,203 @@
 @var checkbox   hideAvatars "Hide Avatars" 0
 @var checkbox   enableAccentColor "Tint user message backgrounds with the selected color" 0
 @var select     accentColor "Accent Color" {
-	"Aged Sage*": "#8da572",
-	"Akira": "#840000",
-	"Amaretto": "#ab6f60",
-	"Ancient Gold": "#b59410",
-	"Aztek": "#293432",
-	"Black Pearl": "#1e272c",
-	"Black Sabbath": "#220022",
-	"Blue Moss": "#5D737E",
-	"Cardamom": "#aaaa77",
-	"Caviar": "#292a2d",
-	"Cyber Grape": "#58427C",
-	"Cyprus": "#545a3e",
-	"Dark and Stormy": "#353f51",
-	"Deep Jungle": "#1A2421",
-	"Deep Space": "#2D3142",
-	"Dusty Turquoise": "#5a8a89",
-	"Earl Grey": "#a6978a",
-	"Emerald": "#0f380f",
-	"FF06B5": "#FF06B5",
-	"Gameboy Teal": "#0ABFBC",
-	"Japanese Violet": "#5B3256",
-	"Lobster Bisque": "#FFDAB9",
-	"Obsidian Ash": "#343434",
-	"Purple Haze": "#807396",
-	"Raichu": "#fc8c2c",
-	"Sakura Bloom": "#ff7b9c",
-	"Sharp Indigo": "#48007c",
-	"Super Blue Lavender": "#5a5b9f",
-	"Tokyo Midnight": "#1a1a2e",
+    "Aged Sage*": "#8da572",
+    "Akira": "#840000",
+    "Amaretto": "#ab6f60",
+    "Ancient Gold": "#b59410",
+    "Aztek": "#293432",
+    "Black Pearl": "#1e272c",
+    "Black Sabbath": "#220022",
+    "Blue Moss": "#5D737E",
+    "Cardamom": "#aaaa77",
+    "Caviar": "#292a2d",
+    "Cyber Grape": "#58427C",
+    "Cyprus": "#545a3e",
+    "Dark and Stormy": "#353f51",
+    "Deep Jungle": "#1A2421",
+    "Deep Space": "#2D3142",
+    "Dusty Turquoise": "#5a8a89",
+    "Earl Grey": "#a6978a",
+    "Emerald": "#0f380f",
+    "FF06B5": "#FF06B5",
+    "Gameboy Teal": "#0ABFBC",
+    "Japanese Violet": "#5B3256",
+    "Lobster Bisque": "#FFDAB9",
+    "Obsidian Ash": "#343434",
+    "Purple Haze": "#807396",
+    "Raichu": "#fc8c2c",
+    "Sakura Bloom": "#ff7b9c",
+    "Sharp Indigo": "#48007c",
+    "Super Blue Lavender": "#5a5b9f",
+    "Tokyo Midnight": "#1a1a2e",
 }
 
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
 
-	/* MESSAGES ********************/
+    /* ************************************************* */
+    /* STRETCH ***************************************** */
+    /* ************************************************* */
 
-	/* ===== Main/Outer Div ===== */
-	div.w-full {
-		--pl: max(calc(1vw*1rem), 1rem);
-		--pr: max(calc(1vw*1rem), 1rem);
-		padding: var(--pt) var(--pr) var(--pb) var(--pl);
+    /* Messages ======================================== */
+    /* ================================================= */
 
-		@media (min-width: 768px) {
-			--pt: 1.5rem;
-			--pl: 2vw;
-			--pr: 2vw;
+    /* Main/Outer Div ---------------------------------- */
+    div.w-full {
+        --pl: max(calc(1vw*1rem), 1rem);
+        --pr: max(calc(1vw*1rem), 1rem);
+        padding: var(--pt) var(--pr) var(--pb) var(--pl);
 
-			@media (min-width: 1536px) {
-				--pt: min(calc(3vh*1rem), 1.5rem);
-				--pl: 1.5rem;
-				--pr: 1.5rem;
-			}
-		}
+        @media (min-width: 768px) {
+            --pt: 1.5rem;
+            --pl: 2vw;
+            --pr: 2vw;
+            @media (min-width: 1536px) {
+                --pt: min(calc(3vh*1rem), 1.5rem);
+                --pl: 1.5rem;
+                --pr: 1.5rem;
+            }
+        }
 
-		/* ===== User Message ===== */
-		&.dark\:bg-gray-800 when(@hideAvatars = 1) {
-			/* Reduce user messages' horiz. padding on hover to prevent absolutely positioned "edit" button from overlapping with text */
-			@media (min-width: 1024px) {
-				--pr: calc(1vw + 1.5rem);
-				@media (min-width: 1536px) {
-					--pr: calc(2vw + 2rem);
-				}
-			}
-		}
+        /* User Message -------------------------------- */
+        &.dark\:bg-gray-800 when(@hideAvatars =1) {
+            /* Reduce user message X padding on hover, to prevent absolutely positioned "edit" button from overlapping w/ text */
+            @media (min-width: 1024px) {
+                --pr: calc(1vw + 1.5rem);
+                @media (min-width: 1536px) {
+                    --pr: calc(2vw + 2rem);
+                }
+            }
+        }
 
-		/* ===== ChatGPT Messages ===== */
-		&:not(.dark\:bg-gray-800) {
-			/* Code Container ===== */
-			.bg-black.rounded-md {
-				max-width: 98%;
-				& when(@enableAccentColor = 1) {
-					@tintColor: mix(black, @accentColor, 90%);
-					background-color: @tintColor !important;
-					box-shadow: inset 0 20px 40px 40px lighten(@tintColor, 1%);
-				}
-			}
-		}
+        /* !FIX - incorrect selector after recent update: */
 
-		/* ===== Inner Div ===== */
-		.md\:max-w-3xl.lg\:max-w-\[40rem\].xl\:max-w-\[48rem\] {
-			max-width: 100% !important;
-		}
+        /* ChatGPT Message ----------------------------- */
+        &:not(.dark\:bg-gray-800) {
+            /* Code Container ===== */
+            .bg-black.rounded-md {
+                max-width: 98%;
 
-		.lg\:w-\[calc\(100\%-115px\)\] {
-			width: 100% !important;
-		}
+                & when(@enableAccentColor =1) {
+                    @tintColor: mix(black, @accentColor, 90%);
+                    background-color: @tintColor  !important;
+                    box-shadow: inset 0 20px 40px 40px lighten(@tintColor, 1%);
+                }
+            }
+        }
 
-		> div.justify-center.m-auto {
-			padding-top: 1.25rem;
-			padding-bottom: 0.5rem;
+        /* Inner Message Div: Lvl 1 -------------------- */
+        >div.justify-center.m-auto {
+            padding-top: 1.25rem;
+            padding-bottom: 0.5rem;
 
-			> div.flex.flex-1.mx-auto.md\:max-w-3xl, // classes when sidebar is closed
-			> div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl, // classes when sidebar is open
-			> div:only-child { // fallback selector in case the classes change again
-				max-width: 100% !important;
+            /* Sidebar classes - closed, open, fallback: */
+            >div.flex.flex-1.mx-auto.md\:max-w-3xl,
+            >div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl,
+            >div:only-child {
+                @avatarSize: 24px;
+
+                max-width: 100% !important;
                 padding-left: 2vw !important;
                 padding-right: 2vw !important;
 
-                @avatar-width: 24px;
-
-				& when(@hideAvatars = 0) {
+                & when(@hideAvatars =0) {
                     @media (max-width: 767px) {
                         padding-left: 0 !important;
                     }
-                    > div:first-child + div {
-                        width: calc(100% - @avatar-width) !important;
+                    >div:first-child+div {
+                        width: calc(100% - @avatarSize) !important;
                     }
-				}
+                }
 
-				& when(@hideAvatars = 1) {
-                    > div:first-child {
+                /* ===== Hide Avatars ===== */
+                & when(@hideAvatars =1) {
+                    >div:first-child {
                         display: none;
                     }
-				}
+                    .markdown.prose>ol,
+                    .markdown.prose>ul {
+                        padding-left: max(calc(1vw * 1rem), 0.5rem);
+                    }
+                }
 
-				/* ===== Hide Avatars ===== */
-				& when(@hideAvatars = 1) {
-					.markdown.prose > ol,
-					.markdown.prose > ul {
-						padding-left: max(calc(1vw * 1rem), 0.5rem);
-					}
-				}
+                /* Message Content Div ===== */
+                >div:last-child {
+                    padding: 0 !important;
 
-				/* ===== Message Content Div ===== */
-				> div:last-child {
-					padding: 0 !important;
+                    div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
+                        &,
+                        >div.flex.gap-1 {
+                            gap: 0;
+                        }
+                        button {
+                            padding: 3px
+                        }
+                    }
+                }
+            }
+        }
 
-					div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-						&,
-                        > div.flex.gap-1 {
-							gap: 0;
-						}
-						button {
-							padding: 3px
-						}
-					}
-				}
-			}
-		}
-	}
+        /* Inner Message Div: Lvl 2 -------------------- */
+        .md\:max-w-3xl.lg\:max-w-\[40rem\].xl\:max-w-\[48rem\] {
+            max-width: 100% !important;
+        }
 
-	/* Accent/Message Background Colors *********************/
+        /* !FIX - incorrect selector after recent update: */
+        .lg\:w-\[calc\(100\%-115px\)\] {
+            width: 100% !important;
+        }
+    }
 
-	 .colorize(@darker: false) {
-		@defaultBg: if(@darker,
-			rgb(52, 53, 65),
-			rgb(68, 70, 84)
-		);
-		@customBg: if(@darker,
-			shade(
-				mix(@defaultBg, @accentColor, 70%),
-				20%
-			),shade(
-				mix(@defaultBg, @accentColor, 70%),
-				30%
-			),
-		);
+    /* ************************************************* */
+    /* COLORIZE **************************************** */
+    /* ************************************************* */
 
-		background-color: @customBg !important;
-		background-image: linear-gradient(180deg,rgba(53,55,64,0), @customBg 58.85%) !important;
-	}
+    /* Colorize Mixin ================================== */
+    /* ================================================= */
 
-	.dark when(@enableAccentColor = 1) {
-		// Colorize User Messages and Prompt Input/Textarea:
-		&\:bg-gray-700:not(input[type="checkbox"]),
-		&\:bg-gray-800:not(&\:md\:bg-vert-dark-gradient) {
-			.colorize(@darker: true);
-		}
+    .colorize(@tint: false) when(@enableAccentColor =1) {
+        @defaultBg: if(@tint,
+            rgb(52, 53, 65),
+            rgb(68, 70, 84));
+        @customBg: if(@tint,
+            shade(mix(@defaultBg, @accentColor, 70%),
+                20%), shade(mix(@defaultBg, @accentColor, 70%),
+                30%),
+        );
+        background-color: @customBg  !important;
+        background-image: linear-gradient(180deg, rgba(53, 55, 64, 0), @customBg 58.85%) !important;
+    }
 
-		// Colorize ChatGPT Responses:
-		.w-full.text-token-text-primary:nth-child(2n) {
-			.colorize;
-		}
+    .dark {
+        @textArea: .w-full>textarea#prompt-textarea;
 
-		// Footer/Disclaimer Area:
-		&\:md\:bg-vert-dark-gradient {
-			@media (min-width: 768px) {
-				.colorize();
-				> div > span {
-					color: lighten(@accentColor, 65%) !important;
-				}
-			}
-		}
-	}
+        /* ===== Colorize User Message BG ===== */
+        &\:bg-gray-700:not(input[type="checkbox"]),
+        &\:bg-gray-800:not(&\:md\:bg-vert-dark-gradient) {
+            .colorize(@tint: true);
+        }
+
+        /* ===== Colorize ChatGPT Message BG ===== */
+        /* !FIX - incorrect selector after recent update: */
+        .w-full.text-token-text-primary:nth-child(2n) {
+            .colorize;
+        }
+
+        /* ===== Prompt Input/Textarea ===== */
+        div@{textArea} {
+            .colorize(@tint: true);
+        }
+
+        /* ===== Footer/Disclaimer Area ===== */
+        /* !FIX - incorrect selector after recent update: */
+        &\:md\:bg-vert-dark-gradient {
+            @media (min-width: 768px) {
+                .colorize();
+                >div>span {
+                    color: lighten(@accentColor, 65%) !important;
+                }
+            }
+        }
+    }
 }
