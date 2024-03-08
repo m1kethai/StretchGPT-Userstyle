@@ -1,47 +1,48 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        5.0.3
+@version        5.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
-@var checkbox   hideAvatars "Hide Avatars" 0
-@var checkbox   enableAccentColor "Tint user message backgrounds with the selected color" 0
-@var select     accentColor "Accent Color" {
-    "Aged Sage*": "#8da572",
-    "Akira": "#840000",
-    "Amaretto": "#ab6f60",
-    "Ancient Gold": "#b59410",
-    "Aztek": "#293432",
-    "Black Pearl": "#1e272c",
-    "Black Sabbath": "#220022",
-    "Blue Moss": "#5D737E",
-    "Cardamom": "#aaaa77",
-    "Caviar": "#292a2d",
-    "Cyber Grape": "#58427C",
-    "Cyprus": "#545a3e",
-    "Dark and Stormy": "#353f51",
-    "Deep Jungle": "#1A2421",
-    "Deep Space": "#2D3142",
-    "Dusty Turquoise": "#5a8a89",
-    "Earl Grey": "#a6978a",
-    "Emerald": "#0f380f",
-    "FF06B5": "#FF06B5",
-    "Gameboy Teal": "#0ABFBC",
-    "Japanese Violet": "#5B3256",
-    "Lobster Bisque": "#FFDAB9",
-    "Obsidian Ash": "#343434",
-    "Purple Haze": "#807396",
-    "Raichu": "#fc8c2c",
-    "Sakura Bloom": "#ff7b9c",
-    "Sharp Indigo": "#48007c",
-    "Super Blue Lavender": "#5a5b9f",
-    "Tokyo Midnight": "#1a1a2e",
+@var checkbox   hideAvatars       "Hide avatars - makes the message content symmetrical and expand to fill the space" 0
+@var checkbox   enableColorize    "Enable custom colors (unlocks all color-related options below)" 0
+@var select     customColorVal    "Custom color" {
+	"Aged Sage*":                 "#8da572",
+	"Akira":                      "#840000",
+	"Amaretto":                   "#ab6f60",
+	"Ancient Gold":               "#b59410",
+	"Aztek":                      "#293432",
+	"Black Pearl":                "#1e272c",
+	"Black Sabbath":              "#220022",
+	"Blue Moss":                  "#5D737E",
+	"Cardamom":                   "#aaaa77",
+	"Caviar":                     "#292a2d",
+	"Cyber Grape":                "#58427C",
+	"Cyprus":                     "#545a3e",
+	"Dark and Stormy":            "#353f51",
+	"Deep Jungle":                "#1A2421",
+	"Deep Space":                 "#2D3142",
+	"Dusty Turquoise":            "#5a8a89",
+	"Earl Grey":                  "#a6978a",
+	"Emerald":                    "#0f380f",
+	"FF06B5":                     "#FF06B5",
+	"Gameboy Teal":               "#0ABFBC",
+	"Japanese Violet":            "#5B3256",
+	"Lobster Bisque":             "#FFDAB9",
+	"Obsidian Ash":               "#343434",
+	"Purple Haze":                "#807396",
+	"Raichu":                     "#fc8c2c",
+	"Sakura Bloom":               "#ff7b9c",
+	"Sharp Indigo":               "#48007c",
+	"Super Blue Lavender":        "#5a5b9f",
+	"Tokyo Midnight":             "#1a1a2e",
 }
+@var checkbox   colorizeInput    "Apply custom color to prompt input field" 1
+@var checkbox   colorizeMsgBg    "Apply custom color to user message background" 1
 
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
-
     /* ************************************************* */
     /* STRETCH ***************************************** */
     /* ************************************************* */
@@ -65,21 +66,6 @@
                 --pr: 1.5rem;
             }
         }
-
-        /* !FIX: selector incorrect after update */
-        /* ChatGPT Message ----------------------------- */
-/*         &:not(.dark\:bg-gray-800) {
-            /* Code Element: /*
-            .bg-black.rounded-md {
-                max-width: 98%;
-
-                & when(@enableAccentColor =1) {
-                    @tintColor: mix(black, @accentColor, 90%);
-                    background-color: @tintColor  !important;
-                    box-shadow: inset 0 20px 40px 40px lighten(@tintColor, 1%);
-                }
-            }
-        } */
 
         /* Inner Message Div: Lvl 1 -------------------- */
         >div.justify-center.m-auto {
@@ -105,7 +91,7 @@
                     }
                 }
 
-                /* Message Content Div ===== */
+                /* Message Content Div ----------------- */
                 >div:last-child {
                     padding: 0 !important;
 
@@ -123,15 +109,9 @@
         }
 
         /* Inner Message Div: Lvl 2 -------------------- */
-
         .md\:max-w-3xl.lg\:max-w-\[40rem\].xl\:max-w-\[48rem\] {
             max-width: 100% !important;
         }
-
-        /* !FIX: selector incorrect after update */
-/*         .lg\:w-\[calc\(100\%-115px\)\] {
-            width: 100% !important;
-        } */
     }
 
     /* ************************************************* */
@@ -162,13 +142,13 @@
 
     /* Mixin =========================================== */
 
-    .colorize(@tint: false) when(@enableAccentColor =1) {
+    .colorize(@tint: false) when(@enableColorize =1) {
         @defaultBg: if(@tint,
             rgb(52, 53, 65),
             rgb(68, 70, 84));
         @customBg: if(@tint,
-            shade(mix(@defaultBg, @accentColor, 70%),
-                20%), shade(mix(@defaultBg, @accentColor, 70%),
+            shade(mix(@defaultBg, @customColorVal, 70%),
+                20%), shade(mix(@defaultBg, @customColorVal, 70%),
                 30%),
         );
         background-color: @customBg  !important;
@@ -178,37 +158,17 @@
     /* Message BG ====================================== */
 
     .dark {
+        /* Selectors: */
         @textArea: .w-full>textarea#prompt-textarea;
 
-        /* ChatGPT ------------------------------------- */
-        /* !FIX: selector incorrect after update */
-/*         &\:bg-gray-700:not(input[type="checkbox"]),
-        &\:bg-gray-800:not(&\:md\:bg-vert-dark-gradient) {
-            .colorize(@tint: true);
-        } */
-
         /* User ---------------------------------------- */
-
-        .w-full.text-token-text-primary:nth-child(2n) {
+        .w-full.text-token-text-primary:nth-child(2n) when (@colorizeMsgBg =1) {
             .colorize;
         }
 
         /* Prompt Input/Textarea ----------------------- */
-
-        div@{textArea} {
+        div@{textArea} when (@colorizeInput =1) {
             .colorize(@tint: true);
         }
-
-        /* !FIX: selector incorrect after update */
-        /* Footer/Disclaimer Section -------------------- */
-
-/*         &\:md\:bg-vert-dark-gradient {
-            @media (min-width: 768px) {
-                .colorize();
-                >div>span {
-                    color: lighten(@accentColor, 65%) !important;
-                }
-            }
-        } */
     }
 }
