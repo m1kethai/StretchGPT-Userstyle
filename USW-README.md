@@ -1,16 +1,29 @@
-StretchGPT
+### StretchGPT ###
 
+Description
+--------------------------------------------------
 A set of UI enhancements that significantly improve the readability and overall UX of ChatGPT conversations, for all browser viewport sizes, while respecting the original ChatGPT aesthetic.
 
----
-
-Core Functionality:
-
+Core Functionality
+--------------------------------------------------
 Expands the total chat area by disabling the aggressive fixed width on the contents and replacing it with some responsive light padding that scales with your screen/browser window size.
 
----
+Extra Optional Features
+--------------------------------------------------
+- Custom Background & Accent Colors
+  - Pick one of the 30+ custom colors from the userstyle options menu, break up the monotonous default color palette and make it way easier to distinguish between your and ChatGPT's messages.
+
+- Hidden avatars
+  - Removes the avatars from the top left corner of every message. Makes all the messages more symmetrical and aligned and frees up useful screen real estate (especially on smaller screens and mobile browsers).
+
+- More coming soon!
 
 Changelog:
+--------------------------------------------------
+
+[v5.0.3]
+- Bugfix [ChatGPT UI update]: custom color no longer applying to the prompt input field
+- Cleaned up/replaced some outdated selectors to accommodate recent changes
 
 [v5.0.2]
 
@@ -31,7 +44,6 @@ Changelog:
 Also decided to release a new adaptive "accent colors" feature that I've been sitting on for a while. I'm flagging it as an experimental feature for now (turned off by default, of course) since I'm a huge stickler for accessibility and this isn't 100% color contrast accessible yet, given the large # of possible color options/combos, but I still think it's worth releasing to everyone in its current state, despite its imperfections.
 
 I've had this feature permanently turned on for several months now and it's become a super essential part of my ChatGPT experience, livening everything up and making the default color palette feel so bland in comparison. It'll be getting lots of polishing and improving over the next few updates, so keep an eye out!
-
 
 [v4.0] 4 New Optional Features: Hide Avatars, Colored Message Indicators, Mobile Layout, Stacked/Centered Layout
 

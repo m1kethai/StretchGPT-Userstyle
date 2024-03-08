@@ -16,10 +16,14 @@ Widens the total chat area by disabling the (fairly aggressive) fixed width on t
   - Pick one of the 30 custom color accent presets from the toolbar dropdown menu, to break up the monotonous default color palette and make it way easier to distinguish between your and ChatGPT's messages.
     - At the moment, this just changes the background color of your messages, the main prompt input field and a few other small elements - but a big update is currently in the works, that applies the accent color to several other key elements throughout the UI and includes a color picker to allow 100% user-customizable color schemes.
 2. **Hidden avatars**
-  - Remove the avatars from the top left corner of every message to make the conversation window more symmetrical and free up a ton of useful screen real estate in mobile browsers/smaller viewports.
+  - Remove the avatars from the top left corner of every message. Makes all the messages more symmetrical and aligned and frees up useful screen real estate, especially on smaller screens and mobile browsers.
 
 ---
 ### **Changelog:**
+
+#### **[v5.0.3]**
+- Bugfix [ChatGPT UI update]: custom color no longer applying to the prompt input field
+- Cleaned up/replaced some outdated selectors to accommodate recent changes
 
 #### **[v5.0.2]**
 - Loosened up the horizontal message padding a bit
