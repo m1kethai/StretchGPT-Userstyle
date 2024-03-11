@@ -5,9 +5,11 @@
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
-@var checkbox   hideAvatars       "Hide avatars - makes the message content symmetrical and expand to fill the space" 0
-@var checkbox   enableColorize    "Enable custom colors (unlocks all color-related options below)" 0
-@var select     customColorVal    "Custom color" {
+@var checkbox   hideAvatars       "Hide chat avatars: allows message content to expand further" 0
+@var checkbox   enableColorize    "Enable colorization: unlocks color-related options below (currently ignored in ChatGPT's Light theme)" 0
+@var checkbox   colorizeInput    "Colorize main prompt input/textarea" 1
+@var checkbox   colorizeMsgBg    "Colorize user message background" 1
+@var select     customColorVal    "Select custom color" {
 	"Aged Sage*":                 "#8da572",
 	"Akira":                      "#840000",
 	"Amaretto":                   "#ab6f60",
@@ -38,8 +40,6 @@
 	"Super Blue Lavender":        "#5a5b9f",
 	"Tokyo Midnight":             "#1a1a2e",
 }
-@var checkbox   colorizeInput    "Apply custom color to prompt input field" 1
-@var checkbox   colorizeMsgBg    "Apply custom color to user message background" 1
 
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
