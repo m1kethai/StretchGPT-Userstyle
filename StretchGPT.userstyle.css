@@ -9,7 +9,7 @@
 @var checkbox   enableColorize    "Enable colorization: unlocks color-related options below (currently ignored in ChatGPT's Light theme)" 0
 @var checkbox   colorizeInput    "Colorize main prompt input/textarea" 1
 @var checkbox   colorizeMsgBg    "Colorize user message background" 1
-@var select     customColorVal    "Select custom color" {
+@var select     customColor    "Select custom color" {
 	"Aged Sage*":                 "#8da572",
 	"Akira":                      "#840000",
 	"Amaretto":                   "#ab6f60",
@@ -43,11 +43,12 @@
 
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
+
     /* ************************************************* */
     /* STRETCH ***************************************** */
     /* ************************************************* */
 
-    /* Chat Messages =================================== */
+    /* Messages ======================================== */
 
     /* Main/Outer Div ---------------------------------- */
     div.w-full {
@@ -142,33 +143,77 @@
 
     /* Mixin =========================================== */
 
-    .colorize(@tint: false) when(@enableColorize =1) {
-        @defaultBg: if(@tint,
-            rgb(52, 53, 65),
-            rgb(68, 70, 84));
-        @customBg: if(@tint,
-            shade(mix(@defaultBg, @customColorVal, 70%),
-                20%), shade(mix(@defaultBg, @customColorVal, 70%),
-                30%),
-        );
-        background-color: @customBg  !important;
-        background-image: linear-gradient(180deg, rgba(53, 55, 64, 0), @customBg 58.85%) !important;
+    #colorLib() {
+        /* Default BG & Text Colors ----------------------------- */
+        .defaults(dark) {
+            @colors: {
+                @bg: #212121; /* '--main-surface-primary', '--gray-800' */
+                @text: #ececec; /* '--text-primary', '--gray-100' */
+            }
+        }
+        .defaults(light) {
+            @colors: {
+                @bg: white; /* '--main-surface-primary', '--gray-100' */
+                @text: #0d0d0d; /* '--text-primary', '--gray-950' */
+            }
+        }
+
+        /* Colorize functions ----------------------------------- */
+        .bgTint(@theme, @base) {
+            @sat: round(saturation(@blended));
+            @blended: if(
+                @theme =light,
+                mix(@base, @customColor, 90%),
+                if(
+                    luma(@customColor) < 5%,
+                    @customColor,
+                    mix(@base, @customColor, 70%)
+                )
+            );
+            @faded: fadeout(@blended,
+                if(@sat <= 55%, 0%,
+                    if(@sat < 70%, 40%,
+                        if(@sat < 90%, 50%,
+                            60%
+                        )
+                    )
+                ),
+                relative
+            );
+
+            @result: if(@theme =light, @blended, @faded);
+        }
+
+        .accessibleText(@bg, @light: #ececec, @dark: #0d0d0d) {
+            /* Get the most contrasted text color vs the background color (using default threshold of 43%): */
+            @result: contrast(@bg, @light, @dark);
+        }
     }
 
-    /* Message BG ====================================== */
+    .colorize(@theme: dark) when(@enableColorize =1) {
+        @default: if(@theme =dark, #colorLib.defaults(dark)[], #colorLib.defaults(light)[]);
+        @dBg: @default[@bg];
+        @dT: @default[@text];
 
-    .dark {
-        /* Selectors: */
-        @textArea: .w-full>textarea#prompt-textarea;
-
-        /* User ---------------------------------------- */
-        .w-full.text-token-text-primary:nth-child(2n) when (@colorizeMsgBg =1) {
-            .colorize;
+        /* Colorize Element */
+        .el() {
+            @bg: #colorLib.bgTint(@theme, @dBg)[];
+            @text: #colorLib.accessibleText(@bg)[];
+            background-color: @bg !important;
+            color: @text !important;
         }
 
-        /* Prompt Input/Textarea ----------------------- */
-        div@{textArea} when (@colorizeInput =1) {
-            .colorize(@tint: true);
+        /* Elements to colorize */
+        div.w-full.text-token-text-primary:nth-child(2n) when (@colorizeMsgBg =1) {
+            .colorize.el();
         }
+        div.w-full>textarea#prompt-textarea when (@colorizeInput =1) {
+            .colorize.el();
+        }
+    }
+
+    html {
+        &.dark { .colorize(dark)}
+        &.light { .colorize(light)}
     }
 }
