@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        5.1
+@version        5.1.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
@@ -42,7 +42,7 @@
 }
 
 ==/UserStyle== */
-@-moz-document domain("chat.openai.com") {
+@-moz-document domain("chatgpt.com"), domain("chat.openai.com") {
 
     /* ************************************************* */
     /* STRETCH ***************************************** */
