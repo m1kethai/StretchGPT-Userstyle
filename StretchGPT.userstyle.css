@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        5.1.1
+@version        5.2
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
@@ -79,28 +79,6 @@
                     --ph: 1.5vw;
                     @media (min-width: 1536px) {
                         --ph: 2vw;
-                    }
-                }
-            }
-        }
-
-        // TODO - confirm if this is obsolete now:
-        >div.justify-center.m-auto {
-            padding-top: 1.25rem;
-            padding-bottom: 0.5rem;
-
-                /* Message Content Div ----------------- */
-                >div:last-child {
-                    padding: 0 !important;
-
-                    div.lg\:absolute.lg\:top-0.lg\:translate-x-full.lg\:right-0.lg\:mt-0.lg\:pl-2 {
-                        &,
-                        >div.flex.gap-1 {
-                            gap: 0;
-                        }
-                        button {
-                            padding: 3px
-                        }
                     }
                 }
             }
