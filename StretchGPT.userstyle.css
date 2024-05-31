@@ -116,6 +116,14 @@
     }
 
     /* ************************************************* */
+    /* MISC. FIXES/ENHANCEMENTS ************************ */
+    /* ************************************************* */
+
+    .prose :where(ol):not(:where([class~="not-prose"] *)) {
+        padding-left: 1.85em;
+    }
+
+    /* ************************************************* */
     /* HIDE AVATARS ************************************ */
     /* ************************************************* */
 
@@ -195,7 +203,7 @@
         @dBg: @default[@bg];
         @dT: @default[@text];
 
-        /* Colorize Element */
+        /* Colorize Elements */
         .el() {
             @bg: #colorLib.bgTint(@theme, @dBg)[];
             @text: #colorLib.accessibleText(@bg)[];
@@ -203,12 +211,13 @@
             color: @text !important;
         }
 
-        /* Elements to colorize */
-        div.w-full.text-token-text-primary:nth-child(2n) when (@colorizeMsgBg =1) {
-            .colorize.el();
-        }
-        div.w-full>textarea#prompt-textarea when (@colorizeInput =1) {
-            .colorize.el();
+        div.w-full {
+            &.text-token-text-primary:nth-child(2n) when (@colorizeMsgBg =1) {
+                .colorize.el();
+            }
+            > textarea#prompt-textarea when (@colorizeInput =1) {
+                .colorize.el();
+            }
         }
     }
 
