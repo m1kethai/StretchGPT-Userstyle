@@ -69,28 +69,25 @@
         }
 
         /* Inner Message Div: Lvl 1 -------------------- */
+        div:has(.group\/conversation-turn) {
+            max-width: 100% !important;
+
+            > .sticky ~ .w-full {
+                padding-left: var(--ph, inherit) !important;
+
+                 @media (min-width: 768px) {
+                    --ph: 1.5vw;
+                    @media (min-width: 1536px) {
+                        --ph: 2vw;
+                    }
+                }
+            }
+        }
+
+        // TODO - confirm if this is obsolete now:
         >div.justify-center.m-auto {
             padding-top: 1.25rem;
             padding-bottom: 0.5rem;
-
-            /* Sidebar classes - closed, open, fallback */
-            >div.flex.flex-1.mx-auto.md\:max-w-3xl,
-            >div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl,
-            >div:only-child {
-                @avatarSize: 24px;
-
-                max-width: 100% !important;
-                padding-left: 2vw !important;
-                padding-right: 2vw !important;
-
-                & when(@hideAvatars =0) {
-                    @media (max-width: 767px) {
-                        padding-left: 0 !important;
-                    }
-                    >div:first-child+div {
-                        width: calc(100% - @avatarSize) !important;
-                    }
-                }
 
                 /* Message Content Div ----------------- */
                 >div:last-child {
@@ -127,21 +124,9 @@
     /* HIDE AVATARS ************************************ */
     /* ************************************************* */
 
-    div.w-full when(@hideAvatars =1) {
-        >div.justify-center.m-auto {
-            >div.flex.flex-1.mx-auto.md\:max-w-3xl,
-            >div.flex.mx-auto.md\:max-w-2xl.lg\:max-w-\[38rem\].xl\:max-w-3xl,
-            >div:only-child {
-                /* Hide the avatars: */
-                >div:first-child { display: none }
-
-                /* Adjust the left indent for bullet points so it's flush with the rest of the message contents: */
-                .markdown.prose {
-                    ol, ul {
-                        padding-left: max(calc(1vw * 1rem), 0.5rem);
-                    }
-                }
-            }
+    & when(@hideAvatars =1) {
+        .flex-shrink-0.flex.flex-col.relative.items-end:has(.gizmo-bot-avatar) {
+            display: none;
         }
     }
 
