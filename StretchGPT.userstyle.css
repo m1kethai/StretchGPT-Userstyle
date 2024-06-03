@@ -8,6 +8,7 @@
 @var checkbox   hideAvatars       "Hide chat avatars: allows message content to expand further" 0
 @var checkbox   enableColorize    "Enable colorization: unlocks color-related options below (currently ignored in ChatGPT's Light theme)" 0
 @var checkbox   colorizeMsgBg    "Colorize user message background" 1
+@var checkbox   colorizeInput    "Colorize main prompt input/textarea" 1
 @var select     customColor    "Select custom color" {
 	"Aged Sage*":                 "#8da572",
 	"Akira":                      "#840000",
@@ -39,122 +40,156 @@
 	"Super Blue Lavender":        "#5a5b9f",
 	"Tokyo Midnight":             "#1a1a2e",
 }
+@var checkbox DEBUG "[DEV] Print var names at the top of the window" 1
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
+	html {
+		/* SELECTORS *************************************** */
+		@-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+		@-header: .sticky.top-0;
+		@-footer: @{-sidebar} + div:last-child > div:last-child;
 
-    /* SELECTORS *************************************** */
-    @-header: .sticky.top-0;
-    @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-    @-footer: main > div > div:last-child;
+		@-chat: @{-sidebar} + div:last-child > main;
+		@-chat__entry: @{-header} ~ div:has(.group\/conversation-turn);
+		@-chat__entry__inner--2: @{-chat__entry} .md\:max-w-3xl;
+		@-chat__entry--user: @{-chat__entry}:not(:has(.agent-turn));
+		@-chat__entry--gpt: @{-chat__entry}:has(.agent-turn);
+		@-chat__prompt: @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
+		/* unused: */
+		@-chat__entry__inner--1: @{-chat__entry} > div;
+		@-chat__prompt__input: @{-chat__prompt} .md\:max-w-3xl;
+		@-chat__prompt__input__textarea: @{-chat__prompt__input} textarea;
 
-    @-msg: @{-header} ~ div:has(.group\/conversation-turn);
-    @-msg--user: @{-msg}:not(:has(.agent-turn));
-    @-msg--gpt: @{-msg}:has(.agent-turn);
-    @-msg__inner-1: @{-msg} > div;
-    @-msg__inner-2: @{-msg} .md\:max-w-3xl;
+		& when(@enableColorize =1) {
+			--sgpt-theme-primary-bg: @customColor;
+			--sgpt-theme-primary-text: #colorLib.accessibleText(@customColor)[];
+			&.dark { .colorize(dark)}
+			&.light { .colorize(light)}
+		}
 
-    @-input: main > div > div:last-child .md\:max-w-3xl;
-    @-input__textarea: main > div > div:last-child .md\:max-w-3xl textarea;
+		/* CORE // STRETCH ********************************* */
+		@{-chat__entry__inner--2} {
+			max-width: 100% !important;
+		}
 
-    /* CORE // STRETCH ********************************* */
-    @{-msg__inner-2} {
-        max-width: 100% !important;
-    }
+		/* HIDE AVATARS ************************************ */
+		@{-chat__entry--gpt} when(@hideAvatars =1) {
+			.flex-shrink-0.flex.flex-col.relative.items-end:has(.gizmo-bot-avatar) {
+				display: none;
+			}
 
-    /* HIDE AVATARS ************************************ */
-    @{-msg--gpt} when(@hideAvatars =1) {
-        .flex-shrink-0.flex.flex-col.relative.items-end:has(.gizmo-bot-avatar) {
-            display: none;
-        }
+			/* add back some padding */
+			> div {
+				padding-left: var(--pl) !important;
+				@media (max-width: 767px) {
+					--pl: max(calc(1vw*1rem), 1rem);
+				} @media (min-width: 768px) {
+					--pl: max(calc(1.5vw*1rem), 1.5rem);
+					@media (min-width: 1536px) {
+						--pl: max(calc(2vw*1rem), 2rem);
+					}
+				}
+			}
+		}
 
-        /* add back some padding */
-        > div {
-            padding-left: var(--pl) !important;
-            @media (max-width: 767px) {
-                --pl: max(calc(1vw*1rem), 1rem);
-            } @media (min-width: 768px) {
-                --pl: max(calc(1.5vw*1rem), 1.5rem);
-                @media (min-width: 1536px) {
-                    --pl: max(calc(2vw*1rem), 2rem);
-                }
-            }
-        }
-    }
+		/* COLORIZATION ************************************ */
 
-    /* MISC. FIXES/ENHANCEMENTS ************************ */
-    .prose :where(ol):not(:where([class~="not-prose"] *)) {
-        padding-left: 1.85em;
-    }
+		#colorLib() {
+			.defaults(dark) {
+				@colors: {
+					@bg: #212121; /* '--main-surface-primary', '--gray-800' */
+					@text: #ececec; /* '--text-primary', '--gray-100' */
+				}
+			} .defaults(light) {
+				@colors: {
+					@bg: #ececec; /* '--main-surface-primary', '--gray-100' */
+					@text: #0d0d0d; /* '--text-primary', '--gray-950' */
+				}
+			}
 
-    /* COLORIZE **************************************** */
-    html {
-        &.dark { .colorize(dark)}
-        &.light { .colorize(light)}
-    }
+			.bgTint(@theme, @base) {
+				@sat: round(saturation(@blended));
+				@blended: if(
+					@theme =light,
+					mix(@base, @customColor, 90%),
+					if(
+						luma(@customColor) < 5%,
+						@customColor,
+						mix(@base, @customColor, 70%)
+					)
+				);
+				@faded: fadeout(@blended,
+					if(@sat <= 55%, 0%,
+						if(@sat < 70%, 40%,
+							if(@sat < 90%, 50%,
+								60%
+							)
+						)
+					),
+					relative
+				);
 
-    /* Mixin =========================================== */
-    #colorLib() {
-        /* Default Colors ----------------------------- */
-        .defaults(dark) {
-            @colors: {
-                @bg: #212121; /* '--main-surface-primary', '--gray-800' */
-                @text: #ececec; /* '--text-primary', '--gray-100' */
-            }
-        }
-        .defaults(light) {
-            @colors: {
-                @bg: white; /* '--main-surface-primary', '--gray-100' */
-                @text: #0d0d0d; /* '--text-primary', '--gray-950' */
-            }
-        }
+				@result: if(@theme =light, @blended, @faded);
+			}
 
-        .bgTint(@theme, @base) {
-            @sat: round(saturation(@blended));
-            @blended: if(
-                @theme =light,
-                mix(@base, @customColor, 90%),
-                if(
-                    luma(@customColor) < 5%,
-                    @customColor,
-                    mix(@base, @customColor, 70%)
-                )
-            );
-            @faded: fadeout(@blended,
-                if(@sat <= 55%, 0%,
-                    if(@sat < 70%, 40%,
-                        if(@sat < 90%, 50%,
-                            60%
-                        )
-                    )
-                ),
-                relative
-            );
+			.accessibleText(@bg, @light: #ececec, @dark: #0d0d0d) {
+				/* Get the most contrasted text color vs the background color (using default threshold of 43%): */
+				@result: contrast(@bg, @light, @dark);
+			}
+		}
 
-            @result: if(@theme =light, @blended, @faded);
-        }
+		.colorize(@theme: dark) {
+			@default-colors: if(@theme =dark, #colorLib.defaults(dark)[], #colorLib.defaults(light)[]);
+			.element() {
+				@bg: #colorLib.bgTint(@theme, @default-colors[@bg])[];
+				@text: #colorLib.accessibleText(@bg)[];
+				background-color: @bg !important;
+				color: @text !important;
+			}
 
-        .accessibleText(@bg, @light: #ececec, @dark: #0d0d0d) {
-            /* Get the most contrasted text color vs the background color (using default threshold of 43%): */
-            @result: contrast(@bg, @light, @dark);
-        }
-    }
+			@{-chat__prompt} when (@colorizeInput =1) {
+				.element();
+				button {
+					&.rounded-full {
+						&[disabled] {
+							color: fadeout(@text, 65%);
+							background-color: fadeout(@text, 85%) !important;
+						}
+						&:not([disabled]) {
+							color: @text;
+						}
+					}
+				}
+			}
 
-    .colorize(@theme: dark) when(@enableColorize =1) {
-        @default: if(@theme =dark, #colorLib.defaults(dark)[], #colorLib.defaults(light)[]);
-        @dBg: @default[@bg];
-        @dT: @default[@text];
+			@{-chat__entry--user} when (@colorizeMsgBg =1) {
+				@-msg-bubble: .relative.rounded-3xl;
+				.element();
 
-        /* Colorize Elements */
-        .el() {
-            @bg: #colorLib.bgTint(@theme, @dBg)[];
-            @text: #colorLib.accessibleText(@bg)[];
-            background-color: @bg !important;
-            color: @text !important;
-        }
+				@{-msg-bubble} {
+					background-color: fade(softlight(@customColor, @bg), 50%) !important;
+				}
+			}
+		}
 
-        @{-msg--user} when (@colorizeMsgBg =1) {
-            .colorize.el();
-        }
-    }
+		/* MISC. FIXES/ENHANCEMENTS ************************ */
+
+		/* fix recent UI bug where the left side of <ol> numbers are cut off in ChatGPT responses */
+		@{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+			padding-left: 1.85em;
+		}
+
+		.log-var(@var) when (@DEBUG =1) {
+			&:before {
+				content: "@{var}";
+				display: block;
+				margin: auto;
+				text-align: center;
+				font-weight: bold;
+				background: if(@enableColorize =1, @customColor, inherit);
+				color: #colorLib.accessibleText($background)[];
+			}
+		}
+	}
 }
