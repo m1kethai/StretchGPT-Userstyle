@@ -41,7 +41,6 @@
 	"Super Blue Lavender": "#5a5b9f",
 	"Tokyo Midnight":      "#1a1a2e",
 }
-@var checkbox DEBUG "Debug/test mode [DEV]" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
@@ -83,9 +82,6 @@
 		.set-breakpoints();
 		.set-selectors();
 		/* ---------- INIT */
-
-		@{-chat__entry--gpt}
-		{.hl()}
 
 		& when(@enableColorize =1) {
 			&.dark { .colorize(dark)}
@@ -224,38 +220,9 @@
 		}
 
 		/* MISC. UI FIXES/ENHANCEMENTS ************************ */
-		/* fix recent UI bug where the left side of <ol> numbers are cut off in ChatGPT responses */
+		/* fixes recent UI bug where the left side of <ol> numbers are cut off in ChatGPT responses */
 		@{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
 			padding-left: 1.85em;
-		}
-	}
-
-	/* DEBUGGING *************************************** */
-	.log(@msg: 'N/A') when (@DEBUG =1) {
-		position: relative;
-		&:before {
-			content: "@{msg}";
-			display: block;
-			margin: auto;
-			background: if(@enableColorize =1, @customColor, inherit);
-			text-align: center;
-			font-weight: bold;
-		}
-	}
-
-	.hl(
-		@mode: 'border',
-		@bgc: #9d000f,
-		@border-color: #eee,
-		@border: 2px dashed @border-color
-	) when (@DEBUG =1) {
-		@useBorder: if(@mode ='bg', 0, 1);
-		@useBg: if(@mode ='border', 0, 1);
-		@useSpin: 0;
-		& when (@useBorder =1) {
-			border: if(@useSpin =1, spin(@c, 180deg), @border) !important;
-		} & when (@useBg =1) {
-			background:  if(@useSpin =1, spin(@bgc, 40deg), @bgc) !important;
 		}
 	}
 }
