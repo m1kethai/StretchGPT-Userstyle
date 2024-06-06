@@ -12,6 +12,7 @@
 @var checkbox   colorizeMsgBubble     "Apply custom color to your message bubbles" 1
 @var checkbox   colorizeMsgFullEntry "  ⤷ [Desktop Only] Colorize the message bubble + the background of the full chat entry/row behind it" 0
 @var select     customColor       "Select custom color preset" {
+	"Absinthe Green":      "#76b583",
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
 	"Amaretto":            "#ab6f60",
@@ -22,6 +23,7 @@
 	"Blue Moss":           "#5D737E",
 	"Cardamom":            "#aaaa77",
 	"Caviar":              "#292a2d",
+	"Chrysanthemum":       "#c35458",
 	"Cyber Grape":         "#58427C",
 	"Cyprus":              "#545a3e",
 	"Dark and Stormy":     "#353f51",
@@ -35,12 +37,20 @@
 	"Japanese Violet":     "#5B3256",
 	"Lobster Bisque":      "#FFDAB9",
 	"Obsidian Ash":        "#343434",
+	"Prince":              "#4b384c",
 	"Purple Haze":         "#807396",
 	"Raichu":              "#fc8c2c",
+	"Sailor Moon":         "#ffee00",
+	"Sailor Moon":         "#ffee00",
 	"Sakura Bloom":        "#ff7b9c",
+	"Sanguine":            "#6c110e",
+	"Sapphired":           "#5b82a6",
 	"Sharp Indigo":        "#48007c",
+	"Steampunk Leather":   "#6f3b34",
 	"Super Blue Lavender": "#5a5b9f",
 	"Tokyo Midnight":      "#1a1a2e",
+	"Wasabi Peanut":       "#b4c79c",
+	"Wasabi":              "#afd77f",
 }
 
 ==/UserStyle== */
