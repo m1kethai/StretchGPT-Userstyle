@@ -5,12 +5,12 @@
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
-@var checkbox   hideAvatars       "Hide ChatGPT avatar (allows message contents to expand a bit further)" 0
-@var checkbox   enableColorize    "Enable color customizations (all color-related features below will be ignored if this is turned off)" 0
-@var checkbox   colorizePromptElements     "Apply custom colors to the input/prompt component" 1
+@var checkbox   hideAvatars              "Hide ChatGPT avatar (allows message contents to expand a bit further)" 0
+@var checkbox   enableColorize           "Enable color customizations (all color-related features below will be ignored if this is turned off)" 0
+@var checkbox   colorizePromptElements   "Apply custom colors to the input/prompt component" 1
 @var checkbox   colorizeUserMessages     "Apply custom color to your message bubbles" 1
-@var checkbox   colorizeUserMessagesFull     "--> Colorize full chat item's/row's background, as well as the message bubbles" 0
-@var select     customColor       "Color preset" {
+@var checkbox   colorizeUserMessagesFull "  ⤷ Colorize the message bubble + the background of the whole chat entry behind it" 0
+@var select     customColor       "Select color preset" {
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
 	"Amaretto":            "#ab6f60",
@@ -61,23 +61,23 @@
 			@xxl: ~"screen and (min-width: 3840px)";
 		}
 		.set-selectors() {
-			@-sidebar:                         .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-			@-header:                          .sticky.top-0.z-10;
-			@-chat:                            @{-sidebar} + div:last-child > main;
-				@-sm--chat:                    @{-header} ~ main div.flex-1.overflow-hidden;
-			@-chat__entry:                     @{-header} ~ div:has(.group\/conversation-turn);
-			@-sm--chat__entry:             @{-sm--chat} div.w-full:has(.group\/conversation-turn);
+			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+			@-header:                .sticky.top-0.z-10;
+			@-chat:                  @{-sidebar} + div:last-child > main;
+			@-chat__entry:           @{-header} ~ div:has(.group\/conversation-turn);
+			@-chat__entry__inner--1: @{-chat__entry} > div;
+			@-chat__entry__inner--2: @{-chat__entry} .md\:max-w-3xl;
+			@-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
+			@-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
+			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
+			@-footer:                @{-sidebar} + div:last-child > div:last-child;
 
-			@-chat__entry__inner--1:           @{-chat__entry} > div;
-			@-chat__entry__inner--2:           @{-chat__entry} .md\:max-w-3xl;
-			@-chat__entry--user:               @{-chat__entry}:not(:has(.agent-turn));
-				@-sm--chat__entry--user:       @{-sm--chat__entry} div[data-message-author-role="user"];
-			@-chat__entry--gpt:        @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-			    @-sm--chat__entry--gpt: @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
-			@-chat__prompt:                    @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-				@-sm--chat__prompt:            @{-header} ~ main form div.rounded-\[26px\];
-			@-footer:                          @{-sidebar} + div:last-child > div:last-child;
-				@-sm--footer:                  @{-sm--chat} ~ div.w-full;
+			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
+			@-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
+			@-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
+			@-sm--chat__entry:       @{-sm--chat} div.w-full:has(.group\/conversation-turn);
+			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-\[26px\];
+			@-sm--footer:            @{-sm--chat} ~ div.w-full;
 		}
 		.set-breakpoints();
 		.set-selectors();
@@ -88,12 +88,14 @@
 			&.light { .colorize(light)}
 		}
 
-		/* CORE // STRETCH ********************************* */
+		/* CORE FUNCTIONALITY ***************************/
+
 		@{-chat__entry__inner--2} {
 			max-width: 100% !important;
 		}
 
-		/* HIDE AVATARS ************************************ */
+		/* FEATURE: HIDE AVATARS ************************/
+
 		& when(@hideAvatars =1) {
 			@-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
 
@@ -118,7 +120,7 @@
 			}
 		}
 
-		/* COLORIZATION ************************************ */
+		/* FEATURE: CUSTOM COLORIZATION *****************/
 
 		#colorLib() {
 			.defaults(dark) {
@@ -219,8 +221,8 @@
 			}
 		}
 
-		/* MISC. UI FIXES/ENHANCEMENTS ************************ */
-		/* fixes recent UI bug where the left side of <ol> numbers are cut off in ChatGPT responses */
+		/* MISC. UI FIXES/ENHANCEMENTS ******************/
+		/* fixes recent UI bug where the left side of <ol> numbers are cut off in responses */
 		@{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
 			padding-left: 1.85em;
 		}
