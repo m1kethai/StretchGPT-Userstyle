@@ -5,7 +5,8 @@
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://github.com/m1kethai/StretchGPT-Userstyle
 @preprocessor   less
-@var checkbox   hideAvatars              "Hide ChatGPT avatar (allows message contents to expand a bit further)" 0
+@var checkbox   hideAvatar              "Hide ChatGPT avatar (allows message contents to expand a bit further)" 0
+@var checkbox   hideDisclaimer           "Hide the 'ChatGPT can make mistakes...' disclaimer in the footer" 0
 @var checkbox   enableColorize           "Enable color customizations (all color-related features below will be ignored if this is turned off)" 0
 @var checkbox   colorizePromptElements   "Apply custom colors to the input/prompt component" 1
 @var checkbox   colorizeUserMessages     "Apply custom color to your message bubbles" 1
@@ -108,8 +109,7 @@
 		}
 
 		/* FEATURE: HIDE AVATARS ************************/
-
-		& when(@hideAvatars =1) {
+		& when(@hideAvatar =1) {
 			@-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
 
 			@{-chat__entry--gpt},
@@ -134,6 +134,20 @@
 					}
 				}
 
+			}
+		}
+
+		/* FEATURE: HIDE DISCLAIMER *********************/
+		& when(@hideDisclaimer =1) {
+			@{-sm--footer},
+			@{-footer} {
+	/* 			border: 2px solid red !important; */
+				> div:last-child {
+					padding: 0.5rem;
+					> span {
+						display: none;
+					}
+				}
 			}
 		}
 
