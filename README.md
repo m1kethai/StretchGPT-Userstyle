@@ -2,25 +2,38 @@
 
 **Userstyle to enhance the ChatGPT experience for both desktop and mobile browsers - by expanding the overall chat area and making a few subtle UI tweaks for improved aesthetics and conversation readability, all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and most features are toggleable.**
 
-> Visit the main userstyle page for an easy 1-click installation:
+> Visit the userstyles.world page for an easy 1-click installation:
 >
 > https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 ---
 
 ### **Core Functionality:**
 
-Widens the total chat area by disabling the (fairly aggressive) fixed width on the message contents and replacing it with responsive padding that scales according to whatever screen/window size you're using.
+Expands the usable chat area by >200% by replacing the default restrictive max-width and fixed margins/padding with much more subtle, adaptive spacing that scales according to your current viewport size.
 
-### **Additional/Toggleable Features:**
-1. **Accent colors**
-  - Pick one of the 30 custom color accent presets from the toolbar dropdown menu, to break up the monotonous default color palette and make it way easier to distinguish between your and ChatGPT's messages.
-    - At the moment, this just changes the background color of your messages, the main prompt input field and a few other small elements - but a big update is currently in the works, that applies the accent color to several other key elements throughout the UI and includes a color picker to allow 100% user-customizable color schemes.
-2. **Hidden avatars**
-  - Remove the avatars from the top left corner of every message. Makes all the messages more symmetrical and aligned and frees up useful screen real estate, especially on smaller screens and mobile browsers.
+### **Extra/Optional Features:**
 
+1. **Accent Colors**
+  - Pick from the 40+ included color presets to liven up the dull default color palette and make it easier to distinguish between your prompts and ChatGPT's responses.
+  - There are separate toggles in the userstyle's dropdown menu to apply the selected color to your messages and/or your message bubbles, as well as the prompt input elements.
+2. **Hide Avatars**
+  - Remove the avatars from ChatGPT responses and free up more screen real estate (makes the most significant difference in mobile and tablet browsers).
+3. **Hide Disclaimer Message**
+---
+> The previous features below recently broke due to a few big ChatGPT UI updates and have been removed for the time being, but I'm currently working on fixes for them and will be re-integrating them soon:
+
+- Resizeable prompt input/textarea
+- Colorpicker
+- Expanded sidebar menu
+- Accent colors for header and sidebar elements
+- Configurable padding/width for the main chat content 
 ---
 ### **Changelog:**
 
+#### **[6.0]**
+- Fixed all the broken things for both desktop and mobile VPs
+- Added some more cool custom color presets
+- Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row. 
 #### **[5.1]**
 - Bugfix (ChatGPT update) - custom color no longer applying to the prompt input field
 - Colorize feature now fully working and enabled for "Light" ChatGPT theme
