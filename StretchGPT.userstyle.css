@@ -9,8 +9,8 @@
 @var checkbox   hideDisclaimer           "Hide the 'ChatGPT can make mistakes...' disclaimer in the footer" 0
 @var checkbox   enableColorize           "Enable color customizations (all color-related features below will be ignored if this is turned off)" 0
 @var checkbox   colorizePromptElements   "Apply custom colors to the input/prompt component" 1
-@var checkbox   colorizeUserMessages     "Apply custom color to your message bubbles" 1
-@var checkbox   colorizeUserMessagesFull "  ⤷ [Desktop Only] Colorize the message bubble + the background of the whole chat entry behind it" 0
+@var checkbox   colorizeMsgBubble     "Apply custom color to your message bubbles" 1
+@var checkbox   colorizeMsgFullEntry "  ⤷ [Desktop Only] Colorize the message bubble + the background of the full chat entry/row behind it" 0
 @var select     customColor       "Select custom color preset" {
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
@@ -71,7 +71,7 @@
 			@-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
 			@-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
 			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-			@-footer:                @{-sidebar} + div:last-child > div:last-child;
+			@-footer:                @{-chat} > div:first-child > div:last-child;
 
 			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
 			@-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
@@ -80,6 +80,7 @@
 			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-\[26px\];
 			@-sm--footer:            @{-sm--chat} ~ div.w-full;
 		}
+
 		.set-breakpoints();
 		.set-selectors();
 		/* ---------- INIT */
@@ -92,20 +93,14 @@
 		/* CORE FUNCTIONALITY ***************************/
 
 		@{-chat__entry__inner--2} {
-/* 			--mw: 100%; */
-			@media @sm {
-/* 				--mw: 97%; */
-			}
+			max-width: var(--mw) !important;
 			@media @md-up {
 				--mw: 96%;
-			}
-			@media @lg-up {
+			} @media @lg-up {
 				--mw: 95%;
-			}
-			@media @xl-up {
+			} @media @xl-up {
 				--mw: 90%;
 			}
-			max-width: var(--mw) !important;
 		}
 
 		/* FEATURE: HIDE AVATARS ************************/
@@ -152,7 +147,6 @@
 		}
 
 		/* FEATURE: CUSTOM COLORIZATION *****************/
-
 		#colorLib() {
 			.defaults(dark) {
 				@colors: {
@@ -226,7 +220,7 @@
 				}
 			}
 
-			& when (@colorizeUserMessages =1) {
+			& when (@colorizeMsgBubble =1) {
 				@-msg-bubble: .relative.rounded-3xl;
 				@media @sm-max {
 					@{-sm--chat__entry--user} {
@@ -235,14 +229,14 @@
 					}
 				} @media @md-up {
 					@{-chat__entry--user} {
-						& when (@colorizeUserMessagesFull =1) {
+						& when (@colorizeMsgFullEntry =1) {
 							.apply();
 							@{-msg-bubble} {
 								@softBg: fade(softlight(@customColor, @tinted-bg-color), 50%);
 								background-color: @softBg;
 							}
 						}
-						& when (@colorizeUserMessagesFull =0) {
+						& when (@colorizeMsgFullEntry =0) {
 							@{-msg-bubble} {
 								.apply();
 							}
