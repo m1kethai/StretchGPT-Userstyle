@@ -3,7 +3,7 @@
 @version        6.0
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
-@namespace      https://github.com/m1kethai/StretchGPT-Userstyle
+@namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
 @var checkbox   hideAvatar              "Hide ChatGPT avatar (allows message contents to expand a bit further)" 0
 @var checkbox   hideDisclaimer           "Hide the 'ChatGPT can make mistakes...' disclaimer in the footer" 0
