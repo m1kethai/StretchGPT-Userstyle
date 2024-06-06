@@ -9,8 +9,8 @@
 @var checkbox   enableColorize           "Enable color customizations (all color-related features below will be ignored if this is turned off)" 0
 @var checkbox   colorizePromptElements   "Apply custom colors to the input/prompt component" 1
 @var checkbox   colorizeUserMessages     "Apply custom color to your message bubbles" 1
-@var checkbox   colorizeUserMessagesFull "  ⤷ Colorize the message bubble + the background of the whole chat entry behind it" 0
-@var select     customColor       "Select color preset" {
+@var checkbox   colorizeUserMessagesFull "  ⤷ [Desktop Only] Colorize the message bubble + the background of the whole chat entry behind it" 0
+@var select     customColor       "Select custom color preset" {
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
 	"Amaretto":            "#ab6f60",
@@ -91,7 +91,20 @@
 		/* CORE FUNCTIONALITY ***************************/
 
 		@{-chat__entry__inner--2} {
-			max-width: 100% !important;
+/* 			--mw: 100%; */
+			@media @sm {
+/* 				--mw: 97%; */
+			}
+			@media @md-up {
+				--mw: 96%;
+			}
+			@media @lg-up {
+				--mw: 95%;
+			}
+			@media @xl-up {
+				--mw: 90%;
+			}
+			max-width: var(--mw) !important;
 		}
 
 		/* FEATURE: HIDE AVATARS ************************/
@@ -105,18 +118,22 @@
 			}
 
 			/* add back some padding */
-			@{-chat__entry--gpt} > div {
-				padding-left: var(--pl) !important;
-				@media @sm {
-					--pl: max(calc(1vw*1rem), 1rem);
-					display: none !important;
-				};
-				@media @md-up {
-					--pl: max(calc(1.5vw*1rem), 1.5rem);
-					@media @xl-up {
-						--pl: max(calc(2vw*1rem), 2rem);
+			@{-chat__entry--gpt},
+			@{-sm--chat__entry--gpt} {
+				> div {
+					padding-left: var(--ph) !important;
+					@media @sm {
+						--ph: 1.1rem;
+						padding-right: var(--ph) !important;
+					};
+					@media @md-up {
+						--ph: max(calc(1.5vw*1rem), 1.5rem);
+						@media @xl-up {
+							--ph: max(calc(2vw*1rem), 2rem);
+						}
 					}
 				}
+
 			}
 		}
 
