@@ -56,7 +56,7 @@
 @-moz-document domain("chatgpt.com") {
 	html {
 		/* INIT ---------- */
-		.set-breakpoints() {
+		.breakpoints() {
 			@sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
 			@sm-max: ~"screen and (max-width: 767px)";
 			@md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
@@ -70,7 +70,7 @@
 			@xl-max: ~"screen and (max-width: 3839px)";
 			@xxl: ~"screen and (min-width: 3840px)";
 		}
-		.set-selectors() {
+		.selectors() {
 			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
 			@-header:                .sticky.top-0.z-10;
 			@-chat:                  @{-sidebar} + div:last-child > main;
@@ -90,8 +90,8 @@
 			@-sm--footer:            @{-sm--chat} ~ div.w-full;
 		}
 
-		.set-breakpoints();
-		.set-selectors();
+		.breakpoints();
+		.selectors();
 		/* ---------- INIT */
 
 		& when(@enableColorize =1) {
@@ -114,14 +114,13 @@
 
 		/* FEATURE: HIDE AVATARS ************************/
 		& when(@hideAvatar =1) {
-			@-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
-
 			@{-chat__entry--gpt},
 			@{-sm--chat__entry--gpt} {
+				@-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
 				@{-avatar} { display: none }
 			}
 
-			/* add back some padding */
+			/* add back some padding (to compensate for the hidden column) */
 			@{-chat__entry--gpt},
 			@{-sm--chat__entry--gpt} {
 				> div {
@@ -129,8 +128,7 @@
 					@media @sm {
 						--ph: 1.1rem;
 						padding-right: var(--ph) !important;
-					};
-					@media @md-up {
+					} @media @md-up {
 						--ph: max(calc(1.5vw*1rem), 1.5rem);
 						@media @xl-up {
 							--ph: max(calc(2vw*1rem), 2rem);
@@ -145,7 +143,6 @@
 		& when(@hideDisclaimer =1) {
 			@{-sm--footer},
 			@{-footer} {
-	/* 			border: 2px solid red !important; */
 				> div:last-child {
 					padding: 0.5rem;
 					> span {
@@ -159,13 +156,13 @@
 		#colorLib() {
 			.defaults(dark) {
 				@colors: {
-					@bg: #212121; /* '--main-surface-primary', '--gray-800' */
-					@text: #ececec; /* '--text-primary', '--gray-100' */
+					@bg: #212121;
+					@text: #ececec;
 				}
 			} .defaults(light) {
 				@colors: {
-					@bg: white; /* '--main-surface-primary', '--gray-100' */
-					@text: #0d0d0d; /* '--text-primary', '--gray-950' */
+					@bg: white;
+					@text: #0d0d0d;
 				}
 			}
 
@@ -199,7 +196,6 @@
 		}
 
 		.colorize(@theme: dark) {
-			// @base-colors: if(@theme =dark, #colorLib.defaults(dark)[], #colorLib.defaults(light)[]);
 			@base-colors: #colorLib.defaults(@theme)[];
 			@tinted-bg-color: #colorLib.bgTint(@theme, @base-colors[@bg])[];
 			@accessible-text-color: #colorLib.accessible-fg-color(@tinted-bg-color)[];
