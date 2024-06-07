@@ -190,13 +190,13 @@
 		}
 
 		.colorize(@theme: dark) {
-			@base-colors: #colorLib.defaults(@theme)[];
-			@tinted-bg-color: #colorLib.bgTint(@theme, @base-colors[@bg])[];
-			@accessible-text-color: #colorLib.accessible-fg-color(@tinted-bg-color)[];
+			@baseColors: #colorLib.defaults(@theme)[];
+			@tintedBg: #colorLib.bgTint(@theme, @baseColors[@bg])[];
+			@accessibleText: #colorLib.accessible-fg-color(@tintedBg)[];
 
 			.apply() {
-				background-color: @tinted-bg-color !important;
-				color: @accessible-text-color !important;
+				background-color: @tintedBg !important;
+				color: @accessibleText !important;
 			}
 
 			& when (@colorizePromptElements =1) {
@@ -209,10 +209,10 @@
 				@{-sm--chat__prompt}, @{-chat__prompt} {
 					button.rounded-full {
 						&[disabled] {
-							color: fadeout(@accessible-text-color, 65%);
-							background-color: fadeout(@accessible-text-color, 85%) !important;
+							color: fadeout(@accessibleText, 65%);
+							background-color: fadeout(@accessibleText, 85%) !important;
 						} &:not([disabled]) {
-							color: @accessible-text-color;
+							color: @accessibleText;
 							background-color: inherit;
 						}
 					}
@@ -231,7 +231,7 @@
 						& when (@colorizeMsgFullEntry =1) {
 							.apply();
 							@{-msg-bubble} {
-								@softBg: fade(softlight(@customColor, @tinted-bg-color), 50%);
+								@softBg: fade(softlight(@customColor, @tintedBg), 40%);
 								background-color: @softBg;
 							}
 						}
