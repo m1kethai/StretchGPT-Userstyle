@@ -57,18 +57,12 @@
 	html {
 		/* INIT ---------- */
 		.breakpoints() {
-			@sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
-			@sm-max: ~"screen and (max-width: 767px)";
-			@md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
-			@md-up: ~"screen and (min-width: 768px)";
-			@md-max: ~"screen and (max-width: 1023px)";
-			@lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
-			@lg-up: ~"screen and (min-width: 1024px)";
-			@lg-max: ~"screen and (max-width: 1535px)";
-			@xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
-			@xl-up: ~"screen and (min-width: 1536px)";
-			@xl-max: ~"screen and (max-width: 2047px)";
-			@xxl: ~"screen and (min-width: 2048px)";
+			@sm: ~"screen and (min-width: 0px) and (max-width: 767px)"; @sm-max: ~"screen and (max-width: 767px)";
+			@md: ~"screen and (min-width: 768px) and (max-width: 1023px)"; @md-up: ~"screen and (min-width: 768px)"; @md-max: ~"screen and (max-width: 1023px)";
+			@lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)"; @lg-up: ~"screen and (min-width: 1024px)"; @lg-max: ~"screen and (max-width: 1535px)";
+			@xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)"; @xl-up: ~"screen and (min-width: 1536px)"; @xl-max: ~"screen and (max-width: 2047px)";
+			@xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)"; @xxl-up: ~"screen and (min-width: 2048px)"; @xxl-max: ~"screen and (max-width: 2559px)";
+			@xxxl: ~"screen and (min-width: 2560px)";
 		}
 		.selectors() {
 			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
@@ -89,7 +83,6 @@
 			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-\[26px\];
 			@-sm--footer:            @{-sm--chat} ~ div.w-full;
 		}
-
 		.breakpoints();
 		.selectors();
 		/* ---------- INIT */
@@ -100,15 +93,16 @@
 		}
 
 		/* CORE FUNCTIONALITY ***************************/
-
 		@{-chat__entry__inner--2} {
 			max-width: var(--mw) !important;
 			@media @md-up {
-				--mw: 96%;
+				--mw: 98%;
 			} @media @lg-up {
 				--mw: 95%;
 			} @media @xl-up {
 				--mw: 90%;
+			} @media @xxl-up {
+				--mw: 80%;
 			}
 		}
 
