@@ -1,19 +1,18 @@
 # **StretchGPT**
 
-**Userstyle to enhance the ChatGPT experience for both desktop and mobile browsers - by expanding the overall chat area and making a few subtle UI tweaks for improved aesthetics and conversation readability, all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and most features are toggleable.**
+> https://github.com/m1kethai/StretchGPT-Userstyle
 
-> Visit the userstyles.world page for an easy 1-click installation:
->
-> https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
+**Enhances the web ChatGPT experience for all viewports by expanding the usable chat area, making a few UI tweaks for improved readability, and enabling dynamic custom colorization for key elements - all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and all non-core features are toggleable.**
+
 ---
 
 ### **Core Functionality:**
 
-Expands the usable chat area by >200% by replacing the default restrictive max-width and fixed margins/padding with much more subtle, adaptive spacing that scales according to your current viewport size.
+Expands the usable chat area by > 200% by replacing the default restrictive max-width and fixed margins/padding with much more subtle, adaptive spacing that scales according to your current viewport size.
 
 ### **Extra/Optional Features:**
 
-1. **Accent Colors**
+1. **Custom Accent Colors**
   - Pick from the 40+ included color presets to liven up the dull default color palette and make it easier to distinguish between your prompts and ChatGPT's responses.
   - There are separate toggles in the userstyle's dropdown menu to apply the selected color to your messages and/or your message bubbles, as well as the prompt input elements.
 2. **Hide Avatars**
@@ -26,14 +25,18 @@ Expands the usable chat area by >200% by replacing the default restrictive max-w
 - Colorpicker
 - Expanded sidebar menu
 - Accent colors for header and sidebar elements
-- Configurable padding/width for the main chat content 
+- Configurable padding/width for the main chat content
 ---
 ### **Changelog:**
 
+#### **[6.1]**
+- Added 4 "Stretchiness" options to the userstyle config menu, to allow users to choose how wide the chat area expands based on personal preference
+- The dropdown also includes a "Disable" option for those who are only interested in using the extra features.
+- Tweaked the default max chat widths (now called "Comfy") so that it maxes out at 80% for the largest breakpoints.
 #### **[6.0]**
 - Fixed all the broken things for both desktop and mobile VPs
 - Added some more cool custom color presets
-- Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row. 
+- Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row.
 #### **[5.1]**
 - Bugfix (ChatGPT update) - custom color no longer applying to the prompt input field
 - Colorize feature now fully working and enabled for "Light" ChatGPT theme
