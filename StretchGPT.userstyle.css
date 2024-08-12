@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        6.1
+@version        6.2
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -75,9 +75,8 @@
 			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
 			@-header:                .sticky.top-0.z-10;
 			@-chat:                  @{-sidebar} + div:last-child > main;
-			@-chat__entry:           @{-header} ~ div:has(.group\/conversation-turn);
-			@-chat__entry__inner--1: @{-chat__entry} > div;
-			@-chat__entry__inner--2: @{-chat__entry} .md\:max-w-3xl;
+			@-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
+			@-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
 			@-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
 			@-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
 			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
@@ -100,7 +99,7 @@
 		}
 
 		/* CORE FUNCTIONALITY ***************************/
-		@{-chat__entry__inner--2} when (@stretchLvl >0) {
+		@{-chat__entry__inner} when (@stretchLvl >0) {
 			max-width: var(--mw, 100%) !important;
 			@mws: {
 				comfy: 98%, 95%, 90%, 80%;
