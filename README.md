@@ -29,14 +29,19 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 ---
 ### **Changelog:**
 
+#### **[6.2]**
+- Fix broken selectors for chat entries/messages post-ChatGPT update
+
 #### **[6.1]**
 - Added 4 "Stretchiness" options to the userstyle config menu, to allow users to choose how wide the chat area expands based on personal preference
 - The dropdown also includes a "Disable" option for those who are only interested in using the extra features.
 - Tweaked the default max chat widths (now called "Comfy") so that it maxes out at 80% for the largest breakpoints.
+
 #### **[6.0]**
 - Fixed all the broken things for both desktop and mobile VPs
 - Added some more cool custom color presets
-- Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row.
+- Added some new color customization options (you can now apply the color to just your message bubble or the bubble + full chat item/row).
+
 #### **[5.1]**
 - Bugfix (ChatGPT update) - custom color no longer applying to the prompt input field
 - Colorize feature now fully working and enabled for "Light" ChatGPT theme
