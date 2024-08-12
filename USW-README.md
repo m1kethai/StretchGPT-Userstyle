@@ -2,14 +2,14 @@
 
 **Enhances the web ChatGPT experience for all viewports by expanding the usable chat area, making a few UI tweaks for improved readability, and enabling dynamic custom colorization for key elements - all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and all non-core features are toggleable.**
 
-#### Sources:
-| Link | URL |
+---
+#### Links:
+| Page | URL |
 | --- | --- |
 | **USW** | _[userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations](https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations)_ |
-| **GitHub Repo** | _[github.com/m1kethai/StretchGPT-Userstyle](https://github.com/m1kethai/StretchGPT-Userstyle)_ |
+| **GitHub** | _[github.com/m1kethai/StretchGPT-Userstyle](https://github.com/m1kethai/StretchGPT-Userstyle)_ |
 
 ---
-
 ## **Core Functionality**
 Expands the usable chat area by > 200% by replacing the default restrictive max-width and fixed margins/padding with much more subtle, adaptive spacing that scales according to your current viewport size.
 
