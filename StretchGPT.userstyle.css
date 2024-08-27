@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        6.2
+@version        6.2.1
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -74,21 +74,28 @@
 		.selectors() {
 			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
 			@-header:                .sticky.top-0.z-10;
-			@-chat:                  @{-sidebar} + div:last-child > main;
-			@-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
-			@-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
-			@-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
-			@-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-			@-footer:                @{-chat} > div:first-child > div:last-child;
-
-			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
-			@-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
+			
+            @-chat:                  @{-sidebar} + div:last-child > main;
 			@-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
+            
+			@-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
 			@-sm--chat__entry:       @{-sm--chat} div.w-full:has(.group\/conversation-turn);
+			
+            @-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
+			
+            @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
+			@-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
+			
+            @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
+			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
+			
+            @-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
 			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-\[26px\];
+            
+			@-footer:                @{-chat} > div:first-child > div:last-child;
 			@-sm--footer:            @{-sm--chat} ~ div.w-full;
 		}
+        
 		.breakpoints();
 		.selectors();
 		/* ---------- INIT */
@@ -151,20 +158,14 @@
 			}
 		}
 
-		/* FEATURE: HIDE DISCLAIMER *********************/
+		/* FEATURE: HIDE FOOTER DISCLAIMER *********************/
 		& when(@hideDisclaimer =1) {
-			@{-sm--footer},
-			@{-footer} {
-				> div:last-child {
-					padding: 0.5rem;
-					> span {
-						display: none;
-					}
-				}
+            @{-footer}, @{-sm--footer} {
+                div.empty\:hidden span { display: none !important; }
 			}
 		}
 
-		/* FEATURE: CUSTOM COLORIZATION *****************/
+		/* FEATURE: COLORIZATION *****************/
 		#colorLib() {
 			.defaults(dark) {
 				@colors: {
