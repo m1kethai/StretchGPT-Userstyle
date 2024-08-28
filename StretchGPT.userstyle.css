@@ -1,24 +1,24 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        6.2.1
+@version        6.2.2
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
-@var select     stretchLvl             "Stretchiness" {
-	"Comfy (default)*": "1",
-	"Conservative (closest to base ChatGPT)": "2",
-	"Spacious": "3",
-	"Unrestricted (not recommended for huge screens)": "4",
-	"Disabled (turn off this feature completely)": "0"
+@var select     stretchLvl             "Stretch Level" {
+	"[0] Disabled     (If you only want to use the other features)": "0",
+	"[1] Conservative     (Closest to regular ChatGPT)": "1",
+	"[2] Comfy*": "2",
+	"[3] Spacious": "3",
+	"[4] Unrestricted (Not recommended for bigger/most screens)": "4"
 }
-@var checkbox   hideAvatar             "Hide ChatGPT avatar (Allow message contents to expand a bit wider)" 0
-@var checkbox   hideDisclaimer         "Hide the 'ChatGPT can make mistakes' disclaimer at the bottom" 0
-@var checkbox   enableColorize         "Enable color customizations (All color-related features below are ignored when this toggle is off)" 0
-@var checkbox   colorizePromptElements "Apply custom colors to the input/prompt elements" 1
-@var checkbox   colorizeMsgBubble      "Apply custom color to user message bubbles" 1
-@var checkbox   colorizeMsgFullEntry   "  ⤷ Colorize the message bubble + the full background of the chat item/row behind it (Desktop only)" 0
-@var select     customColor            "Select a custom color preset" {
+@var checkbox   hideAvatar             "Hide ChatGPT message avatars (message content will expand to fill the space)" 0
+@var checkbox   hideDisclaimer         "Hide the disclaimer (\"ChatGPT can make mistakes..\") at the bottom of the window" 0
+@var checkbox   enableColorize         "Enable color customizations (unlocks all color-related features below)" 0
+@var checkbox   colorizePromptElements "Apply custom colors to input/prompt elements" 1
+@var checkbox   colorizeMsgBubble      "Apply custom colors to message bubbles (user messages only)" 1
+@var checkbox   colorizeMsgFullEntry   "↪️    Also apply to the background behind the message bubble (desktop/tablet only)" 0
+@var select     customColor            "Color preset" {
 	"Absinthe Green":      "#76b583",
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
@@ -62,7 +62,7 @@
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
 	html {
-		/* INIT ---------- */
+		/* INIT ----------> */
 		.breakpoints() {
 			@sm: ~"screen and (min-width: 0px) and (max-width: 767px)"; @sm-max: ~"screen and (max-width: 767px)";
 			@md: ~"screen and (min-width: 768px) and (max-width: 1023px)"; @md-up: ~"screen and (min-width: 768px)"; @md-max: ~"screen and (max-width: 1023px)";
@@ -98,7 +98,7 @@
         
 		.breakpoints();
 		.selectors();
-		/* ---------- INIT */
+		/* <---------- INIT */
 
 		& when(@enableColorize =1) {
 			&.dark { .colorize(dark)}
@@ -107,28 +107,26 @@
 
 		/* CORE FUNCTIONALITY ***************************/
 		@{-chat__entry__inner} when (@stretchLvl >0) {
-			max-width: var(--mw, 100%) !important;
-			@mws: {
-				comfy: 98%, 95%, 90%, 80%;
-				conservative: 90%, 85%, 80%, 70%;
-				spacious: 100%, 98%, 95%, 90%;
-				unrestricted: 100%, 100%, 100%, 100%;
-			}
-			@vpMWs: if(@stretchLvl =1, @mws[comfy],
-					if(@stretchLvl =2, @mws[conservative],
-					if(@stretchLvl =3, @mws[spacious],
-					@mws[unrestricted]))
-			);
-
-			@media @md-up {
-				--mw: extract(@vpMWs, 1);
-			} @media @lg-up {
-				--mw: extract(@vpMWs, 2);
-			} @media @xl-up {
-				--mw: extract(@vpMWs, 3);
-			} @media @xxl-up {
-				--mw: extract(@vpMWs, 4);
-			}
+            @mws: {
+                conservative: 85%, 80%, 70%;
+                comfy: 95%, 90%, 80%;
+                spacious: 97%, 90%, 90%;
+                unrestricted: 98%, 99%, 99%;
+            }
+            @vpMWs: if(
+                @stretchLvl =1, @mws[conservative], if(
+                @stretchLvl =2, @mws[comfy], if(
+                @stretchLvl =3, @mws[spacious], 
+                @mws[unrestricted]
+                ))
+            );
+            
+            max-width: var(--mw);
+            --mw: 100%;
+            
+            @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
+            @media @lg    { --mw: extract(@vpMWs, 2) !important; } 
+            @media @xl-up { --mw: extract(@vpMWs, 3) !important; } 
 		}
 
 		/* FEATURE: HIDE AVATARS ************************/
