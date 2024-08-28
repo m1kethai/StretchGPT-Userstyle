@@ -38,8 +38,15 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 
 ### **Changelog**
 
+#### **[6.2.2]**
+- Tweak max-width scaling for the different stretch modes. Set to 100% fixed width <768px.
+- Update/rearrange settings menu items
+
+#### **[6.2.1]**
+- Fix (ChatGPT update): "Hide disclaimer" feature
+
 #### **[6.2]**
-- Fix broken selectors for chat entries/messages post-ChatGPT update
+- Fix (ChatGPT update): broken selectors for chat entries/messages
 
 #### **[6.1]**
 - Added 4 "Stretchiness" options to the userstyle config menu, to allow users to choose how wide the chat area expands based on personal preference
