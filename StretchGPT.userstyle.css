@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        6.2.3
+@version        6.2.4
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -16,48 +16,48 @@
 @var checkbox   hideDisclaimer         "⚠️ Hide Disclaimer @ Bottom (\"ChatGPT can make mistakes...\")" 0
 @var checkbox   enableColorize         "🌈 Enable Color Customizations [Unlocks all the color options below!]" 0
 @var select     customColor            "~> 🎨 Select Color Preset:" {
-	"Absinthe Green":      "#76b583",
-	"Aged Sage*":          "#8da572",
-	"Akira":               "#840000",
-	"Amaretto":            "#ab6f60",
-	"Ancient Gold":        "#b59410",
-	"Aztek":               "#293432",
-	"Black Pearl":         "#1e272c",
-	"Black Sabbath":       "#220022",
-	"Blue Moss":           "#5D737E",
-	"Cardamom":            "#aaaa77",
-	"Caviar":              "#292a2d",
-	"Chrysanthemum":       "#c35458",
-	"Cyber Grape":         "#58427C",
-	"Cyprus":              "#545a3e",
-	"Dark and Stormy":     "#353f51",
-	"Deep Jungle":         "#1A2421",
-	"Deep Space":          "#2D3142",
-	"Dusty Turquoise":     "#5a8a89",
-	"Earl Grey":           "#a6978a",
-	"Emerald":             "#0f380f",
-	"FF06B5":              "#FF06B5",
-	"Gameboy Teal":        "#0ABFBC",
-	"Japanese Violet":     "#5B3256",
-	"Lobster Bisque":      "#FFDAB9",
-	"Obsidian Ash":        "#343434",
-	"Prince":              "#4b384c",
-	"Purple Haze":         "#807396",
-	"Raichu":              "#fc8c2c",
-	"Sailor Moon":         "#ffee00",
-	"Sakura Bloom":        "#ff7b9c",
-	"Sanguine":            "#6c110e",
-	"Sapphired":           "#5b82a6",
-	"Sharp Indigo":        "#48007c",
-	"Steampunk Leather":   "#6f3b34",
-	"Super Blue Lavender": "#5a5b9f",
-	"Tokyo Midnight":      "#1a1a2e",
-	"Wasabi Peanut":       "#b4c79c",
-	"Wasabi":              "#afd77f",
+	"Absinthe Green":       "#76b583",
+	"Aged Sage":            "#8da572",
+	"Akira":                "#840000",
+	"Amaretto":             "#ab6f60",
+	"Ancient Gold":         "#b59410",
+	"Aztek":                "#293432",
+	"Black Pearl":          "#1e272c",
+	"Black Sabbath":        "#220022",
+	"Blue Moss":            "#5D737E",
+	"Cardamom":             "#aaaa77",
+	"Caviar":               "#292a2d",
+	"Chrysanthemum":        "#c35458",
+	"Cyber Grape":          "#58427C",
+	"Cyprus":               "#545a3e",
+	"Dark and Stormy":      "#353f51",
+	"Deep Jungle":          "#1A2421",
+	"Deep Space":           "#2D3142",
+	"Dusty Turquoise":      "#5a8a89",
+	"Earl Grey":            "#a6978a",
+	"Emerald":              "#0f380f",
+	"FF06B5":               "#FF06B5",
+	"Gameboy Teal":         "#0ABFBC",
+	"Japanese Violet":      "#5B3256",
+	"Lobster Bisque":       "#FFDAB9",
+	"Obsidian Ash":         "#343434",
+	"Prince":               "#4b384c",
+	"Purple Haze":          "#807396",
+	"Raichu":               "#fc8c2c",
+	"Sailor Moon":          "#ffee00",
+	"Sakura Bloom":         "#ff7b9c",
+	"Sanguine":             "#6c110e",
+	"Sapphired":            "#5b82a6",
+	"Sharp Indigo":         "#48007c",
+	"Steampunk Leather":    "#6f3b34",
+	"Super Blue Lavender*": "#5a5b9f",
+	"Tokyo Midnight":       "#1a1a2e",
+	"Wasabi Peanut":        "#b4c79c",
+	"Wasabi":               "#afd77f",
 }
 @var checkbox   colorizePromptElements "~> 🌈 Colorize Input Components" 1
 @var checkbox   colorizeMsgBubble      "~> 🌈 Colorize User Message Bubbles" 1
-@var checkbox   colorizeMsgFullEntry   "~> 🌈 Colorize Full Message BG (Bubble color must be enabled)" 0
+@var checkbox   colorizeMsgFullEntry   "~> 🌈 + Full User Message BG (Bubble colors must be enabled)" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
