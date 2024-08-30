@@ -38,6 +38,10 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 
 ### **Changelog**
 
+#### **[6.2.4]**
+- Switch default color preset from "Aged Sage" to "Super Blue Lavender"
+- Improved formatting in options menu
+
 #### **[6.2.2]**
 - Tweak max-width scaling for the different stretch modes. Set to 100% fixed width <768px.
 - Update/rearrange settings menu items
