@@ -1,24 +1,21 @@
 /* ==UserStyle==
 @name           StretchGPT: Extra Wide ChatGPT Conversations
-@version        6.2.2
+@version        6.2.3
 @author         m1kethai
 @description    Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
-@var select     stretchLvl             "Stretch Level" {
-	"[0] Disabled     (If you only want to use the other features)": "0",
-	"[1] Conservative     (Closest to regular ChatGPT)": "1",
-	"[2] Comfy*": "2",
-	"[3] Spacious": "3",
-	"[4] Unrestricted (Not recommended for bigger/most screens)": "4"
+@var select     stretchLvl             "🖥️ Stretchiness" {
+	"🫥 None (Enable \"bonus\" features only)": "0",
+	"🤏 Conservative": "1",
+	"✨ Comfy*": "2",
+	"👹 Spacious": "3",
+	"🫨 Unrestricted (Not recommended on bigger screens)": "4"
 }
-@var checkbox   hideAvatar             "Hide ChatGPT message avatars (message content will expand to fill the space)" 0
-@var checkbox   hideDisclaimer         "Hide the disclaimer (\"ChatGPT can make mistakes..\") at the bottom of the window" 0
-@var checkbox   enableColorize         "Enable color customizations (unlocks all color-related features below)" 0
-@var checkbox   colorizePromptElements "Apply custom colors to input/prompt elements" 1
-@var checkbox   colorizeMsgBubble      "Apply custom colors to message bubbles (user messages only)" 1
-@var checkbox   colorizeMsgFullEntry   "↪️    Also apply to the background behind the message bubble (desktop/tablet only)" 0
-@var select     customColor            "Color preset" {
+@var checkbox   hideAvatar             "🙈 Hide ChatGPT Avatar (messages expand to fill the space)" 0
+@var checkbox   hideDisclaimer         "⚠️ Hide Disclaimer @ Bottom (\"ChatGPT can make mistakes...\")" 0
+@var checkbox   enableColorize         "🌈 Enable Color Customizations [Unlocks all the color options below!]" 0
+@var select     customColor            "~> 🎨 Select Color Preset:" {
 	"Absinthe Green":      "#76b583",
 	"Aged Sage*":          "#8da572",
 	"Akira":               "#840000",
@@ -58,6 +55,9 @@
 	"Wasabi Peanut":       "#b4c79c",
 	"Wasabi":              "#afd77f",
 }
+@var checkbox   colorizePromptElements "~> 🌈 Colorize Input Components" 1
+@var checkbox   colorizeMsgBubble      "~> 🌈 Colorize User Message Bubbles" 1
+@var checkbox   colorizeMsgFullEntry   "~> 🌈 Colorize Full Message BG (Bubble color must be enabled)" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
