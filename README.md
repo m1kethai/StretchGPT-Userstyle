@@ -30,6 +30,9 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 
 ### **Changelog:**
 
+#### **[6.2.5]**
+- Fix: selector update (chat disclaimer)
+
 #### **[6.2.4]**
 - Switch default color preset from "Aged Sage" to "Super Blue Lavender"
 
@@ -41,10 +44,10 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 - Update/rearrange settings menu items
 
 #### **[6.2.1]**
-- Fix (ChatGPT update): "Hide disclaimer" feature
+- Fix: "Hide disclaimer" feature
 
 #### **[6.2]**
-- Fix (ChatGPT update): broken selectors for chat entries/messages
+- Fix: broken selectors for chat entries/messages
 
 #### **[6.1]**
 - Added 4 "Stretchiness" options to the userstyle config menu, to allow users to choose how wide the chat area expands based on personal preference
