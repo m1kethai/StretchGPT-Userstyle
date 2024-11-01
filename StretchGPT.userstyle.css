@@ -12,6 +12,14 @@
 }
 @var checkbox   hideAvatar             "🙈 Hide ChatGPT Avatar (messages expand to fill the space)" 0
 @var checkbox   hideDisclaimer         "⚠️ Hide Disclaimer @ Bottom (\"ChatGPT can make mistakes...\")" 0
+@var select     chatBubbleWidth        "🗨️ Adjust chat bubble max-width (for user messages)" {
+	"75% (Default)*": null,
+	"80%": "80%",
+	"85%": "85%",
+	"90%": "90%",
+	"95%": "95%",
+	"Full": "97%",
+}
 @var checkbox   enableColorize         "🌈 Enable Color Customizations [Unlocks all the color options below!]" 0
 @var select     customColor            "~> 🎨 Select Color Preset:" {
 	"Absinthe Green":       "#76b583",
@@ -88,12 +96,12 @@
 			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
 
 			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-\[26px\];
+			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-3xl;
 
-			@-chat__footer:       @{-chat} > div.composer-parent div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
-			@-chat__footer--sm:            @{-sm--chat} ~ div.w-full;
+			@-chat__footer:          @{-chat} > div.composer-parent div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
+			@-chat__footer--sm:      @{-sm--chat} ~ div.w-full;
 
-			@-composer-view__footer:      @{-chat} > div.composer-parent .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
+			@-composer-view__footer: @{-chat} > div.composer-parent .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
 		}
 
 		.breakpoints();
