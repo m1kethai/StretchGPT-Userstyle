@@ -14,14 +14,6 @@
 }
 @var checkbox   hideAvatar             "🙈 Hide ChatGPT Avatar (messages expand to fill the space)" 0
 @var checkbox   hideDisclaimer         "⚠️ Hide Disclaimer @ Bottom (\"ChatGPT can make mistakes...\")" 0
-@var select     chatBubbleWidth        "🗨️ Adjust chat bubble max-width (for user messages)" {
-	"75% (Default)*": null,
-	"80%": "80%",
-	"85%": "85%",
-	"90%": "90%",
-	"95%": "95%",
-	"Full": "97%",
-}
 @var checkbox   enableColorize         "🌈 Enable Color Customizations [Unlocks all the color options below!]" 0
 @var select     customColor            "~> 🎨 Select Color Preset:" {
 	"Absinthe Green":       "#76b583",
