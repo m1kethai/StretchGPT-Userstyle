@@ -114,13 +114,12 @@
 
             max-width: var(--mw);
             --mw: 100%;
-
             @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
             @media @lg    { --mw: extract(@vpMWs, 2) !important; }
             @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
         }
 
-        /* FEATURE: HIDE AVATARS ************************/
+        /* HIDE CHATGPT AVATARS ************************/
         & when(@hideAvatar =1) {
             @{-chat__entry--gpt},
             @{-sm--chat__entry--gpt} {
@@ -146,7 +145,7 @@
             }
         }
 
-        /* FEATURE: HIDE FOOTER DISCLAIMER *********************/
+        /* HIDE DISCLAIMER *********************/
         & when(@hideDisclaimer =1) {
             @{-composer-view__footer},
             @{-chat__footer},
@@ -157,7 +156,7 @@
             }
         }
 
-        /* FEATURE: COLORIZATION *****************/
+        /* COLORIZE *****************/
         #colorLib() {
             .defaults(dark) {
                 @colors: {
@@ -213,7 +212,8 @@
             & when (@colorizePromptElements =1) {
                 @media @sm-max {
                     @{-sm--chat__prompt} {.apply()}
-                } @media @md-up {
+                }
+                @media @md-up {
                     @{-chat__prompt} {.apply()}
                 }
 
@@ -234,10 +234,11 @@
                 @-msg-bubble: .relative.rounded-3xl;
                 @media @sm-max {
                     @{-sm--chat__entry--user} {
-                        /* only allowing the bubble to be colorized @ the smallest breakpoint for now (doesn't look too great a lot of the time) */
+                        /* only allow bubble to be colorized @ the smallest BP for now */
                         @{-msg-bubble} {.apply()}
                     }
-                } @media @md-up {
+                }
+                @media @md-up {
                     @{-chat__entry--user} {
                         & when (@colorizeMsgFullEntry =1) {
                             .apply();
@@ -256,8 +257,8 @@
             }
         }
 
-        /* MISC. UI FIXES/ENHANCEMENTS ******************/
-        /* fixes recent UI bug where the left side of <ol> numbers are cut off in responses */
+        /* MISC FIXES/ENHANCEMENTS ******************/
+        /* fixes recent UI bug causing the left side of <ol> numbers to be cut off in ChatGPT responses */
         @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             padding-left: 1.85em;
         }
