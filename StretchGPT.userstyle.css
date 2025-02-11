@@ -6,11 +6,11 @@
 @namespace      https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor   less
 @var select     stretchLvl             "Stretch Factor" {
-	"[0] 🫥 Disable": "0",
-	"[1] 🤏 Conservative": "1",
-	"[2] ✨ Comfy": "2",
-	"[3] 👹 Spacious": "3",
-	"[4] 🫨 Unrestricted (Not recommended for huge screens)": "4"
+    "[0] 🫥 Disable": "0",
+    "[1] 🤏 Conservative": "1",
+    "[2] ✨ Comfy": "2",
+    "[3] 👹 Spacious": "3",
+    "[4] 🫨 Unrestricted (Not recommended for huge screens)": "4"
 }
 @var checkbox   hideAvatar             "🙈 Hide ChatGPT message avatars" 0
 @var checkbox   hideDisclaimer         "⚠️ Hide bottom disclaimer (\"ChatGPT can make mistakes...\")" 0
@@ -19,247 +19,247 @@
 @var checkbox   colorizeMsgBubble      "🌈 Colorize: User message bubbles" 1
 @var checkbox   colorizeMsgFullEntry   "🌈 + Full background behind bubbles [Requires bubble colors]" 0
 @var select     customColor            "🎨 Color preset:" {
-	"Absinthe Green":       "#76b583",
-	"Aged Sage":            "#8da572",
-	"Akira":                "#840000",
-	"Amaretto":             "#ab6f60",
-	"Ancient Gold":         "#b59410",
-	"Aztek":                "#293432",
-	"Black Pearl":          "#1e272c",
-	"Black Sabbath":        "#220022",
-	"Blue Moss":            "#5D737E",
-	"Cardamom":             "#aaaa77",
-	"Caviar":               "#292a2d",
-	"Chrysanthemum":        "#c35458",
-	"Cyber Grape":          "#58427C",
-	"Cyprus":               "#545a3e",
-	"Dark and Stormy":      "#353f51",
-	"Deep Jungle":          "#1A2421",
-	"Deep Space":           "#2D3142",
-	"Dusty Turquoise":      "#5a8a89",
-	"Earl Grey":            "#a6978a",
-	"Emerald":              "#0f380f",
-	"FF06B5":               "#FF06B5",
-	"Gameboy Teal":         "#0ABFBC",
-	"Japanese Violet":      "#5B3256",
-	"Lobster Bisque":       "#FFDAB9",
-	"Obsidian Ash":         "#343434",
-	"Prince":               "#4b384c",
-	"Purple Haze":          "#807396",
-	"Raichu":               "#fc8c2c",
-	"Sailor Moon":          "#ffee00",
-	"Sakura Bloom":         "#ff7b9c",
-	"Sanguine":             "#6c110e",
-	"Sapphired":            "#5b82a6",
-	"Sharp Indigo":         "#48007c",
-	"Steampunk Leather":    "#6f3b34",
-	"Super Blue Lavender*": "#5a5b9f",
-	"Tokyo Midnight":       "#1a1a2e",
-	"Wasabi Peanut":        "#b4c79c",
-	"Wasabi":               "#afd77f",
+    "Absinthe Green":       "#76b583",
+    "Aged Sage":            "#8da572",
+    "Akira":                "#840000",
+    "Amaretto":             "#ab6f60",
+    "Ancient Gold":         "#b59410",
+    "Aztek":                "#293432",
+    "Black Pearl":          "#1e272c",
+    "Black Sabbath":        "#220022",
+    "Blue Moss":            "#5D737E",
+    "Cardamom":             "#aaaa77",
+    "Caviar":               "#292a2d",
+    "Chrysanthemum":        "#c35458",
+    "Cyber Grape":          "#58427C",
+    "Cyprus":               "#545a3e",
+    "Dark and Stormy":      "#353f51",
+    "Deep Jungle":          "#1A2421",
+    "Deep Space":           "#2D3142",
+    "Dusty Turquoise":      "#5a8a89",
+    "Earl Grey":            "#a6978a",
+    "Emerald":              "#0f380f",
+    "FF06B5":               "#FF06B5",
+    "Gameboy Teal":         "#0ABFBC",
+    "Japanese Violet":      "#5B3256",
+    "Lobster Bisque":       "#FFDAB9",
+    "Obsidian Ash":         "#343434",
+    "Prince":               "#4b384c",
+    "Purple Haze":          "#807396",
+    "Raichu":               "#fc8c2c",
+    "Sailor Moon":          "#ffee00",
+    "Sakura Bloom":         "#ff7b9c",
+    "Sanguine":             "#6c110e",
+    "Sapphired":            "#5b82a6",
+    "Sharp Indigo":         "#48007c",
+    "Steampunk Leather":    "#6f3b34",
+    "Super Blue Lavender*": "#5a5b9f",
+    "Tokyo Midnight":       "#1a1a2e",
+    "Wasabi Peanut":        "#b4c79c",
+    "Wasabi":               "#afd77f",
 }
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
-	html {
-		.breakpoints() {
-			@sm: ~"screen and (min-width: 0px) and (max-width: 767px)"; @sm-max: ~"screen and (max-width: 767px)";
-			@md: ~"screen and (min-width: 768px) and (max-width: 1023px)"; @md-up: ~"screen and (min-width: 768px)"; @md-max: ~"screen and (max-width: 1023px)";
-			@lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)"; @lg-up: ~"screen and (min-width: 1024px)"; @lg-max: ~"screen and (max-width: 1535px)";
-			@xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)"; @xl-up: ~"screen and (min-width: 1536px)"; @xl-max: ~"screen and (max-width: 2047px)";
-			@xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)"; @xxl-up: ~"screen and (min-width: 2048px)"; @xxl-max: ~"screen and (max-width: 2559px)";
-			@xxxl: ~"screen and (min-width: 2560px)";
-		}
-		.selectors() {
-			@-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-			@-header:                .sticky.top-0.z-10;
-			@-chat:                  .h-full.max-w-full.overflow-hidden > main;
-			@-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
-			@-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
-			@-sm--chat__entry:       @{-sm--chat} div.w-full:has(.group\/conversation-turn);
-			@-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
-			@-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
-			@-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
-			@-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-			@-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
-			@-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-			@-sm--chat__prompt:      @{-header} ~ main form div.rounded-3xl;
-			@-chat__footer:          @{-chat} > div.composer-parent div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
-			@-chat__footer--sm:      @{-sm--chat} ~ div.w-full;
-			@-composer-view__footer: @{-chat} > div.composer-parent .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
-		}
-		.breakpoints();
-		.selectors();
+    html {
+        .breakpoints() {
+            @sm: ~"screen and (min-width: 0px) and (max-width: 767px)"; @sm-max: ~"screen and (max-width: 767px)";
+            @md: ~"screen and (min-width: 768px) and (max-width: 1023px)"; @md-up: ~"screen and (min-width: 768px)"; @md-max: ~"screen and (max-width: 1023px)";
+            @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)"; @lg-up: ~"screen and (min-width: 1024px)"; @lg-max: ~"screen and (max-width: 1535px)";
+            @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)"; @xl-up: ~"screen and (min-width: 1536px)"; @xl-max: ~"screen and (max-width: 2047px)";
+            @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)"; @xxl-up: ~"screen and (min-width: 2048px)"; @xxl-max: ~"screen and (max-width: 2559px)";
+            @xxxl: ~"screen and (min-width: 2560px)";
+        }
+        .selectors() {
+            @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+            @-header:                .sticky.top-0.z-10;
+            @-chat:                  .h-full.max-w-full.overflow-hidden > main;
+            @-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
+            @-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
+            @-sm--chat__entry:       @{-sm--chat} div.w-full:has(.group\/conversation-turn);
+            @-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
+            @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
+            @-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
+            @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
+            @-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
+            @-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
+            @-sm--chat__prompt:      @{-header} ~ main form div.rounded-3xl;
+            @-chat__footer:          @{-chat} > div.composer-parent div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
+            @-chat__footer--sm:      @{-sm--chat} ~ div.w-full;
+            @-composer-view__footer: @{-chat} > div.composer-parent .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
+        }
+        .breakpoints();
+        .selectors();
 
-		& when(@enableColorize =1) {
-			&.dark { .colorize(dark)}
-			&.light { .colorize(light)}
-		}
+        & when(@enableColorize =1) {
+            &.dark { .colorize(dark)}
+            &.light { .colorize(light)}
+        }
 
-		/* CORE FUNCTIONALITY ***************************/
-		@{-chat__entry__inner} when (@stretchLvl >0) {
-			@mws: {
-				conservative: 85%, 80%, 70%;
-				comfy: 95%, 90%, 80%;
-				spacious: 97%, 90%, 90%;
-				unrestricted: 98%, 99%, 99%;
-			}
-			@vpMWs: if(
-				@stretchLvl =1, @mws[conservative], if(
-				@stretchLvl =2, @mws[comfy], if(
-				@stretchLvl =3, @mws[spacious],
-				@mws[unrestricted]
-				))
-			);
+        /* CORE FUNCTIONALITY ***************************/
+        @{-chat__entry__inner} when (@stretchLvl >0) {
+            @mws: {
+                conservative: 85%, 80%, 70%;
+                comfy: 95%, 90%, 80%;
+                spacious: 97%, 90%, 90%;
+                unrestricted: 98%, 99%, 99%;
+            }
+            @vpMWs: if(
+                @stretchLvl =1, @mws[conservative], if(
+                @stretchLvl =2, @mws[comfy], if(
+                @stretchLvl =3, @mws[spacious],
+                @mws[unrestricted]
+                ))
+            );
 
-			max-width: var(--mw);
-			--mw: 100%;
+            max-width: var(--mw);
+            --mw: 100%;
 
-			@media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
-			@media @lg    { --mw: extract(@vpMWs, 2) !important; }
-			@media @xl-up { --mw: extract(@vpMWs, 3) !important; }
-		}
+            @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
+            @media @lg    { --mw: extract(@vpMWs, 2) !important; }
+            @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
+        }
 
-		/* FEATURE: HIDE AVATARS ************************/
-		& when(@hideAvatar =1) {
-			@{-chat__entry--gpt},
-			@{-sm--chat__entry--gpt} {
-				@-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
-				@{-avatar} { display: none }
-			}
+        /* FEATURE: HIDE AVATARS ************************/
+        & when(@hideAvatar =1) {
+            @{-chat__entry--gpt},
+            @{-sm--chat__entry--gpt} {
+                @-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
+                @{-avatar} { display: none }
+            }
 
-			/* add back some padding (to compensate for the hidden column) */
-			@{-chat__entry--gpt},
-			@{-sm--chat__entry--gpt} {
-				> div {
-					padding-left: var(--ph) !important;
-					@media @sm {
-						--ph: 1.1rem;
-						padding-right: var(--ph) !important;
-					} @media @md-up {
-						--ph: max(calc(1.5vw*1rem), 1.5rem);
-						@media @xl-up {
-							--ph: max(calc(2vw*1rem), 2rem);
-						}
-					}
-				}
-			}
-		}
+            /* add back some padding (to compensate for the hidden column) */
+            @{-chat__entry--gpt},
+            @{-sm--chat__entry--gpt} {
+                > div {
+                    padding-left: var(--ph) !important;
+                    @media @sm {
+                        --ph: 1.1rem;
+                        padding-right: var(--ph) !important;
+                    } @media @md-up {
+                        --ph: max(calc(1.5vw*1rem), 1.5rem);
+                        @media @xl-up {
+                            --ph: max(calc(2vw*1rem), 2rem);
+                        }
+                    }
+                }
+            }
+        }
 
-		/* FEATURE: HIDE FOOTER DISCLAIMER *********************/
-		& when(@hideDisclaimer =1) {
-			@{-composer-view__footer},
-			@{-chat__footer},
-			@{-chat__footer--sm} {
-				div.min-h-4 {
-					display: none !important;
-				}
-			}
-		}
+        /* FEATURE: HIDE FOOTER DISCLAIMER *********************/
+        & when(@hideDisclaimer =1) {
+            @{-composer-view__footer},
+            @{-chat__footer},
+            @{-chat__footer--sm} {
+                div.min-h-4 {
+                    display: none !important;
+                }
+            }
+        }
 
-		/* FEATURE: COLORIZATION *****************/
-		#colorLib() {
-			.defaults(dark) {
-				@colors: {
-					@bg: #212121;
-					@text: #ececec;
-				}
-			} .defaults(light) {
-				@colors: {
-					@bg: white;
-					@text: #0d0d0d;
-				}
-			}
+        /* FEATURE: COLORIZATION *****************/
+        #colorLib() {
+            .defaults(dark) {
+                @colors: {
+                    @bg: #212121;
+                    @text: #ececec;
+                }
+            } .defaults(light) {
+                @colors: {
+                    @bg: white;
+                    @text: #0d0d0d;
+                }
+            }
 
-			.bgTint(@theme, @base) {
-				@sat: round(saturation(@blended));
-				@blended: if(
-					@theme =light,
-					mix(@base, @customColor, 90%),
-					if(
-						luma(@customColor) < 5%,
-						@customColor,
-						mix(@base, @customColor, 70%)
-					)
-				);
-				@faded: fadeout(@blended,
-					if(@sat <= 55%, 0%,
-						if(@sat < 70%, 40%,
-							if(@sat < 90%, 50%,
-								60%
-							)
-						)
-					), relative
-				);
-				@result: if(@theme =light, @blended, @faded);
-			}
+            .bgTint(@theme, @base) {
+                @sat: round(saturation(@blended));
+                @blended: if(
+                    @theme =light,
+                    mix(@base, @customColor, 90%),
+                    if(
+                        luma(@customColor) < 5%,
+                        @customColor,
+                        mix(@base, @customColor, 70%)
+                    )
+                );
+                @faded: fadeout(@blended,
+                    if(@sat <= 55%, 0%,
+                        if(@sat < 70%, 40%,
+                            if(@sat < 90%, 50%,
+                                60%
+                            )
+                        )
+                    ), relative
+                );
+                @result: if(@theme =light, @blended, @faded);
+            }
 
-			.accessible-fg-color(@bg, @light: #ececec, @dark: #0d0d0d) {
-				/* set text/foreground to a light or dark preset color based on its contrast against the element's bg (using the default 43% threshold) */
-				@result: contrast(@bg, @light, @dark);
-			}
-		}
+            .accessible-fg-color(@bg, @light: #ececec, @dark: #0d0d0d) {
+                /* set text/foreground to a light or dark preset color based on its contrast against the element's bg (using the default 43% threshold) */
+                @result: contrast(@bg, @light, @dark);
+            }
+        }
 
-		.colorize(@theme: dark) {
-			@baseColors: #colorLib.defaults(@theme)[];
-			@tintedBg: #colorLib.bgTint(@theme, @baseColors[@bg])[];
-			@accessibleText: #colorLib.accessible-fg-color(@tintedBg)[];
+        .colorize(@theme: dark) {
+            @baseColors: #colorLib.defaults(@theme)[];
+            @tintedBg: #colorLib.bgTint(@theme, @baseColors[@bg])[];
+            @accessibleText: #colorLib.accessible-fg-color(@tintedBg)[];
 
-			.apply() {
-				background-color: @tintedBg !important;
-				color: @accessibleText !important;
-			}
+            .apply() {
+                background-color: @tintedBg !important;
+                color: @accessibleText !important;
+            }
 
-			& when (@colorizePromptElements =1) {
-				@media @sm-max {
-					@{-sm--chat__prompt} {.apply()}
-				} @media @md-up {
-					@{-chat__prompt} {.apply()}
-				}
+            & when (@colorizePromptElements =1) {
+                @media @sm-max {
+                    @{-sm--chat__prompt} {.apply()}
+                } @media @md-up {
+                    @{-chat__prompt} {.apply()}
+                }
 
-				@{-sm--chat__prompt}, @{-chat__prompt} {
-					button.rounded-full {
-						&[disabled] {
-							color: fadeout(@accessibleText, 65%);
-							background-color: fadeout(@accessibleText, 85%) !important;
-						} &:not([disabled]) {
-							color: @accessibleText;
-							background-color: inherit;
-						}
-					}
-				}
-			}
+                @{-sm--chat__prompt}, @{-chat__prompt} {
+                    button.rounded-full {
+                        &[disabled] {
+                            color: fadeout(@accessibleText, 65%);
+                            background-color: fadeout(@accessibleText, 85%) !important;
+                        } &:not([disabled]) {
+                            color: @accessibleText;
+                            background-color: inherit;
+                        }
+                    }
+                }
+            }
 
-			& when (@colorizeMsgBubble =1) {
-				@-msg-bubble: .relative.rounded-3xl;
-				@media @sm-max {
-					@{-sm--chat__entry--user} {
-						/* only allowing the bubble to be colorized @ the smallest breakpoint for now (doesn't look too great a lot of the time) */
-						@{-msg-bubble} {.apply()}
-					}
-				} @media @md-up {
-					@{-chat__entry--user} {
-						& when (@colorizeMsgFullEntry =1) {
-							.apply();
-							@{-msg-bubble} {
-								@softBg: fade(softlight(@customColor, @tintedBg), 40%);
-								background-color: @softBg;
-							}
-						}
-						& when (@colorizeMsgFullEntry =0) {
-							@{-msg-bubble} {
-								.apply();
-							}
-						}
-					}
-				}
-			}
-		}
+            & when (@colorizeMsgBubble =1) {
+                @-msg-bubble: .relative.rounded-3xl;
+                @media @sm-max {
+                    @{-sm--chat__entry--user} {
+                        /* only allowing the bubble to be colorized @ the smallest breakpoint for now (doesn't look too great a lot of the time) */
+                        @{-msg-bubble} {.apply()}
+                    }
+                } @media @md-up {
+                    @{-chat__entry--user} {
+                        & when (@colorizeMsgFullEntry =1) {
+                            .apply();
+                            @{-msg-bubble} {
+                                @softBg: fade(softlight(@customColor, @tintedBg), 40%);
+                                background-color: @softBg;
+                            }
+                        }
+                        & when (@colorizeMsgFullEntry =0) {
+                            @{-msg-bubble} {
+                                .apply();
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-		/* MISC. UI FIXES/ENHANCEMENTS ******************/
-		/* fixes recent UI bug where the left side of <ol> numbers are cut off in responses */
-		@{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
-			padding-left: 1.85em;
-		}
-	}
+        /* MISC. UI FIXES/ENHANCEMENTS ******************/
+        /* fixes recent UI bug where the left side of <ol> numbers are cut off in responses */
+        @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+            padding-left: 1.85em;
+        }
+    }
 }
