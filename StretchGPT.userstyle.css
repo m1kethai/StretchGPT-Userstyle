@@ -8,7 +8,7 @@
 @var select     stretchLvl             "Stretch Factor" {
     "[0] 🫥 Disable": "0",
     "[1] 🤏 Conservative": "1",
-    "[2] ✨ Comfy": "2",
+    "[2] ✨ Comfy (Default)*": "2",
     "[3] 👹 Spacious": "3",
     "[4] 🫨 Unrestricted (Not recommended for huge screens)": "4"
 }
