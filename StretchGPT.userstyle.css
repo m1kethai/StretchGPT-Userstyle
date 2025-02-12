@@ -12,7 +12,6 @@
     "[3] 👹 Spacious": "3",
     "[4] 🫨 Unrestricted (Not recommended for huge screens)": "4"
 }
-@var checkbox   hideAvatar             "🙈 Hide ChatGPT message avatars" 0
 @var checkbox   hideDisclaimer         "⚠️ Hide bottom disclaimer (\"ChatGPT can make mistakes...\")" 0
 @var checkbox   enableColorize         "🌈 Enable color customizations [Unlocks all custom color options below!]" 0
 @var checkbox   colorizePromptElements "🌈 Colorize: Input/prompt elements" 1
@@ -117,32 +116,6 @@
             @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
             @media @lg    { --mw: extract(@vpMWs, 2) !important; }
             @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
-        }
-
-        /* HIDE CHATGPT AVATARS ************************/
-        & when(@hideAvatar =1) {
-            @{-chat__entry--gpt},
-            @{-sm--chat__entry--gpt} {
-                @-avatar: .flex-shrink-0.flex.flex-col.relative.items-end;
-                @{-avatar} { display: none }
-            }
-
-            /* add back some padding (to compensate for the hidden column) */
-            @{-chat__entry--gpt},
-            @{-sm--chat__entry--gpt} {
-                > div {
-                    padding-left: var(--ph) !important;
-                    @media @sm {
-                        --ph: 1.1rem;
-                        padding-right: var(--ph) !important;
-                    } @media @md-up {
-                        --ph: max(calc(1.5vw*1rem), 1.5rem);
-                        @media @xl-up {
-                            --ph: max(calc(2vw*1rem), 2rem);
-                        }
-                    }
-                }
-            }
         }
 
         /* HIDE DISCLAIMER *********************/
