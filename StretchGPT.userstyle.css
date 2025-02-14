@@ -12,6 +12,7 @@
     "[3] 👹 Spacious": "3",
     "[4] 🫨 Unrestricted (Not recommended for huge screens)": "4"
 }
+@var checkbox   fullWidthBubble        "Allow user message bubble to expand to max available width" 0
 @var checkbox   hideDisclaimer         "⚠️ Hide bottom disclaimer (\"ChatGPT can make mistakes...\")" 0
 @var checkbox   enableColorize         "🌈 Enable color customizations [Unlocks all custom color options below!]" 0
 @var checkbox   colorizePromptElements "🌈 Colorize: Input/prompt elements" 1
@@ -72,23 +73,29 @@
         .selectors() {
             @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
             @-header:                .sticky.top-0.z-10;
-            @-chat:                  .h-full.max-w-full.overflow-hidden > main;
-            @-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
-            @-chat__entry:           @{-header} ~ article:has(.group\/conversation-turn);
-            @-sm--chat__entry:       @{-sm--chat} div.w-full:has(.group\/conversation-turn);
-            @-chat__entry__inner:    @{-chat__entry} .md\:max-w-3xl;
+            @-chat:                  .composer-parent;
+            @-chat__entry:           @{-chat} article:has(.group\/conversation-turn);
+            @-chat__entry__outer:    @{-chat__entry} > div;
+            @-chat__entry__inner:    @{-chat__entry__outer} > div;
             @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
-            @-sm--chat__entry--user: @{-sm--chat__entry} div[data-message-author-role="user"];
             @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-            @-sm--chat__entry--gpt:  @{-sm--chat__entry}:has(div[data-message-author-role="assistant"]);
-            @-chat__prompt:          @{-chat} form .max-w-full .w-full.flex.flex-col.transition-colors;
-            @-sm--chat__prompt:      @{-header} ~ main form div.rounded-3xl;
-            @-chat__footer:          @{-chat} > div.composer-parent div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
-            @-chat__footer--sm:      @{-sm--chat} ~ div.w-full;
-            @-composer-view__footer: @{-chat} > div.composer-parent .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
+            @-chat__prompt:          #composer-background;
+            @-chat__footer:          @{-chat} div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
+            @-composer-view__footer: @{-chat} .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
+
+            @-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
+            @-sm--chat__entry:       .text-message;
+            @-sm--chat__entry--user: .text-message[data-message-author-role="user"];
+            @-sm--chat__entry--gpt:  .text-message[data-message-author-role="assistant"];
+            @-sm--chat__footer:      @{-sm--chat} ~ div.w-full;
         }
         .breakpoints();
         .selectors();
+
+        @__debug: 1;
+        #debugEl(@outline-color: hotpink) when(@__debug =1) {
+            box-shadow: inset 0 0 0 1px @outline-color !important;
+        }
 
         & when(@enableColorize =1) {
             &.dark { .colorize(dark)}
@@ -96,33 +103,46 @@
         }
 
         /* CORE FUNCTIONALITY ***************************/
-        @{-chat__entry__inner} when (@stretchLvl >0) {
-            @mws: {
-                conservative: 85%, 80%, 70%;
-                comfy: 95%, 90%, 80%;
-                spacious: 97%, 90%, 90%;
-                unrestricted: 98%, 99%, 99%;
-            }
-            @vpMWs: if(
-                @stretchLvl =1, @mws[conservative], if(
-                @stretchLvl =2, @mws[comfy], if(
-                @stretchLvl =3, @mws[spacious],
-                @mws[unrestricted]
-                ))
-            );
 
-            max-width: var(--mw);
-            --mw: 100%;
-            @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
-            @media @lg    { --mw: extract(@vpMWs, 2) !important; }
-            @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
+        & when not (@stretchLvl =0) {
+            div.group\/conversation-turn {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            @{-chat__entry__inner} {
+                @mws: {
+                    conservative: 85%, 80%, 70%;
+                    comfy: 95%, 90%, 80%;
+                    spacious: 97%, 90%, 90%;
+                    unrestricted: 98%, 99%, 99%;
+                }
+                @vpMWs: if(
+                    @stretchLvl =1, @mws[conservative], if(
+                    @stretchLvl =2, @mws[comfy], if(
+                    @stretchLvl =3, @mws[spacious],
+                    @mws[unrestricted]
+                    ))
+                );
+
+                --mw: 100%;
+                max-width: var(--mw);
+                @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
+                @media @lg    { --mw: extract(@vpMWs, 2) !important; }
+                @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
+            }
+        }
+
+        /* FULL-WIDTH CHAT BUBBLE *********************/
+        & when (@fullWidthBubble =1) {
+            --user-chat-width: 100% !important;
         }
 
         /* HIDE DISCLAIMER *********************/
         & when(@hideDisclaimer =1) {
             @{-composer-view__footer},
             @{-chat__footer},
-            @{-chat__footer--sm} {
+            @{-sm--chat__footer} {
                 div.min-h-4 {
                     display: none !important;
                 }
@@ -182,23 +202,15 @@
                 color: @accessibleText !important;
             }
 
-            & when (@colorizePromptElements =1) {
-                @media @sm-max {
-                    @{-sm--chat__prompt} {.apply()}
-                }
-                @media @md-up {
-                    @{-chat__prompt} {.apply()}
-                }
-
-                @{-sm--chat__prompt}, @{-chat__prompt} {
-                    button.rounded-full {
-                        &[disabled] {
-                            color: fadeout(@accessibleText, 65%);
-                            background-color: fadeout(@accessibleText, 85%) !important;
-                        } &:not([disabled]) {
-                            color: @accessibleText;
-                            background-color: inherit;
-                        }
+            @{-chat__prompt} when (@colorizePromptElements =1) {
+                .apply();
+                button.rounded-full {
+                    &[disabled] {
+                        color: fadeout(@accessibleText, 65%);
+                        background-color: fadeout(@accessibleText, 85%) !important;
+                    } &:not([disabled]) {
+                        color: @accessibleText;
+                        background-color: inherit;
                     }
                 }
             }
@@ -207,7 +219,6 @@
                 @-msg-bubble: .relative.rounded-3xl;
                 @media @sm-max {
                     @{-sm--chat__entry--user} {
-                        /* only allow bubble to be colorized @ the smallest BP for now */
                         @{-msg-bubble} {.apply()}
                     }
                 }
@@ -231,7 +242,7 @@
         }
 
         /* MISC FIXES/ENHANCEMENTS ******************/
-        /* fixes recent UI bug causing the left side of <ol> numbers to be cut off in ChatGPT responses */
+        /* fixes recent UI bug causing the left side of <ol> numbers to be cut off in ChatGPT's responses */
         @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             padding-left: 1.85em;
         }
