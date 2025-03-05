@@ -81,7 +81,7 @@
             @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
             @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
             @-chat__prompt:          #composer-background;
-            @-chat__footer:          @{-chat} div.relative.w-full.px-2.py-2.text-center.text-xs.text-token-text-secondary.empty\:hidden.md\:px-\[60px\];
+            @-chat__footer:          @{-chat} div div.md\:px-\[60px\];
             @-composer-view__footer: @{-chat} .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
 
             @-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
@@ -144,9 +144,10 @@
             @{-composer-view__footer},
             @{-chat__footer},
             @{-sm--chat__footer} {
-                div.min-h-4 {
+                div.min-h-8 {
                     display: none !important;
                 }
+                padding-bottom: 0.75rem;
             }
         }
 
