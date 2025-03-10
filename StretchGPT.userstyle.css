@@ -1,77 +1,89 @@
 /* ==UserStyle==
-@name           StretchGPT: Extra Wide ChatGPT Conversations
+@name         StretchGPT: Extra Wide ChatGPT Conversations
 @version      6.5
 @author       m1kethai
-@description  Improves ChatGPT conversation readability by removing the narrow fixed content width and replacing it with subtle, adaptive padding for a consistent UX across all screen sizes.
+@description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI. Plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor less
-@var select   stretchFactor           "🧘 Stretch factor" {
-    "[0] ⛔ Disable":      "0",
-    "[1] 🤏 Conservative": "1",
-    "[2] ✨ Roomy*":       "2",
-    "[3] 👹 Spacious":     "3",
-    "[4] 🫨 Unrestricted (not recommended for very wide displays)": "4"
+@var select   stretchFactor             "🧘 Stretch Factor" {
+    "⛔ Disabled":     "0",
+    "🤏 Conservative": "1",
+    "✨ Roomy":        "2",
+    "👹 Spacious*":    "3",
+    "🫨 Unrestricted": "4"
 }
-@var checkbox fullWidthBubble    "Allow user message bubble to expand to max available width" 0
-@var checkbox hideDisclaimer     "⚠️ Hide bottom disclaimer (\"ChatGPT can make mistakes...\")" 0
-@var checkbox enableColorize     "🌈 Enable color customizations [Unlocks all custom color options below!]" 0
-@var checkbox colorizePrompt     "🌈 Colorize: Input/prompt elements" 1
-@var checkbox colorizeMsgBubble  "🌈 Colorize: User message bubbles" 1
-@var checkbox colorizeMsgBg      "🌈 + Full background behind bubbles [Requires bubble colors]" 0
-@var select   customColor        "🎨 Color preset:" {
-    "Absinthe Green":            "#76b583",
-    "Aged Sage":                 "#8da572",
-    "Akira":                     "#840000",
-    "Amaretto":                  "#ab6f60",
-    "Ancient Gold":              "#b59410",
-    "Aztek":                     "#293432",
-    "Black Pearl":               "#1e272c",
-    "Black Sabbath":             "#220022",
-    "Blue Moss":                 "#5D737E",
-    "Cardamom":                  "#aaaa77",
-    "Caviar":                    "#292a2d",
-    "Chrysanthemum":             "#c35458",
-    "Cyber Grape":               "#58427C",
-    "Cyprus":                    "#545a3e",
-    "Dark and Stormy":           "#353f51",
-    "Deep Jungle":               "#1A2421",
-    "Deep Space":                "#2D3142",
-    "Dusty Turquoise":           "#5a8a89",
-    "Earl Grey":                 "#a6978a",
-    "Emerald":                   "#0f380f",
-    "FF06B5":                    "#FF06B5",
-    "Gameboy Teal":              "#0ABFBC",
-    "Japanese Violet":           "#5B3256",
-    "Lobster Bisque":            "#FFDAB9",
-    "Obsidian Ash":              "#343434",
-    "Prince":                    "#4b384c",
-    "Purple Haze":               "#807396",
-    "Raichu":                    "#fc8c2c",
-    "Sailor Moon":               "#ffee00",
-    "Sakura Bloom":              "#ff7b9c",
-    "Sanguine":                  "#6c110e",
-    "Sapphired":                 "#5b82a6",
-    "Sharp Indigo":              "#48007c",
-    "Steampunk Leather":         "#6f3b34",
-    "Super Blue Lavender*":      "#5a5b9f",
-    "Tokyo Midnight":            "#1a1a2e",
-    "Wasabi Peanut":             "#b4c79c",
-    "Wasabi":                    "#afd77f",
+@var checkbox enableChatBubbleStretch   "🗯️ Expand user message bubbles to max available width" 0
+@var checkbox hideDisclaimer            "⚠️ Hide disclaimer @ bottom (\"ChatGPT can make mistakes...\")" 0
+@var checkbox enableColorization        "🔓 Unlock color customization options" 0
+@var checkbox enableColorizeComposer    "🌈 Colorize: Composer/prompt input components" 1
+@var checkbox enableColorizeBubble      "🌈 Colorize: User message bubbles" 1
+@var checkbox enableColorizeBubbleAndBg "+ Full message BG [option above must be enabled]" 0
+@var select   colorPreset               "🎨 Color Preset:" {
+    "Absinthe*":            "#76b583",
+    "Aged Sage":            "#8da572",
+    "Akira":                "#840000",
+    "Amaretto":             "#ab6f60",
+    "Ancient Gold":         "#b59410",
+    "Aztek":                "#293432",
+    "Black Pearl":          "#1e272c",
+    "Black Sabbath":        "#220022",
+    "Blue Moss":            "#5D737E",
+    "Cardamom":             "#aaaa77",
+    "Caviar":               "#292a2d",
+    "Chrysanthemum":        "#c35458",
+    "Cyber Grape":          "#58427C",
+    "Cyprus":               "#545a3e",
+    "Dark and Stormy":      "#353f51",
+    "Deep Jungle":          "#1A2421",
+    "Deep Space":           "#2D3142",
+    "Dusty Turquoise":      "#5a8a89",
+    "Earl Grey":            "#a6978a",
+    "Emerald":              "#0f380f",
+    "FF06B5":               "#FF06B5",
+    "Gameboy Teal":         "#0ABFBC",
+    "Japanese Violet":      "#5B3256",
+    "Lobster Bisque":       "#FFDAB9",
+    "Obsidian Ash":         "#343434",
+    "Prince":               "#4b384c",
+    "Purple Haze":          "#807396",
+    "Raichu":               "#fc8c2c",
+    "Sailor Moon":          "#ffee00",
+    "Sakura Bloom":         "#ff7b9c",
+    "Sanguine":             "#6c110e",
+    "Sapphired":            "#5b82a6",
+    "Sharp Indigo":         "#48007c",
+    "Steampunk Leather":    "#6f3b34",
+    "Super Blue Lavender": "#5a5b9f",
+    "Tokyo Midnight":       "#1a1a2e",
+    "Wasabi":               "#afd77f",
+    "Wasabi Peanut":        "#b4c79c",
 }
-@var checkbox __enableDebug      "[DEV] Enable debug mode" 0
+@var checkbox _DEBUG "[DEV] Element debug mode" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
     html {
-        .breakpoints() {
-            @sm: ~"screen and (min-width: 0px) and (max-width: 767px)"; @sm-max: ~"screen and (max-width: 767px)";
-            @md: ~"screen and (min-width: 768px) and (max-width: 1023px)"; @md-up: ~"screen and (min-width: 768px)"; @md-max: ~"screen and (max-width: 1023px)";
-            @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)"; @lg-up: ~"screen and (min-width: 1024px)"; @lg-max: ~"screen and (max-width: 1535px)";
-            @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)"; @xl-up: ~"screen and (min-width: 1536px)"; @xl-max: ~"screen and (max-width: 2047px)";
-            @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)"; @xxl-up: ~"screen and (min-width: 2048px)"; @xxl-max: ~"screen and (max-width: 2559px)";
+        /* ===== BREAKPOINTS & SELECTORS ===== */
+        #set-breakpoints() {
+            @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
+            @sm-max: ~"screen and (max-width: 767px)";
+            @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
+            @md-up: ~"screen and (min-width: 768px)";
+            @md-max: ~"screen and (max-width: 1023px)";
+            @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
+            @lg-up: ~"screen and (min-width: 1024px)";
+            @lg-max: ~"screen and (max-width: 1535px)";
+            @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
+            @xl-up: ~"screen and (min-width: 1536px)";
+            @xl-max: ~"screen and (max-width: 2047px)";
+            @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
+            @xxl-up: ~"screen and (min-width: 2048px)";
+            @xxl-max: ~"screen and (max-width: 2559px)";
             @xxxl: ~"screen and (min-width: 2560px)";
+            @mobile: @sm-max;
+            @desktop: @md-up;
         }
-        .selectors() {
+        #set-selectors() {
             @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
             @-header:                .sticky.top-0.z-10;
             @-chat:                  .composer-parent;
@@ -90,56 +102,48 @@
             @-sm--chat__entry--gpt:  .text-message[data-message-author-role="assistant"];
             @-sm--chat__footer:      @{-sm--chat} ~ div.w-full;
         }
-        .breakpoints();
-        .selectors();
+        #set-breakpoints();
+        #set-selectors();
 
-        .debug(@outline-color: hotpink) when(@__enableDebug =1) {
-            box-shadow: inset 0 0 0 1px @outline-color !important;
-        }
-
-        & when(@enableColorize =1) {
-            &.dark { .colorize(dark)}
-            &.light { .colorize(light)}
-        }
-
-        /* CORE FUNCTIONALITY ***************************/
-
-        & when not (@stretchFactor =0) {
+        /* ===== CORE FUNCTIONALITY/STRETCH ===== */
+        & when (@stretchFactor >=1) {
             div.group\/conversation-turn {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
 
             @{-chat__entry__inner} {
-                .debug(blue);
-                --mw: 100%;
-                max-width: var(--mw);
-                @mws: {
+                @sfWidths: {
                     conservative: 85%, 80%, 70%;
-                    comfy: 95%, 90%, 80%;
+                    roomy: 95%, 90%, 80%;
                     spacious: 97%, 90%, 90%;
                     unrestricted: 98%, 99%, 99%;
                 }
-                @vpMWs: if(
-                    @stretchFactor =1, @mws[conservative], if(
-                    @stretchFactor =2, @mws[comfy], if(
-                    @stretchFactor =3, @mws[spacious],
-                    @mws[unrestricted]
-                    ))
-                );
+                @viewportWidths: if(
+                    @stretchFactor =1, @sfWidths[conservative], if(
+                    @stretchFactor =2, @sfWidths[roomy], if(
+                    @stretchFactor =3, @sfWidths[spacious], @sfWidths[unrestricted]
+                )));
 
-                @media @md    { --mw: max(48rem, extract(@vpMWs, 1)) !important; }
-                @media @lg    { --mw: extract(@vpMWs, 2) !important; }
-                @media @xl-up { --mw: extract(@vpMWs, 3) !important; }
+                --mw: 100%;
+                @media @md {
+                    --mw: max(48rem, extract(@viewportWidths, 1)) !important;
+                } @media @lg {
+                    --mw: extract(@viewportWidths, 2) !important;
+                } @media @xl-up {
+                    --mw: extract(@viewportWidths, 3) !important;
+                }
+                max-width: var(--mw);
+                .debugEl;
             }
         }
 
-        /* FULL-WIDTH CHAT BUBBLE *********************/
-        & when (@fullWidthBubble =1) {
+        /* ===== STRETCH USER MESSAGE BUBBLES ===== */
+        & when (@enableChatBubbleStretch =1) {
             --user-chat-width: 100% !important;
         }
 
-        /* HIDE DISCLAIMER *********************/
+        /* ===== HIDE DISCLAIMER ===== */
         & when(@hideDisclaimer =1) {
             @{-composer-view__footer},
             @{-chat__footer},
@@ -151,17 +155,16 @@
             }
         }
 
-        /* COLORIZE *****************/
-        #colorLib() {
+        /* ===== COLORIZATION ===== */
+        .colorLib() {
             .defaults(dark) {
                 @colors: {
-                    @bg: #212121;
-                    @text: #ececec;
+                    @bg: #212121; @text: #ececec;
                 }
-            } .defaults(light) {
+            }
+            .defaults(light) {
                 @colors: {
-                    @bg: white;
-                    @text: #0d0d0d;
+                    @bg: white; @text: #0d0d0d;
                 }
             }
 
@@ -169,11 +172,11 @@
                 @sat: round(saturation(@blended));
                 @blended: if(
                     @theme =light,
-                    mix(@base, @customColor, 90%),
+                    mix(@base, @colorPreset, 90%),
                     if(
-                        luma(@customColor) < 5%,
-                        @customColor,
-                        mix(@base, @customColor, 70%)
+                        luma(@colorPreset) < 5%,
+                        @colorPreset,
+                        mix(@base, @colorPreset, 70%)
                     )
                 );
                 @faded: fadeout(@blended,
@@ -188,24 +191,24 @@
                 @result: if(@theme =light, @blended, @faded);
             }
 
-            /* Set text/foreground color to a dark or light preset to maximize contrast against the @bgColor (threshold - 43%) */
-            .accessibleFgColor(@bgColor, @l: #ececec, @d: #0d0d0d) {
-                @result: contrast(@bgColor, @l, @d);
-                // #TODO: add option to directly use the @customColor as the FG color if it passes the contrast accessibility threshold
+            /* Set text/foreground color to a dark or light preset to maximize contrast against the @bgc (threshold - 43%) */
+            // TODO - add option to directly use @colorPreset as the FG color if it passes the accessible contrast threshold
+            .accessibleFg(@bgc, @l: #ececec, @d: #0d0d0d) {
+                @result: contrast(@bgc, @l, @d);
             }
         }
 
         .colorize(@theme: dark) {
-            @baseColors: #colorLib.defaults(@theme)[];
-            @tintedBg: #colorLib.bgTint(@theme, @baseColors[@bg])[];
-            @accessibleText: #colorLib.accessibleFgColor(@tintedBg)[];
+            @baseColors: .colorLib.defaults(@theme)[];
+            @tintedBg: .colorLib.bgTint(@theme, @baseColors[@bg])[];
+            @accessibleText: .colorLib.accessibleFg(@tintedBg)[];
 
             .apply() {
                 background-color: @tintedBg !important;
                 color: @accessibleText !important;
             }
 
-            @{-chat__prompt} when (@colorizePrompt =1) {
+            @{-chat__prompt} when (@enableColorizeComposer =1) {
                 .apply();
                 button.rounded-full {
                     &[disabled] {
@@ -219,7 +222,7 @@
                 }
             }
 
-            & when (@colorizeMsgBubble =1) {
+            & when (@enableColorizeBubble =1) {
                 @-msg-bubble: .relative.rounded-3xl;
                 @media @sm-max {
                     @{-sm--chat__entry--user} {
@@ -228,14 +231,14 @@
                 }
                 @media @md-up {
                     @{-chat__entry--user} {
-                        & when (@colorizeMsgBg =1) {
+                        & when (@enableColorizeBubbleAndBg =1) {
                             .apply();
                             @{-msg-bubble} {
-                                @softBg: fade(softlight(@customColor, @tintedBg), 40%);
+                                @softBg: fade(softlight(@colorPreset, @tintedBg), 40%);
                                 background-color: @softBg;
                             }
                         }
-                        & when (@colorizeMsgBg =0) {
+                        & when (@enableColorizeBubbleAndBg =0) {
                             @{-msg-bubble} {
                                 .apply();
                             }
@@ -245,10 +248,21 @@
             }
         }
 
-        /* MISC */
-        /* Fixes recent bug that causes part of numbers to be cut off in <ol> child elements */
+        & when(@enableColorization =1) {
+            &.dark { .colorize(dark)}
+            &.light { .colorize(light)}
+        }
+
+        /* ===== MISC ENHANCEMENTS/FIXES ===== */
+        /* bug: left side of numbers cut off in <ol> lists */
         @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+            // TODO - test if this has been resolved in 100% of cases
             padding-left: 1.85em;
+        }
+
+        /* ===== DEV/DEBUGGING ===== */
+        .debugEl(@outlineColor: hotpink) when(@_DEBUG =1) {
+            box-shadow: inset 0 0 0 1px @outlineColor !important;
         }
     }
 }
