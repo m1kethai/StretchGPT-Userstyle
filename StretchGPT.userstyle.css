@@ -58,7 +58,6 @@
     "Wasabi":               "#afd77f",
     "Wasabi Peanut":        "#b4c79c",
 }
-@var checkbox _DEBUG "[DEV] Element debug mode" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
@@ -134,7 +133,6 @@
                     --mw: extract(@viewportWidths, 3) !important;
                 }
                 max-width: var(--mw);
-                .debugEl;
             }
         }
 
@@ -258,11 +256,6 @@
         @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             // TODO - test if this has been resolved in 100% of cases
             padding-left: 1.85em;
-        }
-
-        /* ===== DEV/DEBUGGING ===== */
-        .debugEl(@outlineColor: hotpink) when(@_DEBUG =1) {
-            box-shadow: inset 0 0 0 1px @outlineColor !important;
         }
     }
 }
