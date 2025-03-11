@@ -1,6 +1,6 @@
 # **StretchGPT**
 
-**Enhances the web ChatGPT experience for all viewports by expanding the usable chat area, making a few UI tweaks for improved readability, and enabling dynamic custom colorization for key elements - all while respecting the original ChatGPT aesthetic. Plays nice with other userstyles/browser extensions and all non-core features are toggleable.**
+**A collection of robust, configurable ChatGPT enhancements that allow you to expand/resize the main chat area and tweak many other key aspects of the UI. Plus some additional toggleable features for dynamic color customization and hiding some annoying elements.**
 
 ---
 #### Links:
@@ -10,27 +10,27 @@
 | **GitHub** | _[github.com/m1kethai/StretchGPT-Userstyle](https://github.com/m1kethai/StretchGPT-Userstyle)_ |
 
 ---
-## **Core Functionality**
-Expands the usable chat area by > 200% by replacing the default restrictive max-width and fixed margins/padding with much more subtle, adaptive spacing that scales according to your current viewport size.
+## **Additional Features/Options:**
 
-## **Extra Toggleable Features:**
-
-### **Custom Theme/Color Options**
-- Pick from the 40+ included color presets to liven up the dull default color palette and make it easier to distinguish between your prompts and ChatGPT's responses.
-- There are separate toggles in the userstyle's dropdown menu to apply the selected color to your messages and/or your message bubbles, as well as the prompt input elements.
-### **Hide Sender Avatars**
-- Remove the avatars from ChatGPT responses and free up more screen real estate (makes the most significant difference in mobile and tablet browsers).
-### **Hide Disclaimer Text**
-- Remove the warning text element at the bottom of the window ("ChatGPT can make mistakes. Check important info.") for a cleaner look, and to allow more space for the actual chat content.
-
+### **Color customization**
+- 40+ included color presets to liven up the bland default color palette.
+- Individual toggles in the Userstyle options menu for applying the preset color to user message bubbles and prompt input/composer components.
+- Apply the color to only the message bubble, or the bubble + the whole message container/row behind it.
+- All color-related features disabled by default.
+### **Expand chat bubbles**
+- Allow the chat bubbles to expand and fill all of the available space (with a reasonable hard width limit set, so it doesn't become unusable on XXL screens).
+### **Hide footer disclaimer**
+- Remove the disclaimer text fixed to the bottom of the window (*"ChatGPT can make mistakes. Check important info."*), freeing up a bit more space for the actual chat content and giving a cleaner overall look.
 ---
->
-> _Note - the features below were previously implemented but recently broke due to a couple big UI updates by the OpenAI team and have been removed for now, but fixes are currently in progress and they'll all be re-integrated in the near future:_
->- ~~Configurable padding/width for the main chat content~~
->- Resizeable prompt input/textarea
->- Custom theme color picker
->- Expanded sidebar option
->- Accent colors for header and sidebar elements
->
-> **If you come across any bugs (it's tough to always catch them quickly after every new breaking ChatGPT update) or have any requests for specific features, please feel free to open an issue on the [GitHub repo](https://github.com/m1kethai/StretchGPT-Userstyle).**
->
+
+**The following upcoming features are in the works, so make sure to keep an eye out for updates!**
+>- *~~Configurable width for the main chat area.~~* ✅
+>- Many more super cool color presets.
+>- Resizable prompt/composer component.
+>- Color picker to enable 100% custom colors, alongside the presets.
+>- Expandable sidebar/chat selector menu.
+>- Apply custom color to the header and sidebar.
+>- Apply the custom color to the main chat area background as a subtle, classy tint.
+---
+
+*ChatGPT receives pretty frequent front-end updates and it's tough to immediately catch every breaking change that they push. So don't hesitate to [create an issue](https://github.com/m1kethai/StretchGPT-Userstyle/issues/new) on the Userstyle's [GitHub repo](https://github.com/m1kethai/StretchGPT-Userstyle) if you come across any broken functionality. Also feel free to create a new GH issue or or [shoot me an email](mailto:contact+addons@mikethai.dev) if you have any specific feature or improvement requests. All feedback is welcome!*
