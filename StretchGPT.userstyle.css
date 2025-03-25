@@ -91,7 +91,7 @@
             @-chat__entry__inner:    @{-chat__entry__outer} > div;
             @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
             @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-            @-chat__composer:          #composer-background;
+            @-chat__composer:        .w-full[data-type="unified-composer"] > div;
             @-chat__footer:          @{-chat} div div.md\:px-\[60px\];
             @-composer-view__footer: @{-chat} .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
 
