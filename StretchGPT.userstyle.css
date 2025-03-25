@@ -1,6 +1,6 @@
 /* ==UserStyle==
-@name         StretchGPT: Extra Wide ChatGPT Conversations
-@version      6.5
+@name         StretchGPT [DEV]
+@version      6.6
 @author       m1kethai
 @description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI. Plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -58,6 +58,7 @@
     "Wasabi":               "#afd77f",
     "Wasabi Peanut":        "#b4c79c",
 }
+@var checkbox _DEBUG "[DEV] Element debug mode" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
@@ -256,6 +257,12 @@
         @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             // TODO - test if this has been resolved in 100% of cases
             padding-left: 1.85em;
+        }
+
+        /* ===== DEBUG ===== */
+        .debugEl(@i) when(@_DEBUG =1) {
+            @bc: if(isnumber(@i), spin(@colorPreset, (@i*45)), @colorPreset);
+            box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
         }
     }
 }
