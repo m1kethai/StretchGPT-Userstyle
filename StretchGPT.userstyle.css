@@ -2,7 +2,7 @@
 @name         StretchGPT: Extra Wide ChatGPT Conversations
 @version      6.5
 @author       m1kethai
-@description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI. Plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
+@description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor less
 @var select   stretchFactor             "🧘 Stretch Factor" {
@@ -16,8 +16,8 @@
 @var checkbox hideDisclaimer            "⚠️ Hide disclaimer @ bottom (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableColorization        "🔓 Unlock color customization options" 0
 @var checkbox enableColorizeComposer    "🌈 Colorize: Composer/prompt input components" 1
-@var checkbox enableColorizeBubble      "🌈 Colorize: User message bubbles" 1
-@var checkbox enableColorizeBubbleAndBg "+ Full message BG [option above must be enabled]" 0
+@var checkbox enableColorizeBubble      "🌈 User message bubbles" 1
+@var checkbox enableColorizeBubbleAndBg "🌈 Bubbles + full message BG [option above must be enabled]" 0
 @var select   colorPreset               "🎨 Color Preset:" {
     "Absinthe*":            "#76b583",
     "Aged Sage":            "#8da572",
@@ -62,7 +62,7 @@
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
     html {
-        /* ===== BREAKPOINTS & SELECTORS ===== */
+        /* ===== SETUP ===== */
         #set-breakpoints() {
             @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
             @sm-max: ~"screen and (max-width: 767px)";
@@ -91,7 +91,7 @@
             @-chat__entry__inner:    @{-chat__entry__outer} > div;
             @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
             @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-            @-chat__prompt:          #composer-background;
+            @-chat__composer:          #composer-background;
             @-chat__footer:          @{-chat} div div.md\:px-\[60px\];
             @-composer-view__footer: @{-chat} .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
 
@@ -206,7 +206,7 @@
                 color: @accessibleText !important;
             }
 
-            @{-chat__prompt} when (@enableColorizeComposer =1) {
+            @{-chat__composer} when (@enableColorizeComposer =1) {
                 .apply();
                 button.rounded-full {
                     &[disabled] {
