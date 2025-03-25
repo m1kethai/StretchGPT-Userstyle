@@ -1,6 +1,6 @@
 /* ==UserStyle==
-@name         StretchGPT: Extra Wide ChatGPT Conversations
-@version      6.6
+@name         StretchGPT [DEV]
+@version      6.7
 @author       m1kethai
 @description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -58,6 +58,7 @@
     "Wasabi":               "#afd77f",
     "Wasabi Peanut":        "#b4c79c",
 }
+@var checkbox _DEBUG "[DEV] Element debug mode" 0
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
@@ -261,6 +262,12 @@
             // UI bug: left side of numbers cut off in <ol> lists
             // TODO: test if this has been fully resolved @ all breakpoints
             padding-left: 1.85em;
+        }
+
+        /* ===== DEBUG ===== */
+        .debugEl(@i) when(@_DEBUG =1) {
+            @bc: if(isnumber(@i), spin(@colorPreset, (@i*45)), @colorPreset);
+            box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
         }
     }
 }
