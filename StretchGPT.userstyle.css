@@ -65,58 +65,61 @@
     html {
         /* ===== SETUP ===== */
         #set-breakpoints() {
-            @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
-            @sm-max: ~"screen and (max-width: 767px)";
-            @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
-            @md-up: ~"screen and (min-width: 768px)";
-            @md-max: ~"screen and (max-width: 1023px)";
-            @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
-            @lg-up: ~"screen and (min-width: 1024px)";
-            @lg-max: ~"screen and (max-width: 1535px)";
-            @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
-            @xl-up: ~"screen and (min-width: 1536px)";
-            @xl-max: ~"screen and (max-width: 2047px)";
-            @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
-            @xxl-up: ~"screen and (min-width: 2048px)";
-            @xxl-max: ~"screen and (max-width: 2559px)";
-            @xxxl: ~"screen and (min-width: 2560px)";
-            @mobile: @sm-max;
-            @desktop: @md-up;
+            @sm:                     ~"screen and (min-width: 0px) and (max-width: 767px)";
+            @sm-max:                 ~"screen and (max-width: 767px)";
+            @md:                     ~"screen and (min-width: 768px) and (max-width: 1023px)";
+            @md-up:                  ~"screen and (min-width: 768px)";
+            @md-max:                 ~"screen and (max-width: 1023px)";
+            @lg:                     ~"screen and (min-width: 1024px) and (max-width: 1535px)";
+            @lg-up:                  ~"screen and (min-width: 1024px)";
+            @lg-max:                 ~"screen and (max-width: 1535px)";
+            @xl:                     ~"screen and (min-width: 1536px) and (max-width: 2047px)";
+            @xl-up:                  ~"screen and (min-width: 1536px)";
+            @xl-max:                 ~"screen and (max-width: 2047px)";
+            @xxl:                    ~"screen and (min-width: 2048px) and (max-width: 2559px)";
+            @xxl-up:                 ~"screen and (min-width: 2048px)";
+            @xxl-max:                ~"screen and (max-width: 2559px)";
+            @xxxl:                   ~"screen and (min-width: 2560px)";
+            @mobile:                 @sm-max;
+            @desktop:                @md-up;
         }
         #set-selectors() {
-            @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-            @-header:                .sticky.top-0.z-10;
             @-chat:                  .composer-parent;
-            @-chat__entry:           @{-chat} article:has(.group\/conversation-turn);
-            @-chat__entry__outer:    @{-chat__entry} > div;
-            @-chat__entry__inner:    @{-chat__entry__outer} > div;
-            @-chat__entry--user:     @{-chat__entry}:not(:has(.agent-turn));
-            @-chat__entry--gpt:      @{-chat__entry}:has(div[data-message-author-role="assistant"]);
-            @-chat__composer:        .w-full[data-type="unified-composer"] > div;
-            @-chat__footer:          @{-chat} div div.md\:px-\[60px\];
-            @-composer-view__footer: @{-chat} .text-token-text-secondary.empty\:hidden.md\:px-\[60px\].lg\:absolute;
+            @-chat__msg:             @{-chat} article:has(.group\/conversation-turn);
+            @-chat__msg-outer:       @{-chat__msg}>div;
+            @-chat__msg-inner:       @{-chat__msg-outer}>div;
+            @-chat__msg--user:       @{-chat__msg}:has(div[data-message-author-role="user"]);
+            @-chat__msg--gpt:        @{-chat__msg}:has(div[data-message-author-role="assistant"]);
+            @-chat__composer:        .w-full[data-type="unified-composer"]>div;
+            @-chat--sm:              @{-header}~main div.flex-1.overflow-hidden;
+            @-chat__msg--sm:         .text-message;
+            @-chat__msg--user--sm:   @{-chat__msg--sm}[data-message-author-role="user"];
+            @-chat__msg--gpt--sm:    @{-chat__msg--sm}[data-message-author-role="assistant"];
 
-            @-sm--chat:              @{-header} ~ main div.flex-1.overflow-hidden;
-            @-sm--chat__entry:       .text-message;
-            @-sm--chat__entry--user: .text-message[data-message-author-role="user"];
-            @-sm--chat__entry--gpt:  .text-message[data-message-author-role="assistant"];
-            @-sm--chat__footer:      @{-sm--chat} ~ div.w-full;
+            @-header:                @{-chat} > .sticky.h-header-height;
+            @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+            @-footer:                @{-chat} .md\:px-\[60px\];
+
+            @-chat--sm:              @{-header--sm} ~ main;
+            @-header--sm:            .sticky.h-header-height.md\:hidden;
         }
+
         #set-breakpoints();
         #set-selectors();
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
+
         & when (@stretchFactor >=1) {
             div.group\/conversation-turn {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
             }
 
-            @{-chat__entry__inner} {
+            @{-chat__msg-inner} {
                 @sfWidths: {
                     conservative: 85%, 80%, 70%;
-                    roomy: 95%, 90%, 80%;
-                    spacious: 97%, 90%, 90%;
+                    roomy:        95%, 90%, 80%;
+                    spacious:     97%, 90%, 90%;
                     unrestricted: 98%, 99%, 99%;
                 }
                 @viewportWidths: if(
@@ -143,14 +146,16 @@
         }
 
         /* ===== HIDE DISCLAIMER ===== */
-        & when(@hideDisclaimer =1) {
-            @{-composer-view__footer},
-            @{-chat__footer},
-            @{-sm--chat__footer} {
-                div.min-h-8 {
-                    display: none !important;
-                }
-                padding-bottom: 0.75rem;
+        @{-footer} when(@hideDisclaimer =1) {
+            @-textDiv: &>div:only-child;
+
+            //- unset MH from `.min-h-8`
+            min-height: unset;
+            //- reset padding (.p-2) & add small bottom margin
+            padding: 0;
+            margin-bottom: 0.5rem;
+            @{-textDiv} {
+                display: none !important;
             }
         }
 
@@ -224,12 +229,12 @@
             & when (@enableColorizeBubble =1) {
                 @-msg-bubble: .relative.rounded-3xl;
                 @media @sm-max {
-                    @{-sm--chat__entry--user} {
+                    @{-chat__msg--user--sm} {
                         @{-msg-bubble} {.apply()}
                     }
                 }
                 @media @md-up {
-                    @{-chat__entry--user} {
+                    @{-chat__msg--user} {
                         & when (@enableColorizeBubbleAndBg =1) {
                             .apply();
                             @{-msg-bubble} {
@@ -253,9 +258,9 @@
         }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
-        /* bug: left side of numbers cut off in <ol> lists */
-        @{-chat__entry--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
-            // TODO - test if this has been resolved in 100% of cases
+        @{-chat__msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+            // UI bug: left side of numbers cut off in <ol> lists
+            // TODO: test if this has been fully resolved @ all breakpoints
             padding-left: 1.85em;
         }
 
