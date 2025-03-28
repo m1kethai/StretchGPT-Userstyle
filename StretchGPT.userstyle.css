@@ -12,12 +12,12 @@
     "👹 Spacious*":    "3",
     "🫨 Unrestricted": "4"
 }
-@var checkbox enableChatBubbleStretch   "🗯️ Expand user message bubbles to max available width" 0
-@var checkbox hideDisclaimer            "⚠️ Hide disclaimer @ bottom (\"ChatGPT can make mistakes...\")" 0
-@var checkbox enableColorization        "🔓 Unlock color customization options" 0
-@var checkbox enableColorizeComposer    "🌈 Colorize: Composer/prompt input components" 1
-@var checkbox enableColorizeBubble      "🌈 User message bubbles" 1
-@var checkbox enableColorizeBubbleAndBg "🌈 Bubbles + full message BG [option above must be enabled]" 0
+@var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width 0
+@var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
+@var checkbox enableColorization        "🔓 Enable color customization features below" 0
+@var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
+@var checkbox enableColorizeBubble      "🌈 Message bubbles" 1
+@var checkbox enableColorizeBubbleAndBg "🌈 Message bubbles + full message BG (box above must be ticked)" 0
 @var select   colorPreset               "🎨 Color Preset:" {
     "Absinthe*":            "#76b583",
     "Aged Sage":            "#8da572",
