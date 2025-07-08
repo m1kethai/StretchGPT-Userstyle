@@ -124,7 +124,6 @@
             @-chat__msg--sm:         .text-message;
             @-chat__msg--user--sm:   @{-chat__msg--sm}[data-message-author-role="user"];
             @-chat__msg--gpt--sm:    @{-chat__msg--sm}[data-message-author-role="assistant"];
-
             @-header:                @{-chat} > .sticky.h-header-height;
             @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
             @-footer:                @{-chat} .md\:px-\[60px\];
@@ -190,66 +189,69 @@
 
         /* ===== COLORIZATION ===== */
         .colorLib() {
-            .defaults(dark) {
-                @colors: {
-                    @bg: #212121; @text: #ececec;
-                }
-            }
-            .defaults(light) {
-                @colors: {
-                    @bg: white; @text: #0d0d0d;
-                }
-            }
-
-            .bgTint(@theme, @base) {
+            //* Make minor adjustments to @customColor so it's never too harsh and looks as good as possible for every element it can be applied to.
+            .customColorAdjust(@bt, @bbg) {
                 @sat: round(saturation(@blended));
                 @blended: if(
-                    @theme =light,
-                    mix(@base, @colorPreset, 90%),
+                    @bt =light,
+                    mix(@bbg, @customColor, 90%),
                     if(
-                        luma(@colorPreset) < 5%,
-                        @colorPreset,
-                        mix(@base, @colorPreset, 70%)
+                        luma(@customColor) < 5%,
+                        @customColor,
+                        mix(@bbg, @customColor, 70%)
                     )
                 );
                 @faded: fadeout(@blended,
                     if(@sat <= 55%, 0%,
                         if(@sat < 70%, 40%,
-                            if(@sat < 90%, 50%,
-                                60%
-                            )
+                            if(@sat < 90%, 50%, 60%)
                         )
                     ), relative
                 );
-                @result: if(@theme =light, @blended, @faded);
+                //* Use the blended color for light themes and the faded color for dark themes.
+                @result: if(
+                    @bt =light,
+                    @blended,
+                    @faded
+                );
             }
 
-            /* Set text/foreground color to a dark or light preset to maximize contrast against the @bgc (threshold - 43%) */
-            // TODO - add option to directly use @colorPreset as the FG color if it passes the accessible contrast threshold
+            //* Set text/foreground color to a predefined dark or light color, to maximize contrast against its background (using common threshold: 43%).
             .accessibleFg(@bgc, @l: #ececec, @d: #0d0d0d) {
+                // TODO: add option to directly use @customColor as the FG color if it passes the accessible contrast threshold
                 @result: contrast(@bgc, @l, @d);
             }
         }
 
-        .colorize(@theme: dark) {
-            @baseColors: .colorLib.defaults(@theme)[];
-            @tintedBg: .colorLib.bgTint(@theme, @baseColors[@bg])[];
-            @accessibleText: .colorLib.accessibleFg(@tintedBg)[];
+        .colorize(@baseTheme: dark) {
+            @baseBg: if(@baseTheme =light, white, #212121);
+            @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
+            @customColor: if(
+                @enableColorPicker =1 and iscolor(@pickerColor),
+                @pickerColor,
+                if(
+                    iscolor(@colorPreset),
+                    @colorPreset,
+                    #ff06b5 // default color if no preset is selected (should never happen!)
+                )
+            );
+            @customBg: .colorLib.customColorAdjust(@baseTheme, @baseBg)[];
+            @customFg: .colorLib.accessibleFg(@customBg)[];
 
             .apply() {
-                background-color: @tintedBg !important;
-                color: @accessibleText !important;
+                background-color: @customBg !important;
+                color: @customFg !important;
             }
 
             @{-chat__composer} when (@enableColorizeComposer =1) {
                 .apply();
                 button.rounded-full {
                     &[disabled] {
-                        color: fadeout(@accessibleText, 65%);
-                        background-color: fadeout(@accessibleText, 85%) !important;
+                        color: fadeout(@customFg, 65%);
+                        background-color: fadeout(@customFg, 85%) !important;
                     }
                     &:not([disabled]) {
-                        color: @accessibleText;
+                        color: @customFg;
                         background-color: inherit;
                     }
                 }
@@ -267,7 +269,7 @@
                         & when (@enableColorizeBubbleAndBg =1) {
                             .apply();
                             @{-msg-bubble} {
-                                @softBg: fade(softlight(@colorPreset, @tintedBg), 40%);
+                                @softBg: fade(softlight(@customColor, @customBg), 40%);
                                 background-color: @softBg;
                             }
                         }
@@ -282,20 +284,23 @@
         }
 
         & when(@enableColorization =1) {
-            &.dark { .colorize(dark)}
-            &.light { .colorize(light)}
+            &.dark { .colorize(@baseTheme: dark) }
+            &.light { .colorize(@baseTheme: light) }
+            // .colorize(@baseTheme);
         }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
+
+        //* Fixes old UI bug where the left side of numbers get cut off in every <ol> list
+        // TODO: test if this has been fully resolved @ all breakpoints
         @{-chat__msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
-            // UI bug: left side of numbers cut off in <ol> lists
-            // TODO: test if this has been fully resolved @ all breakpoints
             padding-left: 1.85em;
         }
 
         /* ===== DEBUG ===== */
+
         .debugEl(@i) when(@_DEBUG =1) {
-            @bc: if(isnumber(@i), spin(@colorPreset, (@i*45)), @colorPreset);
+            @bc: if(isnumber(@i), spin(@customColor, (@i*45)), @customColor);
             box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
         }
     }
