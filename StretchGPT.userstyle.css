@@ -85,6 +85,8 @@
     "Wisteria":             "#a48cbc",
     "Yoshi Egg":            "#9cd97c",
 }
+@var checkbox enableColorPicker "🎨 Override color preset with a totally custom color" 0
+@var color pickerColor "🎨 Custom color (overrides any preset selected above)" #599c7b
 @var checkbox _DEBUG "[DEV] Element debug mode" 0
 
 ==/UserStyle== */
