@@ -13,7 +13,7 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 ### **Extra/Optional Features:**
 
 1. **Custom Accent Colors**
-  - Pick from the 40+ included color presets to liven up the dull default color palette and make it easier to distinguish between your prompts and ChatGPT's responses.
+  - Pick from the 70+ included color presets to liven up the dull default color palette and make it easier to distinguish between your prompts and ChatGPT's responses.
   - There are separate toggles in the userstyle's dropdown menu to apply the selected color to your messages and/or your message bubbles, as well as the prompt input elements.
 2. **Hide Avatars**
   - Remove the avatars from ChatGPT responses and free up more screen real estate (makes the most significant difference in mobile and tablet browsers).
