@@ -13,7 +13,7 @@
 ## **Additional Features/Options:**
 
 ### **Color customization**
-- 40+ included color presets to liven up the bland default color palette.
+ - 70+ included color presets to liven up the bland default color palette.
 - Individual toggles in the Userstyle options menu for applying the preset color to user message bubbles and prompt input/composer components.
 - Apply the color to only the message bubble, or the bubble + the whole message container/row behind it.
 - All color-related features disabled by default.
