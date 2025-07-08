@@ -12,7 +12,7 @@
     "👹 Spacious*":    "3",
     "🫨 Unrestricted": "4"
 }
-@var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width 0
+@var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width" 0
 @var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableColorization        "🔓 Enable color customization features below" 0
 @var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
