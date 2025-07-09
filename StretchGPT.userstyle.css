@@ -237,8 +237,7 @@
             @baseBg: if(@baseTheme =light, white, #212121);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
             @customColor: if(
-                @enableColorPicker =1 and iscolor(@pickerColor),
-                @pickerColor,
+                @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
                 if(
                     iscolor(@colorPreset),
                     @colorPreset,
@@ -247,23 +246,23 @@
             );
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
+			@tertiaryColor: mix(@customBg, @customFg, 66%);
 
             .apply() {
-                background-color: @customBg !important;
-                color: @customFg !important;
+				--text-primary: @customFg;
+				--text-placeholder: @tertiaryColor;
+				--text-tertiary: @tertiaryColor;
+                background-color: @customBg;
+                color: @customFg;
             }
 
             @{-chat__composer} when (@enableColorizeComposer =1) {
-                .apply();
-                button.rounded-full {
-                    &[disabled] {
-                        color: fadeout(@customFg, 65%);
-                        background-color: fadeout(@customFg, 85%) !important;
-                    }
-                    &:not([disabled]) {
-                        color: @customFg;
-                        background-color: inherit;
-                    }
+				.apply();
+                button {
+					&.rounded-full:not([disabled]) {
+						background-color: fadeout(@customFg, 88%) !important;
+						.colorLib.accessibleFg(@tertiaryColor);
+					}
                 }
             }
 
@@ -296,7 +295,6 @@
         & when(@enableColorization =1) {
             &.dark { .colorize(@baseTheme: dark) }
             &.light { .colorize(@baseTheme: light) }
-            // .colorize(@baseTheme);
         }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
