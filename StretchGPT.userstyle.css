@@ -196,20 +196,20 @@
                 @sat: round(saturation(@customColor));
                 //: Any color with saturation below this threshold remains unchanged.
                 @satThreshold: 75%;
-				@blendMultiplier: 3;
-				@blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
+                @blendMultiplier: 3;
+                @blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
                 @darkBlend: if(
-						@sat <= @satThreshold,
-						@customColor,
-						mix(
-							@customColor,
-							@bbg,
-							100% - (@blendMultiplier * (@sat - @satThreshold))
-						)
+                        @sat <= @satThreshold,
+                        @customColor,
+                        mix(
+                            @customColor,
+                            @bbg,
+                            100% - (@blendMultiplier * (@sat - @satThreshold))
+                        )
                 );
-				@darkThemeCC: @darkBlend;
+                @darkThemeCC: @darkBlend;
 
-				//TODO: add separate option to use the transparency method instead
+                //TODO: add separate option to use the transparency method instead
                 //: The max transparency that can be applied to the color.
 /*                 @maxFade: 30%;
                 @fadeAmt: if(
@@ -246,23 +246,23 @@
             );
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
-			@tertiaryColor: mix(@customBg, @customFg, 66%);
+            @tertiaryColor: mix(@customBg, @customFg, 66%);
 
             .apply() {
-				--text-primary: @customFg;
-				--text-placeholder: @tertiaryColor;
-				--text-tertiary: @tertiaryColor;
+                --text-primary: @customFg;
+                --text-placeholder: @tertiaryColor;
+                --text-tertiary: @tertiaryColor;
                 background-color: @customBg;
                 color: @customFg;
             }
 
             @{-chat__composer} when (@enableColorizeComposer =1) {
-				.apply();
+                .apply();
                 button {
-					&.rounded-full:not([disabled]) {
-						background-color: fadeout(@customFg, 88%) !important;
-						.colorLib.accessibleFg(@tertiaryColor);
-					}
+                    &.rounded-full:not([disabled]) {
+                        background-color: fadeout(@customFg, 88%) !important;
+                        .colorLib.accessibleFg(@tertiaryColor);
+                    }
                 }
             }
 
@@ -276,10 +276,8 @@
                 @media @md-up {
                     @{-chat__msg--user} {
                         & when (@enableColorizeBubbleAndBg =1) {
-                            .apply();
-                            @{-msg-bubble} {
-                                @softBg: fade(softlight(@customColor, @customBg), 40%);
-                                background-color: @softBg;
+                            &, @{-msg-bubble} {
+                                .apply();
                             }
                         }
                         & when (@enableColorizeBubbleAndBg =0) {
