@@ -190,29 +190,39 @@
         /* ===== COLORIZATION ===== */
         .colorLib() {
             //* Make minor adjustments to @customColor so it's never too harsh and looks as good as possible for every element it can be applied to.
-            .customColorAdjust(@bt, @bbg) {
-                @sat: round(saturation(@blended));
-                @blended: if(
-                    @bt =light,
-                    mix(@bbg, @customColor, 90%),
-                    if(
-                        luma(@customColor) < 5%,
-                        @customColor,
-                        mix(@bbg, @customColor, 70%)
-                    )
+            .adjustedCC(@bt, @bbg) {
+                @lightThemeCC: mix(@bbg, @customColor, 90%);
+
+                @sat: round(saturation(@customColor));
+                //: Any color with saturation below this threshold remains unchanged.
+                @satThreshold: 75%;
+				@blendMultiplier: 3;
+				@blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
+                @darkBlend: if(
+						@sat <= @satThreshold,
+						@customColor,
+						mix(
+							@customColor,
+							@bbg,
+							100% - (@blendMultiplier * (@sat - @satThreshold))
+						)
                 );
-                @faded: fadeout(@blended,
-                    if(@sat <= 55%, 0%,
-                        if(@sat < 70%, 40%,
-                            if(@sat < 90%, 50%, 60%)
-                        )
-                    ), relative
+				@darkThemeCC: @darkBlend;
+
+				//TODO: add separate option to use the transparency method instead
+                //: The max transparency that can be applied to the color.
+/*                 @maxFade: 30%;
+                @fadeAmt: if(
+                    @sat <= @satThreshold, 0%,
+                    min(@maxFade, (@sat - @satThreshold))
                 );
+                @darkThemeCC: fadeout(@darkBlend, @fadeAmt, relative); */
+
                 //* Use the blended color for light themes and the faded color for dark themes.
                 @result: if(
                     @bt =light,
-                    @blended,
-                    @faded
+                    @lightThemeCC,
+                    @darkThemeCC
                 );
             }
 
@@ -235,7 +245,7 @@
                     #ff06b5 // default color if no preset is selected (should never happen!)
                 )
             );
-            @customBg: .colorLib.customColorAdjust(@baseTheme, @baseBg)[];
+            @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
 
             .apply() {
