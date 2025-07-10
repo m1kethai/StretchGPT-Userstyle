@@ -93,47 +93,43 @@
 @-moz-document domain("chatgpt.com") {
     html {
         /* ===== SETUP ===== */
-        #set-breakpoints() {
-            @sm:                     ~"screen and (min-width: 0px) and (max-width: 767px)";
-            @sm-max:                 ~"screen and (max-width: 767px)";
-            @md:                     ~"screen and (min-width: 768px) and (max-width: 1023px)";
-            @md-up:                  ~"screen and (min-width: 768px)";
-            @md-max:                 ~"screen and (max-width: 1023px)";
-            @lg:                     ~"screen and (min-width: 1024px) and (max-width: 1535px)";
-            @lg-up:                  ~"screen and (min-width: 1024px)";
-            @lg-max:                 ~"screen and (max-width: 1535px)";
-            @xl:                     ~"screen and (min-width: 1536px) and (max-width: 2047px)";
-            @xl-up:                  ~"screen and (min-width: 1536px)";
-            @xl-max:                 ~"screen and (max-width: 2047px)";
-            @xxl:                    ~"screen and (min-width: 2048px) and (max-width: 2559px)";
-            @xxl-up:                 ~"screen and (min-width: 2048px)";
-            @xxl-max:                ~"screen and (max-width: 2559px)";
-            @xxxl:                   ~"screen and (min-width: 2560px)";
-            @mobile:                 @sm-max;
-            @desktop:                @md-up;
-        }
-        #set-selectors() {
-            @-chat:                  .composer-parent;
-            @-chat__msg:             @{-chat} article:has(.group\/conversation-turn);
-            @-chat__msg-outer:       @{-chat__msg}>div;
-            @-chat__msg-inner:       @{-chat__msg-outer}>div;
-            @-chat__msg--user:       @{-chat__msg}:has(div[data-message-author-role="user"]);
-            @-chat__msg--gpt:        @{-chat__msg}:has(div[data-message-author-role="assistant"]);
-            @-chat__composer:        .w-full[data-type="unified-composer"]>div;
-            @-chat--sm:              @{-header}~main div.flex-1.overflow-hidden;
-            @-chat__msg--sm:         .text-message;
-            @-chat__msg--user--sm:   @{-chat__msg--sm}[data-message-author-role="user"];
-            @-chat__msg--gpt--sm:    @{-chat__msg--sm}[data-message-author-role="assistant"];
-            @-header:                @{-chat} > .sticky.h-header-height;
-            @-sidebar:               .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
-            @-footer:                @{-chat} .md\:px-\[60px\];
 
-            @-chat--sm:              @{-header--sm} ~ main;
-            @-header--sm:            .sticky.h-header-height.md\:hidden;
-        }
+       /* ----- BREAKPOINTS ----- */
+       @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
+       @sm-max: ~"screen and (max-width: 767px)";
+       @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
+       @md-up: ~"screen and (min-width: 768px)";
+       @md-max: ~"screen and (max-width: 1023px)";
+       @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
+       @lg-up: ~"screen and (min-width: 1024px)";
+       @lg-max: ~"screen and (max-width: 1535px)";
+       @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
+       @xl-up: ~"screen and (min-width: 1536px)";
+       @xl-max: ~"screen and (max-width: 2047px)";
+       @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
+       @xxl-up: ~"screen and (min-width: 2048px)";
+       @xxl-max: ~"screen and (max-width: 2559px)";
+       @xxxl: ~"screen and (min-width: 2560px)";
+       @mobile: @sm-max;
+       @desktop: @md-up;
 
-        #set-breakpoints();
-        #set-selectors();
+        /* ----- SELECTOR VARS ----- */
+        @-chat: .composer-parent;
+        @-chat__msg: .composer-parent article:has(.group\/conversation-turn);
+        @-chat__msg-outer: .composer-parent article:has(.group\/conversation-turn) > div;
+        @-chat__msg-inner: .composer-parent article:has(.group\/conversation-turn) > div > div;
+        @-chat__msg--user: .composer-parent article:has(.group\/conversation-turn):has(div[data-message-author-role="user"]);
+        @-chat__msg--gpt: .composer-parent article:has(.group\/conversation-turn):has(div[data-message-author-role="assistant"]);
+        @-chat__composer: .w-full[data-type="unified-composer"]>div;
+        @-header: .composer-parent > .sticky.h-header-height;
+        @-chat--sm: .composer-parent > .sticky.h-header-height ~ main div.flex-1.overflow-hidden;
+        @-chat__msg--sm: .text-message;
+        @-chat__msg--user--sm: .text-message[data-message-author-role="user"];
+        @-chat__msg--gpt--sm: .text-message[data-message-author-role="assistant"];
+        @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
+        @-footer: .composer-parent .md\:px-\[60px\];
+        @-header--sm: .sticky.h-header-height.md\:hidden;
+        @-chat--sm: .sticky.h-header-height.md\:hidden ~ main;
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
 
