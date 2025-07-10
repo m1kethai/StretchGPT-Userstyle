@@ -132,35 +132,29 @@
         @-chat--sm: .sticky.h-header-height.md\:hidden ~ main;
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
-
         & when (@stretchFactor >=1) {
             overflow-x: hidden;
-
             @breakpointChatWidths: {
                 1: 85%, 80%, 70%;
                 2: 95%, 90%, 80%;
                 3: 97%, 90%, 90%;
                 4: 98%, 98%, 98%;
             };
-
             @viewportWidths:
                 if(@stretchFactor =1, @breakpointChatWidths[1],
                 if(@stretchFactor =2, @breakpointChatWidths[2],
                 if(@stretchFactor =3, @breakpointChatWidths[3],
                 @breakpointChatWidths[4]
             )));
-
             @{-chat__msg} {
                 --mw: 100%;
                 @media @md { --mw: max(48rem, extract(@viewportWidths, 1)) }
                 @media @lg { --mw: extract(@viewportWidths, 2) }
                 @media @xl-up { --mw: extract(@viewportWidths, 3) }
             }
-
             @{-chat__msg-outer} {
                 padding-inline: 0 !important;
             }
-
             @{-chat__msg-inner} {
                 overflow-x: hidden;
                 --thread-content-max-width: var(--mw);
@@ -185,7 +179,7 @@
             }
         }
 
-        /* ===== COLORIZATION ===== */
+        /* ===== COLORIZE ===== */
         .colorLib() {
             //* Make minor adjustments to @customColor so it's never too harsh and looks as good as possible for every element it can be applied to.
             .adjustedCC(@bt, @bbg) {
@@ -197,30 +191,27 @@
                 @blendMultiplier: 3;
                 @blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
                 @darkBlend: if(
-                @sat <= @satThreshold,
-                @customColor,
-                mix(
-                @customColor,
-                @bbg,
-                100% - (@blendMultiplier * (@sat - @satThreshold))
-                )
+                    (@sat <= @satThreshold), @customColor,
+                    mix(@customColor, @bbg, (100% - (@blendMultiplier * (@sat - @satThreshold))))
                 );
                 @darkThemeCC: @darkBlend;
 
                 //TODO: add separate option to use the transparency method instead
                 //: The max transparency that can be applied to the color.
-                /*                 @maxFade: 30%;
-                @fadeAmt: if(
-                @sat <= @satThreshold, 0%,
-                min(@maxFade, (@sat - @satThreshold))
-                );
-                @darkThemeCC: fadeout(@darkBlend, @fadeAmt, relative); */
+                /*
+                    @maxFade: 30%;
+                    @fadeAmt: if(
+                    (@sat <= @satThreshold), 0%,
+                    min(@maxFade, (@sat - @satThreshold))
+                    );
+                    @darkThemeCC: fadeout(@darkBlend, @fadeAmt, relative);
+                */
 
                 //* Use the blended color for light themes and the faded color for dark themes.
                 @result: if(
-                @bt =light,
-                @lightThemeCC,
-                @darkThemeCC
+                    @bt =light,
+                    @lightThemeCC,
+                    @darkThemeCC
                 );
             }
 
@@ -235,13 +226,10 @@
             @baseBg: if(@baseTheme =light, white, #212121);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
             @customColor: if(
-            @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
-            if(
-            iscolor(@colorPreset),
-            @colorPreset,
-            #ff06b5 // default color if no preset is selected (should never happen!)
-            )
+                    @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
+                    if(iscolor(@colorPreset), @colorPreset, #303030)
             );
+            //^ use default composer bg color as a fallback if no color preset is selected (this should never be possible)
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
             @tertiaryColor: mix(@customBg, @customFg, 66%);
@@ -296,7 +284,6 @@
         }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
-
         //* Fixes old UI bug where the left side of numbers get cut off in every <ol> list
         // TODO: test if this has been fully resolved @ all breakpoints
         @{-chat__msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
@@ -304,10 +291,9 @@
         }
 
         /* ===== DEBUG ===== */
-
-        .debugEl(@i) when(@_DEBUG =1) {
-            @bc: if(isnumber(@i), spin(@customColor, (@i*45)), @customColor);
-            box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
-        }
+        // .debugEl(@i) when(@_DEBUG =1) {
+        //     @bc: if(isnumber(@i), spin(@customColor, (@i*45)), @customColor);
+        //     box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
+        // }
     }
 }
