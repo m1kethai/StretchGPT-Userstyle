@@ -232,12 +232,13 @@
             //^ use default composer bg color as a fallback if no color preset is selected (this should never be possible)
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
-            @tertiaryColor: mix(@customBg, @customFg, 66%);
+            @customTinted: mix(@customBg, @customFg, 69%);
 
             .apply() {
                 --text-primary: @customFg;
-                --text-placeholder: @tertiaryColor;
-                --text-tertiary: @tertiaryColor;
+                --text-secondary: @customTinted !important;
+                --text-tertiary: @customTinted !important;
+                --text-placeholder: @customTinted !important;
                 background-color: @customBg;
                 color: @customFg;
             }
@@ -245,9 +246,13 @@
             @{-chat__composer} when (@enableColorizeComposer =1) {
                 .apply();
                 button {
-                    &.rounded-full:not([disabled]) {
-                        background-color: fadeout(@customFg, 88%) !important;
-                        .colorLib.accessibleFg(@tertiaryColor);
+                    &.rounded-full {
+                        background-color: fadeout(@customFg, 37%) !important;
+                        color: @customColor !important;
+                        &[disabled] {
+                            background-color: fadeout(@customFg, 97%) !important;
+                            color: fadeout(@customFg, 90%) !important;
+                        }
                     }
                 }
             }
