@@ -17,7 +17,7 @@
 @var checkbox enableColorization        "🔓 Enable color customization features below" 0
 @var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
 @var checkbox enableColorizeBubble      "🌈 Message bubbles" 1
-@var checkbox enableColorizeBubbleAndBg "🌈 Message bubbles + full message BG (box above must be ticked)" 0
+@var checkbox enableColorizeBubbleAndBg "🌈 Full message BG (box above must be ticked)" 0
 @var select   colorPreset               "🎨 Color Preset:" {
     "Absinthe*":            "#76b583",
     "Aged Sage":            "#8da572",
@@ -85,7 +85,7 @@
     "Wisteria":             "#a48cbc",
     "Yoshi Egg":            "#9cd97c",
 }
-@var checkbox enableColorPicker "🎨 Override color preset with a totally custom color" 0
+@var checkbox enableColorPicker "🎨 [Experimental] Override color preset with a totally custom color" 0
 @var color pickerColor "🎨 Custom color (overrides any preset selected above)" #599c7b
 
 ==/UserStyle== */
