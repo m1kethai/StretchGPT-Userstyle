@@ -138,6 +138,7 @@
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
 
         & when (@stretchFactor >=1) {
+            overflow-x: hidden;
             div.group\/conversation-turn {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
