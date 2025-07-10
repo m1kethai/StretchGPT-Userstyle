@@ -6,11 +6,11 @@
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor less
 @var select   stretchFactor             "🧘 Stretch Factor" {
-    "⛔ Disabled":     "0",
-    "🤏 Conservative": "1",
-    "✨ Roomy":        "2",
-    "👹 Spacious*":    "3",
-    "🫨 Unrestricted": "4"
+"⛔ Disabled":     "0",
+"🤏 Conservative": "1",
+"✨ Roomy":        "2",
+"👹 Spacious*":    "3",
+"🫨 Unrestricted": "4"
 }
 @var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width" 0
 @var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
@@ -19,71 +19,71 @@
 @var checkbox enableColorizeBubble      "🌈 Message bubbles" 1
 @var checkbox enableColorizeBubbleAndBg "🌈 Message bubbles + full message BG (box above must be ticked)" 0
 @var select   colorPreset               "🎨 Color Preset:" {
-    "Absinthe*":            "#76b583",
-    "Aged Sage":            "#8da572",
-    "Akira":                "#840000",
-    "Amaretto":             "#ab6f60",
-    "Ancient Gold":         "#b59410",
-    "Aztek":                "#293432",
-    "Black Pearl":          "#1e272c",
-    "Black Sabbath":        "#220022",
-    "Blue Moss":            "#5D737E",
-    "Cardamom":             "#aaaa77",
-    "Caviar":               "#292a2d",
-    "Chrysanthemum":        "#c35458",
-    "Cloud City":           "#88a2c7",
-    "Cyber Grape":          "#58427C",
-    "Cyprus":               "#545a3e",
-    "Dark and Stormy":      "#353f51",
-    "Deep Jungle":          "#1A2421",
-    "Deep Space":           "#2D3142",
-    "Dusty Turquoise":      "#5a8a89",
-    "Earl Grey":            "#a6978a",
-    "Emerald":              "#0f380f",
-    "Falco Feathers":       "#5c8dc8",
-    "FF06B5":               "#FF06B5",
-    "Galactic Empire":      "#5e4d7e",
-    "Gameboy Teal":         "#0ABFBC",
-    "Gondor Stone":         "#7d746a",
-    "Gotham Slate":         "#555d68",
-    "Gryffindor Scarlet":   "#b34b4b",
-    "Hellboy Crimson":      "#a02b2b",
-    "Hoth Snow":            "#d8d9d6",
-    "Hyrule Green":         "#6d9f4b",
-    "Japanese Violet":      "#5B3256",
-    "Kirby":                "#e285b8",
-    "Lobster Bisque":       "#FFDAB9",
-    "Majora's Mask":        "#803a9a",
-    "Master Emerald":       "#6abf7d",
-    "Miso":                 "#f6a04d",
-    "Mushroom Kingdom":     "#d95850",
-    "Mystic Amethyst":      "#9b7bbd",
-    "Nimbus 2001":          "#7f888e",
-    "Obsidian Ash":         "#343434",
-    "Pacific Rim":          "#3d7fac",
-    "Prince":               "#4b384c",
-    "Purple Haze":          "#807396",
-    "Raccoon City":         "#6a6966",
-    "Raichu":               "#fc8c2c",
-    "Rose Quartz":          "#e9a1b0",
-    "Sailor Moon":          "#ffee00",
-    "Sakura Bloom":         "#ff7b9c",
-    "Sanguine":             "#6c110e",
-    "Sapphired":            "#5b82a6",
-    "Sharp Indigo":         "#48007c",
-    "Simpsons Sunshine":    "#e5c23a",
-    "Slytherin Jade":       "#599c7b",
-    "Sonic Blue":           "#4a90d9",
-    "Spartan Armor":        "#3a6b56",
-    "Steampunk Leather":    "#6f3b34",
-    "Super Blue Lavender":  "#5a5b9f",
-    "Tatooine Dusk":        "#d99152",
-    "Tokyo Midnight":       "#1a1a2e",
-    "Wasabi Paste":         "#afd77f",
-    "Wasabi Peanut":        "#b4c79c",
-    "Winnie's Honey":       "#e2b64d",
-    "Wisteria":             "#a48cbc",
-    "Yoshi Egg":            "#9cd97c",
+"Absinthe*":            "#76b583",
+"Aged Sage":            "#8da572",
+"Akira":                "#840000",
+"Amaretto":             "#ab6f60",
+"Ancient Gold":         "#b59410",
+"Aztek":                "#293432",
+"Black Pearl":          "#1e272c",
+"Black Sabbath":        "#220022",
+"Blue Moss":            "#5D737E",
+"Cardamom":             "#aaaa77",
+"Caviar":               "#292a2d",
+"Chrysanthemum":        "#c35458",
+"Cloud City":           "#88a2c7",
+"Cyber Grape":          "#58427C",
+"Cyprus":               "#545a3e",
+"Dark and Stormy":      "#353f51",
+"Deep Jungle":          "#1A2421",
+"Deep Space":           "#2D3142",
+"Dusty Turquoise":      "#5a8a89",
+"Earl Grey":            "#a6978a",
+"Emerald":              "#0f380f",
+"Falco Feathers":       "#5c8dc8",
+"FF06B5":               "#FF06B5",
+"Galactic Empire":      "#5e4d7e",
+"Gameboy Teal":         "#0ABFBC",
+"Gondor Stone":         "#7d746a",
+"Gotham Slate":         "#555d68",
+"Gryffindor Scarlet":   "#b34b4b",
+"Hellboy Crimson":      "#a02b2b",
+"Hoth Snow":            "#d8d9d6",
+"Hyrule Green":         "#6d9f4b",
+"Japanese Violet":      "#5B3256",
+"Kirby":                "#e285b8",
+"Lobster Bisque":       "#FFDAB9",
+"Majora's Mask":        "#803a9a",
+"Master Emerald":       "#6abf7d",
+"Miso":                 "#f6a04d",
+"Mushroom Kingdom":     "#d95850",
+"Mystic Amethyst":      "#9b7bbd",
+"Nimbus 2001":          "#7f888e",
+"Obsidian Ash":         "#343434",
+"Pacific Rim":          "#3d7fac",
+"Prince":               "#4b384c",
+"Purple Haze":          "#807396",
+"Raccoon City":         "#6a6966",
+"Raichu":               "#fc8c2c",
+"Rose Quartz":          "#e9a1b0",
+"Sailor Moon":          "#ffee00",
+"Sakura Bloom":         "#ff7b9c",
+"Sanguine":             "#6c110e",
+"Sapphired":            "#5b82a6",
+"Sharp Indigo":         "#48007c",
+"Simpsons Sunshine":    "#e5c23a",
+"Slytherin Jade":       "#599c7b",
+"Sonic Blue":           "#4a90d9",
+"Spartan Armor":        "#3a6b56",
+"Steampunk Leather":    "#6f3b34",
+"Super Blue Lavender":  "#5a5b9f",
+"Tatooine Dusk":        "#d99152",
+"Tokyo Midnight":       "#1a1a2e",
+"Wasabi Paste":         "#afd77f",
+"Wasabi Peanut":        "#b4c79c",
+"Winnie's Honey":       "#e2b64d",
+"Wisteria":             "#a48cbc",
+"Yoshi Egg":            "#9cd97c",
 }
 @var checkbox enableColorPicker "🎨 Override color preset with a totally custom color" 0
 @var color pickerColor "🎨 Custom color (overrides any preset selected above)" #599c7b
@@ -135,33 +135,35 @@
 
         & when (@stretchFactor >=1) {
             overflow-x: hidden;
-            div.group\/conversation-turn {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+
+            @breakpointChatWidths: {
+                1: 85%, 80%, 70%;
+                2: 95%, 90%, 80%;
+                3: 97%, 90%, 90%;
+                4: 98%, 98%, 98%;
+            };
+
+            @viewportWidths:
+                if(@stretchFactor =1, @breakpointChatWidths[1],
+                if(@stretchFactor =2, @breakpointChatWidths[2],
+                if(@stretchFactor =3, @breakpointChatWidths[3],
+                @breakpointChatWidths[4]
+            )));
+
+            @{-chat__msg} {
+                --mw: 100%;
+                @media @md { --mw: max(48rem, extract(@viewportWidths, 1)) }
+                @media @lg { --mw: extract(@viewportWidths, 2) }
+                @media @xl-up { --mw: extract(@viewportWidths, 3) }
+            }
+
+            @{-chat__msg-outer} {
+                padding-inline: 0 !important;
             }
 
             @{-chat__msg-inner} {
-                @sfWidths: {
-                    conservative: 85%, 80%, 70%;
-                    roomy:        95%, 90%, 80%;
-                    spacious:     97%, 90%, 90%;
-                    unrestricted: 98%, 99%, 99%;
-                }
-                @viewportWidths: if(
-                    @stretchFactor =1, @sfWidths[conservative], if(
-                    @stretchFactor =2, @sfWidths[roomy], if(
-                    @stretchFactor =3, @sfWidths[spacious], @sfWidths[unrestricted]
-                )));
-
-                --mw: 100%;
-                @media @md {
-                    --mw: max(48rem, extract(@viewportWidths, 1)) !important;
-                } @media @lg {
-                    --mw: extract(@viewportWidths, 2) !important;
-                } @media @xl-up {
-                    --mw: extract(@viewportWidths, 3) !important;
-                }
-                max-width: var(--mw);
+                overflow-x: hidden;
+                --thread-content-max-width: var(--mw);
             }
         }
 
@@ -173,10 +175,9 @@
         /* ===== HIDE DISCLAIMER ===== */
         @{-footer} when(@hideDisclaimer =1) {
             @-textDiv: &>div:only-child;
-
-            //- unset MH from `.min-h-8`
+            // unset MH from `.min-h-8`
             min-height: unset;
-            //- reset padding (.p-2) & add small bottom margin
+            // reset padding (.p-2) & add a small bottom margin
             padding: 0;
             margin-bottom: 0.5rem;
             @{-textDiv} {
@@ -196,30 +197,30 @@
                 @blendMultiplier: 3;
                 @blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
                 @darkBlend: if(
-                        @sat <= @satThreshold,
-                        @customColor,
-                        mix(
-                            @customColor,
-                            @bbg,
-                            100% - (@blendMultiplier * (@sat - @satThreshold))
-                        )
+                @sat <= @satThreshold,
+                @customColor,
+                mix(
+                @customColor,
+                @bbg,
+                100% - (@blendMultiplier * (@sat - @satThreshold))
+                )
                 );
                 @darkThemeCC: @darkBlend;
 
                 //TODO: add separate option to use the transparency method instead
                 //: The max transparency that can be applied to the color.
-/*                 @maxFade: 30%;
+                /*                 @maxFade: 30%;
                 @fadeAmt: if(
-                    @sat <= @satThreshold, 0%,
-                    min(@maxFade, (@sat - @satThreshold))
+                @sat <= @satThreshold, 0%,
+                min(@maxFade, (@sat - @satThreshold))
                 );
                 @darkThemeCC: fadeout(@darkBlend, @fadeAmt, relative); */
 
                 //* Use the blended color for light themes and the faded color for dark themes.
                 @result: if(
-                    @bt =light,
-                    @lightThemeCC,
-                    @darkThemeCC
+                @bt =light,
+                @lightThemeCC,
+                @darkThemeCC
                 );
             }
 
@@ -234,12 +235,12 @@
             @baseBg: if(@baseTheme =light, white, #212121);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
             @customColor: if(
-                @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
-                if(
-                    iscolor(@colorPreset),
-                    @colorPreset,
-                    #ff06b5 // default color if no preset is selected (should never happen!)
-                )
+            @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
+            if(
+            iscolor(@colorPreset),
+            @colorPreset,
+            #ff06b5 // default color if no preset is selected (should never happen!)
+            )
             );
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
@@ -273,7 +274,9 @@
                 @media @md-up {
                     @{-chat__msg--user} {
                         & when (@enableColorizeBubbleAndBg =1) {
-                            &, @{-msg-bubble} {
+                            border-radius: 3px;
+                            &,
+                            @{-msg-bubble} {
                                 .apply();
                             }
                         }
