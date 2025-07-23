@@ -264,7 +264,10 @@
                 & when (@enableColorizeBubbleAndBg =1) {
                     --message-surface: transparent;
                     @media @sm-max {
-                        @{-msg--user--sm} {.apply();}
+                        @{-msg--user--sm} {
+                            .apply();
+                            border-radius: 18px;
+                        }
                     }
                     @media @md-up {
                         @{-msg--user} {.apply();}
