@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         StretchGPT: Extra Wide ChatGPT Conversations
-@version      7.0
+@version      7.1
 @author       m1kethai
 @description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -92,45 +92,47 @@
 @-moz-document domain("chatgpt.com") {
     html {
         /* ===== SETUP ===== */
-       /* ----- BREAKPOINTS ----- */
-       @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
-       @sm-max: ~"screen and (max-width: 767px)";
-       @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
-       @md-up: ~"screen and (min-width: 768px)";
-       @md-max: ~"screen and (max-width: 1023px)";
-       @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
-       @lg-up: ~"screen and (min-width: 1024px)";
-       @lg-max: ~"screen and (max-width: 1535px)";
-       @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
-       @xl-up: ~"screen and (min-width: 1536px)";
-       @xl-max: ~"screen and (max-width: 2047px)";
-       @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
-       @xxl-up: ~"screen and (min-width: 2048px)";
-       @xxl-max: ~"screen and (max-width: 2559px)";
-       @xxxl: ~"screen and (min-width: 2560px)";
-       @mobile: @sm-max;
-       @desktop: @md-up;
+
+        /* ----- BREAKPOINTS ----- */
+        @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
+        @sm-max: ~"screen and (max-width: 767px)";
+        @md: ~"screen and (min-width: 768px) and (max-width: 1023px)";
+        @md-up: ~"screen and (min-width: 768px)";
+        @md-max: ~"screen and (max-width: 1023px)";
+        @lg: ~"screen and (min-width: 1024px) and (max-width: 1535px)";
+        @lg-up: ~"screen and (min-width: 1024px)";
+        @lg-max: ~"screen and (max-width: 1535px)";
+        @xl: ~"screen and (min-width: 1536px) and (max-width: 2047px)";
+        @xl-up: ~"screen and (min-width: 1536px)";
+        @xl-max: ~"screen and (max-width: 2047px)";
+        @xxl: ~"screen and (min-width: 2048px) and (max-width: 2559px)";
+        @xxl-up: ~"screen and (min-width: 2048px)";
+        @xxl-max: ~"screen and (max-width: 2559px)";
+        @xxxl: ~"screen and (min-width: 2560px)";
+        @mobile: @sm-max;
+        @desktop: @md-up;
+
         /* ----- SELECTOR VARS ----- */
         @-chat: .composer-parent;
-        @-chat__msg: .composer-parent article:has(.group\/conversation-turn);
-        @-chat__msg-outer: .composer-parent article:has(.group\/conversation-turn) > div;
-        @-chat__msg-inner: .composer-parent article:has(.group\/conversation-turn) > div > div;
-        @-chat__msg--user: .composer-parent article:has(.group\/conversation-turn):has(div[data-message-author-role="user"]);
-        @-chat__msg--gpt: .composer-parent article:has(.group\/conversation-turn):has(div[data-message-author-role="assistant"]);
-        @-chat__composer: .w-full[data-type="unified-composer"]>div;
+        @-msg: .composer-parent article;
+        @-msg--user: .composer-parent article:has(div[data-message-author-role="user"]);
+        @-msg--gpt: .composer-parent article:has(div[data-message-author-role="assistant"]);
+        @-msg-outer: .composer-parent article > div;
+        @-msg-inner: .composer-parent article > div > div;
+        @-msg-bubble: .bg-token-message-surface;
+        @-composer: .w-full[data-type="unified-composer"]>div;
         @-header: .composer-parent > .sticky.h-header-height;
-        @-chat--sm: .composer-parent > .sticky.h-header-height ~ main div.flex-1.overflow-hidden;
-        @-chat__msg--sm: .text-message;
-        @-chat__msg--user--sm: .text-message[data-message-author-role="user"];
-        @-chat__msg--gpt--sm: .text-message[data-message-author-role="assistant"];
+        @-header--sm: .sticky.h-header-height.md\:hidden;
         @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
         @-footer: .composer-parent .md\:px-\[60px\];
-        @-header--sm: .sticky.h-header-height.md\:hidden;
+
         @-chat--sm: .sticky.h-header-height.md\:hidden ~ main;
+        @-msg--sm: .text-message;
+        @-msg--user--sm: .text-message[data-message-author-role="user"];
+        @-msg--gpt--sm: .text-message[data-message-author-role="assistant"];
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
         & when (@stretchFactor >=1) {
-            overflow-x: hidden;
             @breakpointChatWidths: {
                 1: 85%, 80%, 70%;
                 2: 95%, 90%, 80%;
@@ -143,18 +145,18 @@
                 if(@stretchFactor =3, @breakpointChatWidths[3],
                 @breakpointChatWidths[4]
             )));
-            @{-chat__msg} {
-                --mw: 100%;
-                @media @md { --mw: max(48rem, extract(@viewportWidths, 1)) }
-                @media @lg { --mw: extract(@viewportWidths, 2) }
-                @media @xl-up { --mw: extract(@viewportWidths, 3) }
+            @{-chat} {
+                // fixed width for mobile
+                @media @sm-max { --stretchWidth: 95% }
+                @media @md { --stretchWidth: max(48rem, extract(@viewportWidths, 1)) }
+                @media @lg { --stretchWidth: extract(@viewportWidths, 2) }
+                @media @xl-up { --stretchWidth: extract(@viewportWidths, 3) }
             }
-            @{-chat__msg-outer} {
-                padding-inline: 0 !important;
+            @{-msg-outer} {
+                --thread-content-margin: 0;
             }
-            @{-chat__msg-inner} {
-                overflow-x: hidden;
-                --thread-content-max-width: var(--mw);
+            @{-msg-inner} {
+                --thread-content-max-width: var(--stretchWidth) !important;
             }
         }
 
@@ -220,13 +222,16 @@
         }
 
         .colorize(@baseTheme: dark) {
+            @customColor: if(
+                @enableColorPicker =1 and iscolor(@pickerColor),
+                @pickerColor, if(
+                    iscolor(@colorPreset),
+                    @colorPreset,
+                    #303030 // use default composer bg color as a fallback if no valid color is set (which should never be possible)
+                )
+            );
             @baseBg: if(@baseTheme =light, white, #212121);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
-            @customColor: if(
-                    @enableColorPicker =1 and iscolor(@pickerColor), @pickerColor,
-                    if(iscolor(@colorPreset), @colorPreset, #303030)
-            );
-            //^ use default composer bg color as a fallback if no color preset is selected (this should never be possible)
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
             @customTinted: mix(@customBg, @customFg, 69%);
@@ -240,62 +245,43 @@
                 color: @customFg;
             }
 
-            @{-chat__composer} when (@enableColorizeComposer =1) {
+            @{-composer} when (@enableColorizeComposer =1) {
                 .apply();
-                button {
-                    &.rounded-full {
-                        background-color: fadeout(@customFg, 37%) !important;
-                        color: @customColor !important;
-                        &[disabled] {
-                            background-color: fadeout(@customFg, 97%) !important;
-                            color: fadeout(@customFg, 90%) !important;
-                        }
+                button.rounded-full {
+                    background-color: fadeout(@customFg, 37%) !important;
+                    color: @customColor !important;
+                    &[disabled] {
+                        background-color: fadeout(@customFg, 97%) !important;
+                        color: fadeout(@customFg, 90%) !important;
                     }
                 }
             }
 
             & when (@enableColorizeBubble =1) {
-                @-msg-bubble: .relative.rounded-3xl;
-                @media @sm-max {
-                    @{-chat__msg--user--sm} {
-                        @{-msg-bubble} {.apply()}
-                    }
+                & when (@enableColorizeBubbleAndBg =0) {
+                    @{-msg-bubble} {.apply();}
                 }
-                @media @md-up {
-                    @{-chat__msg--user} {
-                        & when (@enableColorizeBubbleAndBg =1) {
-                            border-radius: 3px;
-                            &,
-                            @{-msg-bubble} {
-                                .apply();
-                            }
-                        }
-                        & when (@enableColorizeBubbleAndBg =0) {
-                            @{-msg-bubble} {
-                                .apply();
-                            }
-                        }
+                & when (@enableColorizeBubbleAndBg =1) {
+                    --message-surface: transparent;
+                    @media @sm-max {
+                        @{-msg--user--sm} {.apply();}
+                    }
+                    @media @md-up {
+                        @{-msg--user} {.apply();}
                     }
                 }
             }
         }
 
-        & when(@enableColorization =1) {
+        & when (@enableColorization =1) {
             &.dark { .colorize(@baseTheme: dark) }
             &.light { .colorize(@baseTheme: light) }
         }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
-        //* Fixes old UI bug where the left side of numbers get cut off in every <ol> list
-        // TODO: test if this has been fully resolved @ all breakpoints
-        @{-chat__msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
+        //: Fix old UI bug where the left side of numbers get cut off in every <ol> (TODO: test if this has been fully resolved @ all breakpoints)
+        @{-msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             padding-left: 1.85em;
         }
-
-        /* ===== DEBUG ===== */
-        // .debugEl(@i) when(@_DEBUG =1) {
-        //     @bc: if(isnumber(@i), spin(@customColor, (@i*45)), @customColor);
-        //     box-shadow: inset 0 0 0 2px fadeout(@bc, 66%) !important;
-        // }
     }
 }
