@@ -1,0 +1,24 @@
+{
+  "name": "stretchgpt-userstyle",
+  "version": "1.0.0",
+  "description": "A collection of configurable ChatGPT enhancements - CSS userstyle",
+  "main": "StretchGPT.userstyle.css",
+  "scripts": {
+    "lint": "echo 'Note: CSS linting skipped due to LESS preprocessing complexity. Use compile-test for syntax validation.'",
+    "compile-test": "mkdir -p /tmp && cp StretchGPT.userstyle.css /tmp/test-compile.less && echo '@stretchFactor: 2; @enableChatBubbleStretch: 0; @hideDisclaimer: 0; @enableColorization: 1; @enableColorizeComposer: 1; @enableColorizeBubble: 1; @enableColorizeBubbleAndBg: 0; @colorPreset: \"#76b583\"; @enableColorPicker: 0; @pickerColor: \"#599c7b\";' | cat - /tmp/test-compile.less > /tmp/test-with-vars.less && lessc /tmp/test-with-vars.less --lint",
+    "validate": "npm run compile-test && npm run lint"
+  },
+  "keywords": [
+    "userstyle",
+    "chatgpt",
+    "css",
+    "browser-extension"
+  ],
+  "author": "m1kethai",
+  "license": "ISC",
+  "devDependencies": {
+    "postcss-less": "^6.0.0",
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^39.0.0"
+  }
+}
