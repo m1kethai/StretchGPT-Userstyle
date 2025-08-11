@@ -1,2 +1,7 @@
 *.code-workspace
 .vscode/
+
+# Development dependencies (optional)
+node_modules/
+package-lock.json
+.stylelintrc.json
