@@ -12,7 +12,12 @@
     "👹 Spacious*":    "3",
     "🫨 Unrestricted": "4"
 }
-@var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width" 0
+@var select   chatBubbleWidth            "🗯️ Message bubble max-width" {
+    "⛔ Disabled": "0",
+    "🤏 50%": "50",
+    "✨ 75%": "75", 
+    "🫨 100%": "100"
+}
 @var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableColorization        "🔓 Enable color customization features below" 0
 @var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
@@ -159,8 +164,8 @@
         }
 
         /* ===== STRETCH USER MESSAGE BUBBLES ===== */
-        & when (@enableChatBubbleStretch =1) {
-            --user-chat-width: 100% !important;
+        & when (@chatBubbleWidth > 0) {
+            --user-chat-width: ~"@{chatBubbleWidth}%" !important;
         }
 
         /* ===== HIDE DISCLAIMER ===== */
