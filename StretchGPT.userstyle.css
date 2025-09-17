@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name         StretchGPT: Extra Wide ChatGPT Conversations
-@version      7.1
+@version      7.2
 @author       m1kethai
 @description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -119,8 +119,8 @@
         @-msg--gpt: .composer-parent article:has(div[data-message-author-role="assistant"]);
         @-msg-outer: .composer-parent article > div;
         @-msg-inner: .composer-parent article > div > div;
-        @-msg-bubble: .bg-token-message-surface;
-        @-composer: .w-full[data-type="unified-composer"]>div;
+        @-msg-bubble: .user-message-bubble-color;
+        @-composer: .w-full[data-type="unified-composer"] > div > div;
         @-header: .composer-parent > .sticky.h-header-height;
         @-header--sm: .sticky.h-header-height.md\:hidden;
         @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
@@ -259,7 +259,9 @@
 
             & when (@enableColorizeBubble =1) {
                 & when (@enableColorizeBubbleAndBg =0) {
-                    @{-msg-bubble} {.apply();}
+                    @{-msg-bubble} {
+                        .apply();
+                    }
                 }
                 & when (@enableColorizeBubbleAndBg =1) {
                     --message-surface: transparent;
