@@ -16,8 +16,8 @@
 @var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableColorization        "🔓 Enable color customization features below" 0
 @var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
-@var checkbox enableColorizeBubble      "🌈 Message bubbles" 1
-@var checkbox enableColorizeBubbleAndBg "🌈 Full message BG (box above must be ticked)" 0
+@var checkbox enableColorizeMsgBubbles      "🌈 Colorize: Message Bubbles" 1
+@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (no bubbles)" 0
 @var select   colorPreset               "🎨 Color Preset:" {
     "Absinthe*":            "#76b583",
     "Aged Sage":            "#8da572",
@@ -221,28 +221,52 @@
             }
         }
 
-        .colorize(@baseTheme: dark) {
+        //* Disable new built-in theming vars so they don't conflict with any custom color values applied by this userstyle
+        // WIP: re-implement colorization to properly make use of all the new included CSS vars
+        .revertBuiltInThemeVars() {
+            --theme-user-msg-bg: revert;
+            --theme-user-msg-text: revert;
+            --theme-submit-btn-bg: revert;
+            --theme-submit-btn-text: revert;
+            --theme-secondary-btn-bg: revert;
+            --theme-secondary-btn-text: revert;
+            --theme-user-selection-bg: revert;
+            --theme-attribution-highlight-bg: revert;
+            --theme-entity-accent: revert;
+        }
+
+        .colorize(@baseTheme: dark) when (@enableColorization =1) {
             @customColor: if(
-                @enableColorPicker =1 and iscolor(@pickerColor),
-                @pickerColor, if(
-                    iscolor(@colorPreset),
-                    @colorPreset,
-                    #303030 // use default composer bg color as a fallback if no valid color is set (which should never be possible)
-                )
+                (@enableColorPicker =1 and iscolor(@pickerColor)),
+                @pickerColor,
+                if(iscolor(@colorPreset), @colorPreset, #303030) // fall back to default composer bg color if a valid color isn't set (which should never be possible)
             );
             @baseBg: if(@baseTheme =light, white, #212121);
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
             @customTinted: mix(@customBg, @customFg, 69%);
+            @customTintedFg: .colorLib.accessibleFg(@customTinted)[];
 
             .apply() {
+                .revertBuiltInThemeVars() !important;
                 --text-primary: @customFg;
                 --text-secondary: @customTinted !important;
                 --text-tertiary: @customTinted !important;
                 --text-placeholder: @customTinted !important;
+
                 background-color: @customBg;
                 color: @customFg;
+
+                &, * {
+                    &::selection {
+                        --theme-user-selection-bg: @customTinted !important;
+/*                         --selection: mix(@customBg, @customFg, 50%) !important; */
+                        color: @customTintedFg;
+/*                         background: @customTinted !important; */
+                    }
+
+                }
             }
 
             @{-composer} when (@enableColorizeComposer =1) {
@@ -257,31 +281,28 @@
                 }
             }
 
-            & when (@enableColorizeBubble =1) {
-                & when (@enableColorizeBubbleAndBg =0) {
-                    @{-msg-bubble} {
+            @{-msg-bubble} when (@enableColorizeMsgBubbles =1) or (@enableColorizeMsgBg =1) {
+                .apply();
+            }
+
+            & when (@enableColorizeMsgBg =1) {
+                --message-surface: transparent;
+                @media @sm-max {
+                    @{-msg--user--sm} {
                         .apply();
+                        border-radius: 18px;
                     }
                 }
-                & when (@enableColorizeBubbleAndBg =1) {
-                    --message-surface: transparent;
-                    @media @sm-max {
-                        @{-msg--user--sm} {
-                            .apply();
-                            border-radius: 18px;
-                        }
-                    }
-                    @media @md-up {
-                        @{-msg--user} {.apply();}
-                    }
+                @media @md-up {
+                    @{-msg--user} {.apply();}
                 }
             }
         }
 
-        & when (@enableColorization =1) {
-            &.dark { .colorize(@baseTheme: dark) }
-            &.light { .colorize(@baseTheme: light) }
-        }
+/*         & when (@enableColorization =1) { */
+        &.dark { .colorize(@baseTheme: dark) }
+        &.light { .colorize(@baseTheme: light) }
+/*         } */
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
         //: Fix old UI bug where the left side of numbers get cut off in every <ol> (TODO: test if this has been fully resolved @ all breakpoints)
