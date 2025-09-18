@@ -219,6 +219,15 @@
                 // TODO: add option to directly use @customColor as the FG color if it passes the accessible contrast threshold
                 @result: contrast(@bgc, @l, @d);
             }
+
+            //* Returns a color that is either lighter + more saturated or darker + less saturated than the input color, depending on the input color's overall harshness.
+            .compliment(@c) {
+                @cLightness: round(lightness(@c));
+                @cSat: round(saturation(@c));
+                @darkVariation: saturate(darken(@c, (.33*(100%-@cLightness))), (.33*(100%-@cSat)));
+                @brightVariation: saturate(lighten(@c, (.33*(100%-@cLightness))), (.33*(100%-@cSat)));
+                @result: if(@cLightness > 45%, @darkVariation, @brightVariation);
+            }
         }
 
         //* Disable new built-in theming vars so they don't conflict with any custom color values applied by this userstyle
@@ -247,6 +256,8 @@
             @customFg: .colorLib.accessibleFg(@customBg)[];
             @customTinted: mix(@customBg, @customFg, 69%);
             @customTintedFg: .colorLib.accessibleFg(@customTinted)[];
+            @customSelectionBg: .colorLib.compliment(@customBg)[];
+            @customSelectionFg: .colorLib.accessibleFg(@customSelectionBg)[];
 
             .apply() {
                 .revertBuiltInThemeVars() !important;
@@ -254,18 +265,14 @@
                 --text-secondary: @customTinted !important;
                 --text-tertiary: @customTinted !important;
                 --text-placeholder: @customTinted !important;
-
                 background-color: @customBg;
                 color: @customFg;
 
                 &, * {
                     &::selection {
-                        --theme-user-selection-bg: @customTinted !important;
-/*                         --selection: mix(@customBg, @customFg, 50%) !important; */
-                        color: @customTintedFg;
-/*                         background: @customTinted !important; */
+                        --theme-user-selection-bg: @customSelectionBg !important;
+                        color: @customSelectionFg !important;
                     }
-
                 }
             }
 
@@ -299,10 +306,8 @@
             }
         }
 
-/*         & when (@enableColorization =1) { */
         &.dark { .colorize(@baseTheme: dark) }
         &.light { .colorize(@baseTheme: light) }
-/*         } */
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
         //: Fix old UI bug where the left side of numbers get cut off in every <ol> (TODO: test if this has been fully resolved @ all breakpoints)
