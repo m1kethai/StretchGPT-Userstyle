@@ -1,98 +1,96 @@
 /* ==UserStyle==
-@name         StretchGPT: Extra Wide ChatGPT Conversations
-@version      7.2
-@author       m1kethai
-@description  A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
-@namespace    https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
+@name                   StretchGPT: Extra Wide ChatGPT Conversations
+@version            7.2
+@author               m1kethai
+@description    A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
+@namespace         https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
 @preprocessor less
-@var select   stretchFactor             "🧘 Stretch Factor" {
-    "⛔ Disabled":     "0",
+@var select stretchFactor                               "🧘 Stretch Factor" {
+    "⛔ Disabled": "0",
     "🤏 Conservative": "1",
-    "✨ Roomy":        "2",
-    "👹 Spacious*":    "3",
+    "✨ Roomy": "2",
+    "👹 Spacious*": "3",
     "🫨 Unrestricted": "4"
 }
 @var checkbox enableChatBubbleStretch   "🗯️ Allow message bubbles to expand to 100% width" 0
-@var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning (\"ChatGPT can make mistakes...\")" 0
-@var checkbox enableColorization        "🔓 Enable color customization features below" 0
-@var checkbox enableColorizeComposer    "🌈 Colorize: Composer" 1
-@var checkbox enableColorizeMsgBubbles      "🌈 Colorize: Message bubbles" 1
-@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (desktop only)" 0
-@var select   colorPreset               "🎨 Color Preset:" {
-    "Absinthe*":            "#76b583",
-    "Aged Sage":            "#8da572",
-    "Akira":                "#840000",
-    "Amaretto":             "#ab6f60",
-    "Ancient Gold":         "#b59410",
-    "Aztek":                "#293432",
-    "Black Pearl":          "#1e272c",
-    "Black Sabbath":        "#220022",
-    "Blue Moss":            "#5D737E",
-    "Cardamom":             "#aaaa77",
-    "Caviar":               "#292a2d",
-    "Chrysanthemum":        "#c35458",
-    "Cloud City":           "#88a2c7",
-    "Cyber Grape":          "#58427C",
-    "Cyprus":               "#545a3e",
-    "Dark and Stormy":      "#353f51",
-    "Deep Jungle":          "#1A2421",
-    "Deep Space":           "#2D3142",
-    "Dusty Turquoise":      "#5a8a89",
-    "Earl Grey":            "#a6978a",
-    "Emerald":              "#0f380f",
-    "Falco Feathers":       "#5c8dc8",
-    "FF06B5":               "#FF06B5",
-    "Galactic Empire":      "#5e4d7e",
-    "Gameboy Teal":         "#0ABFBC",
-    "Gondor Stone":         "#7d746a",
-    "Gotham Slate":         "#555d68",
-    "Gryffindor Scarlet":   "#b34b4b",
-    "Hellboy Crimson":      "#a02b2b",
-    "Hoth Snow":            "#d8d9d6",
-    "Hyrule Green":         "#6d9f4b",
-    "Japanese Violet":      "#5B3256",
-    "Kirby":                "#e285b8",
-    "Lobster Bisque":       "#FFDAB9",
-    "Majora's Mask":        "#803a9a",
-    "Master Emerald":       "#6abf7d",
-    "Miso":                 "#f6a04d",
-    "Mushroom Kingdom":     "#d95850",
-    "Mystic Amethyst":      "#9b7bbd",
-    "Nimbus 2001":          "#7f888e",
-    "Obsidian Ash":         "#343434",
-    "Pacific Rim":          "#3d7fac",
-    "Prince":               "#4b384c",
-    "Purple Haze":          "#807396",
-    "Raccoon City":         "#6a6966",
-    "Raichu":               "#fc8c2c",
-    "Rose Quartz":          "#e9a1b0",
-    "Sailor Moon":          "#ffee00",
-    "Sakura Bloom":         "#ff7b9c",
-    "Sanguine":             "#6c110e",
-    "Sapphired":            "#5b82a6",
-    "Sharp Indigo":         "#48007c",
-    "Simpsons Sunshine":    "#e5c23a",
-    "Slytherin Jade":       "#599c7b",
-    "Sonic Blue":           "#4a90d9",
-    "Spartan Armor":        "#3a6b56",
-    "Steampunk Leather":    "#6f3b34",
-    "Super Blue Lavender":  "#5a5b9f",
-    "Tatooine Dusk":        "#d99152",
-    "Tokyo Midnight":       "#1a1a2e",
-    "Wasabi Paste":         "#afd77f",
-    "Wasabi Peanut":        "#b4c79c",
-    "Winnie's Honey":       "#e2b64d",
-    "Wisteria":             "#a48cbc",
-    "Yoshi Egg":            "#9cd97c",
+@var checkbox hideDisclaimer                        "⚠️ Hide disclaimer/warning (\"ChatGPT can make mistakes...\")" 0
+@var checkbox enableColorization               "🔓 Enable color customization features below" 0
+@var checkbox enableColorizeComposer      "🌈 Colorize: Composer" 1
+@var checkbox enableColorizeMsgBubbles  "🌈 Colorize: Message bubbles" 1
+@var checkbox enableColorizeMsgBg             "🌈 Colorize: Full Message BG (desktop only)" 0
+@var select   colorPreset                                   "🎨 Color Preset:" {
+    "Absinthe*": "#76b583",
+    "Aged Sage": "#8da572",
+    "Akira": "#840000",
+    "Amaretto": "#ab6f60",
+    "Ancient Gold": "#b59410",
+    "Aztek": "#293432",
+    "Black Pearl": "#1e272c",
+    "Black Sabbath": "#220022",
+    "Blue Moss": "#5D737E",
+    "Cardamom": "#aaaa77",
+    "Caviar": "#292a2d",
+    "Chrysanthemum": "#c35458",
+    "Cloud City": "#88a2c7",
+    "Cyber Grape": "#58427C",
+    "Cyprus": "#545a3e",
+    "Dark and Stormy": "#353f51",
+    "Deep Jungle": "#1A2421",
+    "Deep Space": "#2D3142",
+    "Dusty Turquoise": "#5a8a89",
+    "Earl Grey": "#a6978a",
+    "Emerald": "#0f380f",
+    "Falco Feathers": "#5c8dc8",
+    "FF06B5": "#FF06B5",
+    "Galactic Empire": "#5e4d7e",
+    "Gameboy Teal": "#0ABFBC",
+    "Gondor Stone": "#7d746a",
+    "Gotham Slate": "#555d68",
+    "Gryffindor Scarlet": "#b34b4b",
+    "Hellboy Crimson": "#a02b2b",
+    "Hoth Snow": "#d8d9d6",
+    "Hyrule Green": "#6d9f4b",
+    "Japanese Violet": "#5B3256",
+    "Kirby": "#e285b8",
+    "Lobster Bisque": "#FFDAB9",
+    "Majora's Mask": "#803a9a",
+    "Master Emerald": "#6abf7d",
+    "Miso": "#f6a04d",
+    "Mushroom Kingdom": "#d95850",
+    "Mystic Amethyst": "#9b7bbd",
+    "Nimbus 2001": "#7f888e",
+    "Obsidian Ash": "#343434",
+    "Pacific Rim": "#3d7fac",
+    "Prince": "#4b384c",
+    "Purple Haze": "#807396",
+    "Raccoon City": "#6a6966",
+    "Raichu": "#fc8c2c",
+    "Rose Quartz": "#e9a1b0",
+    "Sailor Moon": "#ffee00",
+    "Sakura Bloom": "#ff7b9c",
+    "Sanguine": "#6c110e",
+    "Sapphired": "#5b82a6",
+    "Sharp Indigo": "#48007c",
+    "Simpsons Sunshine": "#e5c23a",
+    "Slytherin Jade": "#599c7b",
+    "Sonic Blue": "#4a90d9",
+    "Spartan Armor": "#3a6b56",
+    "Steampunk Leather": "#6f3b34",
+    "Super Blue Lavender": "#5a5b9f",
+    "Tatooine Dusk": "#d99152",
+    "Tokyo Midnight": "#1a1a2e",
+    "Wasabi Paste": "#afd77f",
+    "Wasabi Peanut": "#b4c79c",
+    "Winnie's Honey": "#e2b64d",
+    "Wisteria": "#a48cbc",
+    "Yoshi Egg": "#9cd97c",
 }
-@var checkbox enableColorPicker "🎨 Override color preset above with custom color (experimental!)" 0
-@var color pickerColor "🎨 Custom color" #599c7b
+@var checkbox enableColorPicker        "🎨 Override color preset above with custom color (experimental!)" 0
+@var color pickerColor                            "🎨 Custom color" #599c7b
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
     html {
-        /* ===== SETUP ===== */
-
         /* ----- BREAKPOINTS ----- */
         @sm: ~"screen and (min-width: 0px) and (max-width: 767px)";
         @sm-max: ~"screen and (max-width: 767px)";
@@ -145,8 +143,8 @@
                 if(@stretchFactor =3, @breakpointChatWidths[3],
                 @breakpointChatWidths[4]
             )));
+
             @{-chat} {
-                // fixed width for mobile
                 @media @sm-max { --stretchWidth: 95% }
                 @media @md { --stretchWidth: max(48rem, extract(@viewportWidths, 1)) }
                 @media @lg { --stretchWidth: extract(@viewportWidths, 2) }
