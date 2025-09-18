@@ -12,12 +12,12 @@
     "👹 Spacious*":    "3",
     "🫨 Unrestricted": "4"
 }
-@var checkbox enableChatBubbleStretch   "🗯️ Allow user message bubbles to expand to 100% width" 0
-@var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning text (\"ChatGPT can make mistakes...\")" 0
+@var checkbox enableChatBubbleStretch   "🗯️ Allow message bubbles to expand to 100% width" 0
+@var checkbox hideDisclaimer            "⚠️ Hide disclaimer/warning (\"ChatGPT can make mistakes...\")" 0
 @var checkbox enableColorization        "🔓 Enable color customization features below" 0
-@var checkbox enableColorizeComposer    "🌈 Composer/input component" 1
-@var checkbox enableColorizeMsgBubbles      "🌈 Colorize: Message Bubbles" 1
-@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (no bubbles)" 0
+@var checkbox enableColorizeComposer    "🌈 Colorize: Composer" 1
+@var checkbox enableColorizeMsgBubbles      "🌈 Colorize: Message bubbles" 1
+@var checkbox enableColorizeMsgBg "🌈 Colorize: Full Message BG (desktop only)" 0
 @var select   colorPreset               "🎨 Color Preset:" {
     "Absinthe*":            "#76b583",
     "Aged Sage":            "#8da572",
@@ -85,8 +85,8 @@
     "Wisteria":             "#a48cbc",
     "Yoshi Egg":            "#9cd97c",
 }
-@var checkbox enableColorPicker "🎨 [Experimental] Override color preset with a totally custom color" 0
-@var color pickerColor "🎨 Custom color (overrides any preset selected above)" #599c7b
+@var checkbox enableColorPicker "🎨 Override color preset above with custom color (experimental!)" 0
+@var color pickerColor "🎨 Custom color" #599c7b
 
 ==/UserStyle== */
 @-moz-document domain("chatgpt.com") {
@@ -310,7 +310,8 @@
         &.light { .colorize(@baseTheme: light) }
 
         /* ===== MISC ENHANCEMENTS/FIXES ===== */
-        //: Fix old UI bug where the left side of numbers get cut off in every <ol> (TODO: test if this has been fully resolved @ all breakpoints)
+        // Fixes old UI bug where the left side of numbers get cut off in every <ol>
+        // TODO: test if this has been fully resolved @ all breakpoints
         @{-msg--gpt} .prose :where(ol):not(:where([class~="not-prose"] *)) {
             padding-left: 1.85em;
         }
