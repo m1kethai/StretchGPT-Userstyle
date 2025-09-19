@@ -281,11 +281,14 @@
                 @-composerBtns: @-submitBtn, @-speechBtn;
 
                 @{-composerBtns} {
-                    background-color: fadeout(@customFg, 37%) !important;
-                    color: @customColor !important;
+                    @btnBg: .colorLib.compliment(@customBg)[];
+                    @btnFg: hardlight(@btnBg, @customFg);
+
+                    background-color: @btnBg;
+                    color: @btnFg;
                     &[disabled] {
-                        background-color: fadeout(@customFg, 97%) !important;
-                        color: fadeout(@customFg, 90%) !important;
+                        background-color: fadeout(@btnBg, 97%) !important;
+                        color: fadeout(@btnFg, 90%) !important;
                     }
                 }
             }
