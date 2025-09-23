@@ -30,6 +30,23 @@ Expands the usable chat area by > 200% by replacing the default restrictive max-
 
 ### **Changelog:**
 
+**[7.2]**
+- Rename chat bubble stretch option to "🗯️ Enable message bubble expansion" 
+- Add experimental color picker feature for custom color selection
+- Expand color preset library with many new options
+  
+**[7.1]**
+- Major overhaul of color customization system
+- Add numerous new color presets (70+ total options)
+- Enhance color accessibility and contrast adjustments
+- Improve colorization feature stability
+  
+**[7.0]**
+- Complete rewrite and modernization of the userstyle
+- Restructure all major features for better performance
+- Update selectors for latest ChatGPT UI changes
+- Consolidate and optimize color customization features
+  
 **[6.2.5]**
 - Fix: broken selector - chat disclaimer 
   
