@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name StretchGPT: Extra Wide ChatGPT Conversations
-@version 7.2
+@version 7.3
 @author m1kethai
 @description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -180,7 +180,6 @@
             //* Make minor adjustments to @customColor so it's never too harsh and looks as good as possible for every element it can be applied to.
             .adjustedCC(@bt, @bbg) {
                 @lightThemeCC: mix(@bbg, @customColor, 90%);
-
                 @sat: round(saturation(@customColor));
                 //: Any color with saturation below this threshold remains unchanged.
                 @satThreshold: 75%;
@@ -192,17 +191,6 @@
                 );
                 @darkThemeCC: @darkBlend;
 
-                //TODO: add separate option to use the transparency method instead
-                //: The max transparency that can be applied to the color.
-                /*
-                    @maxFade: 30%;
-                    @fadeAmt: if(
-                    (@sat <= @satThreshold), 0%,
-                    min(@maxFade, (@sat - @satThreshold))
-                    );
-                    @darkThemeCC: fadeout(@darkBlend, @fadeAmt, relative);
-                */
-
                 //* Use the blended color for light themes and the faded color for dark themes.
                 @result: if(
                     @bt =light,
@@ -212,23 +200,40 @@
             }
 
             //* Set text/foreground color to a predefined dark or light color, to maximize contrast against its background (using common threshold: 43%).
-            .accessibleFg(@bgc, @l: #ececec, @d: #0d0d0d) {
+            .accessibleFg(
+                @bgc,
+                @l: #ececec,
+                @d: #0d0d0d
+            ) {
                 // TODO: add option to directly use @customColor as the FG color if it passes the accessible contrast threshold
                 @result: contrast(@bgc, @l, @d);
             }
 
             //* Returns a color that is either lighter + more saturated or darker + less saturated than the input color, depending on the input color's overall harshness.
-            .compliment(@c) {
-                @cLightness: round(lightness(@c));
-                @cSat: round(saturation(@c));
-                @darkVariation: saturate(darken(@c, (.33*(100%-@cLightness))), (.33*(100%-@cSat)));
-                @brightVariation: saturate(lighten(@c, (.33*(100%-@cLightness))), (.33*(100%-@cSat)));
-                @result: if(@cLightness > 45%, @darkVariation, @brightVariation);
+            .selectionVariant(@c) {
+                @l: round(lightness(@c));
+                @s: round(saturation(@c));
+                @vD: saturate(darken(@c, (.33*(100%-@l))), (.33*(100%-@s)));
+                @vL: saturate(lighten(@c, (.33*(100%-@l))), (.33*(100%-@s)));
+                @result: if(@l > 45%, @vD, @vL);
+            }
+
+            .blendVariant(@c1: @customBg, @c2: @customFg, @level) {
+                @blendAmt:
+                    if(@level =1, 11%,
+                    if(@level =2, 69%,
+                    if(@level =3, 91%,
+                    50%
+                )));
+                @result: mix(@c1, @c2, @blendAmt);
+            }
+
+            .softlightVariant(@c1: @customBg, @c2: @customFg) {
+                @result: softlight(@c1, @c2)
             }
         }
 
-        //* Disable new built-in theming vars so they don't conflict with any custom color values applied by this userstyle
-        // WIP: re-implement colorization to properly make use of all the new included CSS vars
+        //* Resets default CSS theme vars so they don't conflict with any custom colors applied
         .revertBuiltInThemeVars() {
             --theme-user-msg-bg: revert;
             --theme-user-msg-text: revert;
@@ -239,6 +244,7 @@
             --theme-user-selection-bg: revert;
             --theme-attribution-highlight-bg: revert;
             --theme-entity-accent: revert;
+            --default-theme-user-selection-bg: revert;
         }
 
         .colorize(@baseTheme: dark) when (@enableColorization =1) {
@@ -251,52 +257,46 @@
             @baseFg: if(@baseTheme =light, #0d0d0d, #ececec);
             @customBg: .colorLib.adjustedCC(@baseTheme, @baseBg)[];
             @customFg: .colorLib.accessibleFg(@customBg)[];
-            @customTinted: mix(@customBg, @customFg, 69%);
-            @customTintedFg: .colorLib.accessibleFg(@customTinted)[];
-            @customSelectionBg: .colorLib.compliment(@customBg)[];
+            @customBlend: .colorLib.blendVariant(@level: 2)[];
+            @customBlendLite: .colorLib.blendVariant(@level: 1)[];
+            @customBlendHeavy: .colorLib.blendVariant(@level: 3)[];
+            @customSelectionBg: .colorLib.selectionVariant(@customBg)[];
             @customSelectionFg: .colorLib.accessibleFg(@customSelectionBg)[];
 
             .apply() {
                 .revertBuiltInThemeVars() !important;
-                --text-primary: @customFg;
-                --text-secondary: @customTinted !important;
-                --text-tertiary: @customTinted !important;
-                --text-placeholder: @customTinted !important;
+                --text-primary: @customFg !important;
+                --text-secondary: @customBlend !important;
+                --text-tertiary: @customBlend !important;
+                --text-placeholder: @customBlend !important;
+
                 background-color: @customBg;
                 color: @customFg;
-
-                &, * {
-                    &::selection {
-                        --theme-user-selection-bg: @customSelectionBg !important;
-                        color: @customSelectionFg !important;
-                    }
-                }
             }
 
             @{-composer} when (@enableColorizeComposer =1) {
                 .apply();
 
-                @-submitBtn: .composer-submit-btn, .composer-submit-btn-color;
-                @-speechBtn: .composer-secondary-button, .composer-secondary-button-color;
-                @-composerBtns: @-submitBtn, @-speechBtn;
+                @submitBtnBg: @customSelectionBg;
+                @submitBtnBg: .colorLib.softlightVariant()[];
+                @submitBtnText: @customBlendLite;
+                @voiceBtnBg: @customBlendHeavy;
+                @voiceBtnText: @customFg;
 
-                @{-composerBtns} {
-                    @btnBg: .colorLib.compliment(@customBg)[];
-                    @btnFg: hardlight(@btnBg, @customFg);
-
-                    background-color: @btnBg;
-                    color: @btnFg;
-                    &[disabled] {
-                        background-color: fadeout(@btnBg, 97%) !important;
-                        color: fadeout(@btnFg, 90%) !important;
+                button {
+                    &#composer-submit-button,
+                    &.composer-submit-button-color {
+                        --theme-submit-btn-bg: @submitBtnBg;
+                        --theme-submit-btn-text: @submitBtnText;
+                    }
+                    &.composer-secondary-button-color {
+                        --theme-secondary-btn-bg: @voiceBtnBg;
+                        --theme-secondary-btn-text: @voiceBtnText;
                     }
                 }
             }
 
-            @{-msg-bubble} when
-                (@enableColorizeMsgBubbles =1) or
-                (@enableColorizeMsgBg =1)
-            {
+            @{-msg-bubble} when (@enableColorizeMsgBubbles =1) or (@enableColorizeMsgBg =1) {
                 .apply();
             }
 
@@ -312,6 +312,14 @@
                     @{-msg--user} {.apply();}
                 }
             }
+
+            //* Text selection colors
+            // (active by default when colorization is enabled)
+            &, * {
+                &::selection {
+                background-color: @customSelectionBg;
+                color: @customSelectionFg !important;
+            }}
         }
 
         &.dark { .colorize(@baseTheme: dark) }
