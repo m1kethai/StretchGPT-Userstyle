@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name StretchGPT: Extra Wide ChatGPT Conversations
-@version 7.3
+@version 7.4
 @author m1kethai
 @description A collection of configurable ChatGPT enhancements that allows you to resize the main chat area and other major aspects of the UI - plus several additional toggleable features for color customization, hiding/removing annoying elements, and more.
 @namespace https://userstyles.world/style/9821/stretchgpt-extra-wide-chatgpt-conversations
@@ -111,22 +111,18 @@
 
         /* ----- SELECTOR VARS ----- */
         @-chat: .composer-parent;
-        @-msg: .composer-parent article;
-        @-msg--user: .composer-parent article:has(div[data-message-author-role="user"]);
-        @-msg--gpt: .composer-parent article:has(div[data-message-author-role="assistant"]);
-        @-msg-outer: .composer-parent article > div;
-        @-msg-inner: .composer-parent article > div > div;
-        @-msg-bubble: .user-message-bubble-color;
+        @-msg: .composer-parent section[data-turn];
+        @-msg--user: .composer-parent section[data-turn="user"];
+        @-msg--gpt: .composer-parent section[data-turn="assistant"];
+        @-msg--sm: .text-message;
+        @-msg-outer: .composer-parent section[data-turn] > div;
+        @-msg-inner: .composer-parent section[data-turn] > div > div;
+        @-msg-bubble: .composer-parent section[data-turn] .user-message-bubble-color;
         @-composer: .w-full[data-type="unified-composer"] > div > div;
         @-header: .composer-parent > .sticky.h-header-height;
         @-header--sm: .sticky.h-header-height.md\:hidden;
         @-sidebar: .flex-shrink-0.overflow-x-hidden.bg-token-sidebar-surface-primary;
         @-footer: .composer-parent .md\:px-\[60px\];
-
-        @-chat--sm: .sticky.h-header-height.md\:hidden ~ main;
-        @-msg--sm: .text-message;
-        @-msg--user--sm: .text-message[data-message-author-role="user"];
-        @-msg--gpt--sm: .text-message[data-message-author-role="assistant"];
 
         /* ===== CORE FUNCTIONALITY/STRETCH ===== */
         & when (@stretchFactor >=1) {
@@ -144,17 +140,13 @@
             )));
 
             @{-chat} {
-                @media @sm-max { --stretchWidth: 95% }
+                --stretchWidth: 95%;
                 @media @md { --stretchWidth: max(48rem, extract(@viewportWidths, 1)) }
                 @media @lg { --stretchWidth: extract(@viewportWidths, 2) }
                 @media @xl-up { --stretchWidth: extract(@viewportWidths, 3) }
             }
-            @{-msg-outer} {
-                --thread-content-margin: 0;
-            }
-            @{-msg-inner} {
-                --thread-content-max-width: var(--stretchWidth) !important;
-            }
+            @{-msg-outer} { --thread-content-margin: 0; }
+            @{-msg-inner} { --thread-content-max-width: var(--stretchWidth) !important; }
         }
 
         /* ===== STRETCH USER MESSAGE BUBBLES ===== */
@@ -170,9 +162,7 @@
             // reset padding (.p-2) & add a small bottom margin
             padding: 0;
             margin-bottom: 0.5rem;
-            @{-textDiv} {
-                display: none !important;
-            }
+            @{-textDiv} { display: none !important; }
         }
 
         /* ===== COLORIZE ===== */
@@ -185,26 +175,18 @@
                 @satThreshold: 75%;
                 @blendMultiplier: 3;
                 @blendMultiplier: max(2.5, (1 + (0.02 * unit(lightness(@customColor)))));
-                @darkBlend: if(
-                    (@sat <= @satThreshold), @customColor,
+                @darkBlend: if((@sat <= @satThreshold),
+                    @customColor,
                     mix(@customColor, @bbg, (100% - (@blendMultiplier * (@sat - @satThreshold))))
                 );
                 @darkThemeCC: @darkBlend;
 
                 //* Use the blended color for light themes and the faded color for dark themes.
-                @result: if(
-                    @bt =light,
-                    @lightThemeCC,
-                    @darkThemeCC
-                );
+                @result: if(@bt =light, @lightThemeCC, @darkThemeCC);
             }
 
             //* Set text/foreground color to a predefined dark or light color, to maximize contrast against its background (using common threshold: 43%).
-            .accessibleFg(
-                @bgc,
-                @l: #ececec,
-                @d: #0d0d0d
-            ) {
+            .accessibleFg(@bgc, @l: #ececec, @d: #0d0d0d) {
                 // TODO: add option to directly use @customColor as the FG color if it passes the accessible contrast threshold
                 @result: contrast(@bgc, @l, @d);
             }
@@ -302,14 +284,8 @@
 
             & when (@enableColorizeMsgBg =1) {
                 --message-surface: transparent;
-                @media @sm-max {
-                    @{-msg--user--sm} {
-                        .apply();
-                        border-radius: 18px;
-                    }
-                }
                 @media @md-up {
-                    @{-msg--user} {.apply();}
+                    @{-msg--user} { .apply(); }
                 }
             }
 
